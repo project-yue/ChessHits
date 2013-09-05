@@ -57,6 +57,7 @@ public class ChessHitsGame {
     private Player whitePlayer;
     private boolean isGameAppRunning;
     private boolean isGameRunning;
+    private boolean arePLayers;
 
     /**
      * create a new game.
@@ -71,6 +72,7 @@ public class ChessHitsGame {
             Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.isGameAppRunning = true;
+        this.arePLayers=true;
         menu();
 
     }
@@ -78,8 +80,9 @@ public class ChessHitsGame {
     public void newGame() {
         this.isGameRunning = true;
         this.board = new Board();
-        if (isGameRunning) {
+        if (this.arePLayers) {
             initializePlayers();
+            this.arePLayers =false;
         }
         initializeGameFromFile(FILENAME);
         controlPlayerTurns();
