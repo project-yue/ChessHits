@@ -1,18 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<?xml version="1.0" encoding="UTF-8"?><project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/ChessHitsGame.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Bishop.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/Position.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/Board.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Pawn.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Knight.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Queen.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Rook.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/pieces/Piece.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/ChessHits.java</file>
-        <file>file:/home/makingitbettergo/Downloads/ChessHits%20(Console)%20Sprint2_Demo2_3sep/src/nz/ac/aut/pdc/ChessHits/model/Square.java</file>
-    </open-files>
 </project-private>

@@ -504,21 +504,21 @@ public class ChessHitsGame {
                 isMoved = attackPiece(piece, dPiece);
             }
             //all the rest should be considered as illegal input
-            if (piece instanceof Pawn) {
+            if (piece != null && piece instanceof Pawn ) {
                 Pawn temPawn = (Pawn) piece;
                 Color pieceColor = piece.getColor();
-                switch (pieceColor) {
-                    case WHITE:
-                        if (piece.getCurrentPosition().getRow() == 7) {
-                            askForPromotion(temPawn);
-                        }
-                        break;
-                    case BLACK:
-                        if (piece.getCurrentPosition().getRow() == 0) {
-                            askForPromotion(temPawn);
-                        }
-                        break;
-                }
+//                switch (pieceColor) {
+//                    case WHITE:
+//                        if (piece.getCurrentPosition().getRow() == 7) {
+//                            askForPromotion(temPawn);
+//                        }
+//                        break;
+//                    case BLACK:
+//                        if (piece.getCurrentPosition().getRow() == 0) {
+//                            askForPromotion(temPawn);
+//                        }
+//                        break;
+//                }
             }
         }
         return isMoved;
