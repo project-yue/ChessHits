@@ -58,6 +58,7 @@ public class ChessHitsGame {
     private boolean isGameAppRunning;
     private boolean isGameRunning;
     private boolean arePLayers;
+    private static boolean is_bryce_gay = true;
 
     /**
      * create a new game.
