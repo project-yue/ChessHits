@@ -71,6 +71,7 @@ public class ChessHitsGame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Random random =new Random();
         this.isGameAppRunning = true;
         this.arePLayers=true;
         menu();
