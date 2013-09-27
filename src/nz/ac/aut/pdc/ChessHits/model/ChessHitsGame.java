@@ -601,7 +601,7 @@ public class ChessHitsGame {
     }
 
     public boolean getSelectedSquare(Square square) {
-        boolean turn = true;
+        boolean turn = false;
         try{
         if(!firstSelected){
            Piece piece = square.getOccupiedPiece();
@@ -610,12 +610,14 @@ public class ChessHitsGame {
                if(piece.getColor() == WHITE){
                    squareMove = square;
                    firstSelected = true;
+                   turn = true;
               
                }
            }
            else if(piece.getColor() == BLACK){
                  squareMove = square;
                    firstSelected = true;
+                   turn = true;
                    
            }
                
@@ -624,14 +626,16 @@ public class ChessHitsGame {
              firstSelected = false;
             if(movePlayerPiece(squareMove.getPosition(), square.getPosition())){
                 whiteTurn = !whiteTurn;
-                turn = false;
+               whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
+                blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
+                
                 
             }
         }
         
         }
         catch(Exception e){
-            turn = false;
+           
         }
         return turn;
     }

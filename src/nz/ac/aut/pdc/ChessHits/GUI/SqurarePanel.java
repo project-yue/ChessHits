@@ -22,6 +22,7 @@ private ChessHitsGame game;
     private boolean oneClick;
     private int row;
     private int col;
+   private  MainFrame frame;
     /**
      * Creates new form SqurarePanel
      */
