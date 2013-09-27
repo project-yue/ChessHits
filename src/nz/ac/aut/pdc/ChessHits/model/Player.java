@@ -28,34 +28,9 @@ public class Player {
      * constructs a Player object to represent a user.
      *
      */
-    public Player() {
-        this.userInput = new Scanner(System.in);
-
-    }
-
-    /**
-     * select user's piece color
-     *
-     * @return The color of Piece
-     */
-    public Color chooseColor() {
-        Color result = null;
-        String chosenColor;
-        do {
-            System.out.print("Please choose color to play(white/black):");
-            chosenColor = userInput.next();
-        } while (!chosenColor.equals("white") && !chosenColor.equals("black"));
-        switch (chosenColor) {
-            case "white":
-                result = Color.WHITE;
-                break;
-            case "black":
-                result = Color.BLACK;
-                break;
-            default:
-                System.err.println("input is invalid");
-        }
-        return result;
+    public Player(String name, Color color) {
+        this.color = color;
+        this.name = name;
     }
 
     /**
@@ -65,14 +40,6 @@ public class Player {
      */
     public void setIsTurn(boolean isTurn) {
         this.isTurn = isTurn;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Color getSelectedColor() {
