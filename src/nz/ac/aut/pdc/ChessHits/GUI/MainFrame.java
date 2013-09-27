@@ -23,7 +23,6 @@ public class MainFrame extends javax.swing.JFrame {
     private Player playerOne;
     private Player playerTwo;
     private Board board;
-    private int helloYue;
     
     
     MainFrame(Player playerOne, Player playerTwo , ChessHitsGame game, boolean PlayerOneWhite) {
@@ -36,10 +35,13 @@ public class MainFrame extends javax.swing.JFrame {
         setUpPanels();
         if(PlayerOneWhite){
             this.playerOne.setIsTurn(true);
-              this.playerTwo.setIsTurn(false);
+            game.setWhiteTurn(true);
+             this.playerTwo.setIsTurn(false);
+             
         }
         else{
              this.playerOne.setIsTurn(false);
+              game.setWhiteTurn(false);
              this.playerTwo.setIsTurn(true);
         }
         update();
