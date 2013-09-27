@@ -23,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Player playerOne;
     private Player playerTwo;
     private Board board;
+    private int helloYue;
     
     
     MainFrame(Player playerOne, Player playerTwo , ChessHitsGame game, boolean PlayerOneWhite) {
