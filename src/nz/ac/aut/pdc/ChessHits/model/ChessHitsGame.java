@@ -8,9 +8,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,16 +38,6 @@ public class ChessHitsGame {
     private static final File USER_FILE = new File(PLAYER_DATA);
     private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
     private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
-    //ANSI 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     // no function atm
     private FileOutputStream playerFileOutput;
     private OutputStreamWriter osw;
