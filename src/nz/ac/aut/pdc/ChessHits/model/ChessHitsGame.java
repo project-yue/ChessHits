@@ -55,7 +55,7 @@ public class ChessHitsGame {
      */
     public ChessHitsGame() {
         try {
-       //     this.userInputReader = newgetPositions Scanner(System.in);
+            //     this.userInputReader = newgetPositions Scanner(System.in);
             this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
             this.osw = new OutputStreamWriter(this.playerFileOutput);
             this.playerFileWriter = new BufferedWriter(osw);
@@ -101,7 +101,6 @@ public class ChessHitsGame {
 //            }
 //        }
 //    }
-
 //    public final void playerTurn(Player player) {
 //        boolean yetToMove = true;
 //        while (yetToMove && this.isGameRunning) {
@@ -129,7 +128,6 @@ public class ChessHitsGame {
 //        }
 //
 //    }
-
     private boolean isPawnAbleFork(Piece piece, Position toPos) {
         boolean isSuccessful = false;
         Pawn forkPawn = (Pawn) piece;
@@ -174,7 +172,6 @@ public class ChessHitsGame {
 //        this.blackPlayer.setColor(Color.BLACK);
 //        this.whitePlayer.setColor(Color.WHITE);
 //    }
-
 //    private void createPlayerAccount(Player player) {
 //        String name = userInputReader.nextLine();
 //        String[] splitName = name.split(" ");
@@ -186,7 +183,6 @@ public class ChessHitsGame {
 //            Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * initialize Chessboard data from a txt file.
      *
@@ -225,16 +221,19 @@ public class ChessHitsGame {
             tempSquare.addPiece(pawn);
         }
     }
-    public Square getSquare(int row, int col){
-        return this.board.getSquare( board.getPositions()[row][col]);
-        
+
+    public Square getSquare(int row, int col) {
+        return this.board.getSquare(board.getPositions()[row][col]);
+
     }
-    public Board getBoard(){
+
+    public Board getBoard() {
         return this.board;
     }
-    private Piece getPiece(Position position){
+
+    private Piece getPiece(Position position) {
         return board.getSquare(position).getOccupiedPiece();
-        
+
     }
 
     /**
@@ -255,7 +254,8 @@ public class ChessHitsGame {
         }
         return isMoved;
     }
-     private boolean determineMoveOrAttack(Piece piece, Position toPos) {
+
+    private boolean determineMoveOrAttack(Piece piece, Position toPos) {
         boolean isMoved = false;
         Square destSquare = this.board.getSquare(toPos);
         Piece dPiece = this.board.getSquare(toPos).getOccupiedPiece();
@@ -272,7 +272,7 @@ public class ChessHitsGame {
                 isMoved = attackPiece(piece, dPiece);
             }
             //all the rest should be considered as illegal input
-            if (piece != null && piece instanceof Pawn ) {
+            if (piece != null && piece instanceof Pawn) {
                 Pawn temPawn = (Pawn) piece;
                 Color pieceColor = piece.getColor();
 //                switch (pieceColor) {
@@ -329,11 +329,11 @@ public class ChessHitsGame {
             }
         }
         if (isSuccessful && fromPiece.isAlive()) {
-            System.out.println(ChessHitsGame.ANSI_PURPLE + fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
+            System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
                     + " column: " + fromPiece.getCurrentPosition().getColumn() + "; " + fromPiece.getStringRepresentation() + " has " + fromPiece.getHP() + " left");
         }
         if (isSuccessful && toPiece != null && toPiece.isAlive()) {
-            System.out.println(ChessHitsGame.ANSI_CYAN + toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
+            System.out.println(toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
                     + " column: " + toPiece.getCurrentPosition().getColumn() + "; " + toPiece.getStringRepresentation() + " has " + toPiece.getHP() + " left.");
         }
         return isSuccessful;
@@ -467,8 +467,6 @@ public class ChessHitsGame {
         return newPosition;
     }
 
-   
-
     /**
      * convert row text representation to the value that java can manipulate
      *
@@ -536,6 +534,7 @@ public class ChessHitsGame {
         }
         return exactRow;
     }
+
     private Piece askForPromotion(Pawn pawn) {
         Piece piece = null;
         Position currentPos = pawn.getCurrentPosition();
