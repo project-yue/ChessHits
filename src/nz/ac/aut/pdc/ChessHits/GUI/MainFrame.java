@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Player playerTwo;
     private Board board;
 
-    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean PlayerOneWhite) {
+    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean isPlayerOneWhite) {
         this.game = game;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -32,13 +32,10 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setUpPanels();
-        game.setWhitePlayer(playerOne);
-        game.setBlackPlayer(playerTwo);
-        if (PlayerOneWhite) {
+        if (isPlayerOneWhite) {
             this.playerOne.setIsTurn(true);
             game.setWhitePlayer(playerOne);
             game.setBlackPlayer(playerTwo);
-
             game.setWhiteTurn(true);
             this.playerTwo.setIsTurn(false);
 
@@ -52,12 +49,12 @@ public class MainFrame extends javax.swing.JFrame {
         update();
     }
 
-    private void update() {
+    public void update() {
         if (playerOne.getIsTurn()) {
-            lblPlayer.setText("playersTurn: \n" + playerOne.getName());
+            lblPlayerMoveTurn.setText(playerOne.getName());
             lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
         } else {
-            lblPlayer.setText("playersTurn: \n" + playerTwo.getName());
+            lblPlayerMoveTurn.setText(playerTwo.getName());
             lblPlayerColor.setText(playerTwo.getSelectedColor().getTextRepresentation());
         }
     }
@@ -68,7 +65,7 @@ public class MainFrame extends javax.swing.JFrame {
         gamePanel.setLayout(new GridLayout(row, col));
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                SqurarePanel sQP = new SqurarePanel(game, i, j);
+                SqurarePanel sQP = new SqurarePanel(game, i, j, this);
                 gamePanel.add(sQP);
             }
         }
@@ -82,52 +79,70 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        lblPlayer = new javax.swing.JLabel();
-        lblPlayerColor = new javax.swing.JLabel();
+        lblPlayerMoveTurn = new javax.swing.JLabel();
         gamePanel = new javax.swing.JPanel();
+        lblPlayerColor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(600, 600));
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblPlayer.setText("jLabel1");
+        lblPlayerMoveTurn.setText("playerNmlb");
+        lblPlayerMoveTurn.setAlignmentY(0.0F);
+        lblPlayerMoveTurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblPlayerMoveTurn.setMaximumSize(new java.awt.Dimension(150, 30));
+        lblPlayerMoveTurn.setMinimumSize(new java.awt.Dimension(150, 30));
+        lblPlayerMoveTurn.setPreferredSize(new java.awt.Dimension(100, 15));
+        lblPlayerMoveTurn.setRequestFocusEnabled(false);
+        lblPlayerMoveTurn.setVerifyInputWhenFocusTarget(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(lblPlayerMoveTurn, gridBagConstraints);
+        lblPlayerMoveTurn.getAccessibleContext().setAccessibleDescription("");
 
-        lblPlayerColor.setText("jLabel1");
+        gamePanel.setMaximumSize(new java.awt.Dimension(100, 100));
+        gamePanel.setMinimumSize(new java.awt.Dimension(100, 100));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 307, Short.MAX_VALUE)
+            .addGap(0, 407, Short.MAX_VALUE)
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 388, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPlayerColor)
-                    .addComponent(lblPlayer))
-                .addGap(31, 31, 31))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(lblPlayer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPlayerColor)
-                .addContainerGap(202, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 10;
+        gridBagConstraints.ipadx = 307;
+        gridBagConstraints.ipady = 288;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(gamePanel, gridBagConstraints);
+
+        lblPlayerColor.setText("colorlb");
+        lblPlayerColor.setFocusable(false);
+        lblPlayerColor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblPlayerColor.setMaximumSize(new java.awt.Dimension(50, 30));
+        lblPlayerColor.setMinimumSize(new java.awt.Dimension(50, 30));
+        lblPlayerColor.setRequestFocusEnabled(false);
+        lblPlayerColor.setVerifyInputWhenFocusTarget(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(lblPlayerColor, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,7 +151,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;
-    private javax.swing.JLabel lblPlayer;
     private javax.swing.JLabel lblPlayerColor;
+    private javax.swing.JLabel lblPlayerMoveTurn;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +17,7 @@ import java.util.*;
 import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
 import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
 import nz.ac.aut.pdc.ChessHits.model.pieces.*;
+import userDB.UserDatabase;
 
 /**
  * the wrapper class of ChessHitsGame.
@@ -52,20 +51,23 @@ public class ChessHitsGame {
     private boolean firstSelected = false;
     private Square squareMove;
     private boolean whiteTurn;
+    private UserDatabase userDB;
 
     /**
      * create a new game.
      */
     public ChessHitsGame() {
         try {
-            //     this.userInputReader = newgetPositions Scanner(System.in);
             this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
             this.osw = new OutputStreamWriter(this.playerFileOutput);
             this.playerFileWriter = new BufferedWriter(osw);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        board = new Board();
+        this.userDB = new UserDatabase();
+        this.userDB.establishConnection();
+        this.userDB.createTable();
+        this.board = new Board();
         generateRankPieces(BLACK);
         generateRankPieces(WHITE);
         generatePawns(BLACK);
@@ -644,6 +646,23 @@ public class ChessHitsGame {
         return turn;
     }
 
+    public Player getPlayer(Color color) {
+        Player player = null;
+        switch (color) {
+            case WHITE:
+                player = this.whitePlayer;
+                break;
+            case BLACK:
+                player = this.blackPlayer;
+                break;
+            default:
+                break;
+        }
+
+        return player;
+    }
+    
+ 
     public void setBlackPlayer(Player player) {
         blackPlayer = player;
     }

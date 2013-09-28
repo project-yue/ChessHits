@@ -39,12 +39,7 @@ public class UserDatabase {
             Statement statement = conn.createStatement();
             String newTableName = "USER";
             String sqlCreate = "create table " + newTableName + " (ID varchar(20),"
-                    + "WINS int)";
-
-            String sqlUpdateTable = "update " + newTableName + " set price=15000 "
-                    + "where brand='Toyota' and model='camry'";
-            statement.executeUpdate(sqlUpdateTable);
-
+                    + "WINS int, constraint id_pk PRIMARY KEY (ID))";
 
             //statement.close();
             System.out.println("Table created");
@@ -52,6 +47,29 @@ public class UserDatabase {
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean doesAccountExist(String accountName) {
+        boolean isFound = false;
+        try {
+            String userTable = "USER";
+            Statement statement = conn.createStatement();
+            String selectComm = "SELECT ID from " + userTable + " where ID = " + accountName;
+            ResultSet rs = statement.executeQuery(selectComm);
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+                if (rs.getString(1).equals(accountName)) {
+                    isFound = true;
+                }
+            }
+            if (!isFound) {
+                addNewUser(accountName);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isFound;
     }
 
     public void addNewUser(String userName) {
@@ -65,14 +83,6 @@ public class UserDatabase {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    public void updateTable(String userName, int wins) {
-        try {
-            Statement statement = conn.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void getQuery() {

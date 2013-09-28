@@ -21,8 +21,6 @@ public class ChessHits {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        UserDatabase userDB = new UserDatabase();
-        userDB.establishConnection();
         ChessHitsGame game = new ChessHitsGame();
         final StartFrame gui = new StartFrame(game);
 
