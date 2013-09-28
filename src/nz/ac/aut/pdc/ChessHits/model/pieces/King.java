@@ -70,6 +70,13 @@ public class King extends Piece {
         this.isAbleToCastle = true;
     }
 
+    @Override
+    public void attack(Piece piece) {
+        while (piece.isAlive()) {
+            piece.reduceHP();
+        }
+    }
+
     public boolean performCastling() {
         boolean isPerformed = false;
         if (this.getCastleStatus()) {

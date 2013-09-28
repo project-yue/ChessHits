@@ -298,11 +298,17 @@ public class ChessHitsGame {
 
     private boolean attackPiece(Piece fromPiece, Piece toPiece) {
         boolean isSuccessful = false;
-        if (toPiece != null && toPiece.isAlive() && toPiece instanceof Pawn) {
-            Pawn pawn = (Pawn) toPiece;
-            if (isPawnAbleFork(pawn, fromPiece.getCurrentPosition())) {
-                toPiece.attack(fromPiece);
+        if (fromPiece instanceof Pawn && toPiece != null && toPiece.isAlive()) {
+            Pawn pawn = (Pawn) fromPiece;
+            if (isPawnAbleFork(pawn, toPiece.getCurrentPosition())) {
+                pawn.attack(toPiece);
                 isSuccessful = true;
+                if (toPiece instanceof Pawn && toPiece.isAlive()) {
+                    Pawn anotherPawn = (Pawn) toPiece;
+                    if (isPawnAbleFork(anotherPawn, fromPiece.getCurrentPosition())) {
+                        anotherPawn.attack(fromPiece);
+                    }
+                }
             }
         } else if (toPiece != null) {
             System.out.println(fromPiece.getStringRepresentation() + " attacks " + toPiece.getStringRepresentation());
@@ -317,8 +323,6 @@ public class ChessHitsGame {
         if (!fromPiece.isAlive()) {
             Position temPos = fromPiece.getCurrentPosition();
             this.board.getSquare(temPos).removePiece(fromPiece);
-            if (fromPiece instanceof King) {
-            }
         }
         if (toPiece != null && !toPiece.isAlive()) {
             Position temPos = toPiece.getCurrentPosition();
@@ -328,19 +332,33 @@ public class ChessHitsGame {
             fromSquare.removePiece(fromPiece);
             toSquare.removePiece(toPiece);
             toSquare.addPiece(fromPiece);
-            if (toPiece instanceof King) {
+        }
+        if (toPiece instanceof King && !toPiece.isAlive()) {
+            switch (toPiece.getColor()) {
+                case BLACK:
+                    System.out.print(this.blackPlayer.getName());
+                case WHITE:
+                    System.out.print(this.whitePlayer.getName());
             }
-        }
-        if (isSuccessful && fromPiece.isAlive()) {
-            System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
-                    + " column: " + fromPiece.getCurrentPosition().getColumn() + "; " + fromPiece.getStringRepresentation() + " has " + fromPiece.getHP() + " left");
-        }
-        if (isSuccessful && toPiece != null && toPiece.isAlive()) {
-            System.out.println(toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
-                    + " column: " + toPiece.getCurrentPosition().getColumn() + "; " + toPiece.getStringRepresentation() + " has " + toPiece.getHP() + " left.");
+            System.out.println(" lost the game");
+            this.isGameRunning = false;
+            System.out.println("press any key to continue");
+            userInputReader.nextLine();
+        } else {
+            if (isSuccessful && fromPiece.isAlive()) {
+                System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
+                        + " column: " + fromPiece.getCurrentPosition().getColumn() + "; " + fromPiece.getStringRepresentation()
+                        + " has " + fromPiece.getHP() + " left");
+            }
+            if (isSuccessful && toPiece != null && toPiece.isAlive()) {
+                System.out.println(toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
+                        + " column: " + toPiece.getCurrentPosition().getColumn() + "; " + toPiece.getStringRepresentation()
+                        + " has " + toPiece.getHP() + " left.");
+            }
         }
         return isSuccessful;
     }
+
 
     /*
      * generate higher rank pieces for selected color
@@ -592,52 +610,49 @@ public class ChessHitsGame {
 
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
-        try{
-        if(!firstSelected){
-           Piece piece = square.getOccupiedPiece();
-           if(whiteTurn){
-               
-               if(piece.getColor() == WHITE){
-                   squareMove = square;
-                   firstSelected = true;
-                   turn = true;
-              
-               }
-           }
-           else if(piece.getColor() == BLACK){
-                 squareMove = square;
-                   firstSelected = true;
-                   turn = true;
-                   
-           }
-               
-        }
-        else{
-             firstSelected = false;
-            if(movePlayerPiece(squareMove.getPosition(), square.getPosition())){
-                whiteTurn = !whiteTurn;
-               whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
-                blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
-                
-                
+        try {
+            if (!firstSelected) {
+                Piece piece = square.getOccupiedPiece();
+                if (whiteTurn) {
+
+                    if (piece.getColor() == WHITE) {
+                        squareMove = square;
+                        firstSelected = true;
+                        turn = true;
+
+                    }
+                } else if (piece.getColor() == BLACK) {
+                    squareMove = square;
+                    firstSelected = true;
+                    turn = true;
+
+                }
+
+            } else {
+                firstSelected = false;
+                if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
+                    whiteTurn = !whiteTurn;
+                    whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
+                    blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
+
+
+                }
             }
-        }
-        
-        }
-        catch(Exception e){
-           
+
+        } catch (Exception e) {
         }
         return turn;
     }
-        public void setBlackPlayer(Player player){
-            blackPlayer = player;  
-        }
-           public void setWhitePlayer(Player player){
-            whitePlayer = player;
-        }
+
+    public void setBlackPlayer(Player player) {
+        blackPlayer = player;
+    }
+
+    public void setWhitePlayer(Player player) {
+        whitePlayer = player;
+    }
 
     public void setWhiteTurn(boolean whiteTurn) {
         this.whiteTurn = whiteTurn;
     }
-    }
-
+}
