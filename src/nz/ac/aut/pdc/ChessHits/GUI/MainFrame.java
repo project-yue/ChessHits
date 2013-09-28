@@ -11,64 +11,69 @@ import nz.ac.aut.pdc.ChessHits.model.Board;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Player;
 
-    // Variables declaration - do not modify                     
-    // End of variables declaration                   
+// Variables declaration - do not modify                     
+// End of variables declaration                   
 /**
  *
  * @author gl
  */
 public class MainFrame extends javax.swing.JFrame {
- 
+
     private ChessHitsGame game;
     private Player playerOne;
     private Player playerTwo;
     private Board board;
-    private int helloYue;
-    
-    
-    MainFrame(Player playerOne, Player playerTwo , ChessHitsGame game, boolean PlayerOneWhite) {
+
+    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean PlayerOneWhite) {
         this.game = game;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.board = game.getBoard();
         initComponents();
-        this.setLocationRelativeTo(null);   
+        this.setLocationRelativeTo(null);
         setUpPanels();
-        if(PlayerOneWhite){
+        game.setWhitePlayer(playerOne);
+        game.setBlackPlayer(playerTwo);
+        if (PlayerOneWhite) {
             this.playerOne.setIsTurn(true);
-              this.playerTwo.setIsTurn(false);
-        }
-        else{
-             this.playerOne.setIsTurn(false);
-             this.playerTwo.setIsTurn(true);
+            game.setWhitePlayer(playerOne);
+            game.setBlackPlayer(playerTwo);
+
+            game.setWhiteTurn(true);
+            this.playerTwo.setIsTurn(false);
+
+        } else {
+            this.playerOne.setIsTurn(false);
+            game.setWhitePlayer(playerTwo);
+            game.setBlackPlayer(playerOne);
+            game.setWhiteTurn(false);
+            this.playerTwo.setIsTurn(true);
         }
         update();
     }
-    private void update(){
-        if(playerOne.getIsTurn()){
-        lblPlayer.setText("playersTurn: \n"+playerOne.getName());
-        lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
-        }
-        else{
-            lblPlayer.setText("playersTurn: \n"+playerTwo.getName());
+
+    private void update() {
+        if (playerOne.getIsTurn()) {
+            lblPlayer.setText("playersTurn: \n" + playerOne.getName());
+            lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
+        } else {
+            lblPlayer.setText("playersTurn: \n" + playerTwo.getName());
             lblPlayerColor.setText(playerTwo.getSelectedColor().getTextRepresentation());
         }
     }
 
-    
-    
-    
-       private void setUpPanels(){
-           int row = board.getHeight();
-           int col = board.getWidth();
-                gamePanel.setLayout(new GridLayout(row, col));
-           for(int i = 0; i < row; i++){
-                for(int j = 0; j < col; j++){
-                    SqurarePanel sQP = new SqurarePanel(game, i, j);
-               gamePanel.add(sQP);
-           }
-         }
-       }
+    private void setUpPanels() {
+        int row = board.getHeight();
+        int col = board.getWidth();
+        gamePanel.setLayout(new GridLayout(row, col));
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                SqurarePanel sQP = new SqurarePanel(game, i, j);
+                gamePanel.add(sQP);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,13 +131,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     /**
      * @param args the command line arguments
      */
-
-      
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;
     private javax.swing.JLabel lblPlayer;

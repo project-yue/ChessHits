@@ -49,6 +49,9 @@ public class ChessHitsGame {
     private boolean isGameAppRunning;
     private boolean isGameRunning;
     private boolean arePLayers;
+    private boolean firstSelected = false;
+    private Square squareMove;
+    private boolean whiteTurn;
 
     /**
      * create a new game.
@@ -339,7 +342,7 @@ public class ChessHitsGame {
         return isSuccessful;
     }
 
-    /**
+    /*
      * generate higher rank pieces for selected color
      *
      * @param color the color for a set of pieces to be
@@ -586,4 +589,55 @@ public class ChessHitsGame {
                 + "#!5 another feature of the game, my game applies bi-directional attacks \n\tduring one hit scenario. When a piece is hit by another,\n\t it shall try to fight back if the piece is at the\n\t attack range.\n"
                 + "#!5 more,when the attacking piece takes another piece down. it moves to the\n\t place. (This can make a tradeoff piece and let player\n\t weight the value between different pieces)");
     }
-}
+
+    public boolean getSelectedSquare(Square square) {
+        boolean turn = false;
+        try{
+        if(!firstSelected){
+           Piece piece = square.getOccupiedPiece();
+           if(whiteTurn){
+               
+               if(piece.getColor() == WHITE){
+                   squareMove = square;
+                   firstSelected = true;
+                   turn = true;
+              
+               }
+           }
+           else if(piece.getColor() == BLACK){
+                 squareMove = square;
+                   firstSelected = true;
+                   turn = true;
+                   
+           }
+               
+        }
+        else{
+             firstSelected = false;
+            if(movePlayerPiece(squareMove.getPosition(), square.getPosition())){
+                whiteTurn = !whiteTurn;
+               whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
+                blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
+                
+                
+            }
+        }
+        
+        }
+        catch(Exception e){
+           
+        }
+        return turn;
+    }
+        public void setBlackPlayer(Player player){
+            blackPlayer = player;  
+        }
+           public void setWhitePlayer(Player player){
+            whitePlayer = player;
+        }
+
+    public void setWhiteTurn(boolean whiteTurn) {
+        this.whiteTurn = whiteTurn;
+    }
+    }
+
