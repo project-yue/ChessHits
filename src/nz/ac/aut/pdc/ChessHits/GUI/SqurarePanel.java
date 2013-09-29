@@ -5,6 +5,7 @@
 package nz.ac.aut.pdc.ChessHits.GUI;
 
 import java.awt.Component;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
@@ -55,8 +56,10 @@ public class SqurarePanel extends javax.swing.JPanel {
     }
 
     private void update() {
+        lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            lblRep.setText(piece.getStringRepresentation());
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation()+".png"));
+            lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
             } else {
@@ -69,8 +72,10 @@ public class SqurarePanel extends javax.swing.JPanel {
     }
 
     private void fullUpdate() {
+        lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            lblRep.setText(piece.getStringRepresentation());
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation()+ ".png") );
+            lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
             } else {
@@ -93,7 +98,7 @@ public class SqurarePanel extends javax.swing.JPanel {
         } else if (row % 2 != 0 && col % 2 != 0) {
             this.setBackground(java.awt.Color.GRAY);
         } else {
-            this.setBackground(java.awt.Color.WHITE);
+            this.setBackground(java.awt.Color.white);
         }
     }
 

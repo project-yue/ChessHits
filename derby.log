@@ -1,16 +1,15 @@
-Sat Sep 28 13:25:02 NZST 2013 : Warning: UnknkownHostException: go3rd.xianan: go3rd.xianan: Name or service not known.
-Sat Sep 28 13:25:02 NZST 2013 : Apache Derby Network Server - 10.8.1.2 - (1095077) started and ready to accept connections on port 1527
+Mon Sep 30 09:17:40 NZDT 2013 : Apache Derby Network Server - 10.9.1.0 - (1344872) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sat Sep 28 13:25:02 NZST 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0141-622b-3990-fffff8122c6d 
-on database directory /home/makingitbettergo/NetBeansProjects/ChessHits (Console) Sprint2_Demo3_28sep/ChessHitsUsersDB  with class loader sun.misc.Launcher$AppClassLoader@33d232d1 
-Loaded from file:/home/makingitbettergo/glassfish-3.1.2.2/javadb/lib/derby.jar
+Mon Sep 30 09:17:41 NZDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-0141-6b5e-8d9d-ffffb0909754 
+on database directory /home/gl/Documents/yue/chesshits/Chess_Hits/ChessHitsUsersDB  with class loader sun.misc.Launcher$AppClassLoader@6fd7bd04 
+Loaded from file:/home/gl/glassfish-4.0/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_40-b31
-user.dir=/home/makingitbettergo/glassfish-3.1.2.2/javadb
-derby.system.home=/home/makingitbettergo/NetBeansProjects/ChessHits (Console) Sprint2_Demo3_28sep
+java.runtime.version=1.7.0_25-b30
+user.dir=/home/gl/glassfish-4.0/javadb
+derby.system.home=/home/gl/Documents/yue/chesshits/Chess_Hits
 Database Class Loader started - derby.database.classpath=''
-Sat Sep 28 13:25:02 NZST 2013 Thread[DRDAConnThread_3,5,main] (XID = 370), (SESSIONID = 0), (DATABASE = ChessHitsUsersDB), (DRDAID = {1}), Cleanup action starting
+Mon Sep 30 09:17:42 NZDT 2013 Thread[DRDAConnThread_3,5,main] (XID = 441), (SESSIONID = 0), (DATABASE = ChessHitsUsersDB), (DRDAID = {1}), Cleanup action starting
 java.sql.SQLNonTransientConnectionException: Connection authentication failure occurred.  Reason: Invalid authentication..
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
@@ -23,7 +22,7 @@ java.sql.SQLNonTransientConnectionException: Connection authentication failure o
 	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
 	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
 	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
 	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
 	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
 	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
@@ -50,7 +49,7 @@ java.sql.SQLException: Connection authentication failure occurred.  Reason: Inva
 	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
 	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
 	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
 	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
 	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
 	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
@@ -60,55 +59,4 @@ java.sql.SQLException: Connection authentication failure occurred.  Reason: Inva
 	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
 ============= end nested exception, level (1) ===========
 Cleanup action completed
-Sat Sep 28 13:25:02 NZST 2013 Thread[DRDAConnThread_3,5,main] (DATABASE = ChessHitsUsersDB), (DRDAID = {1}), Connection authentication failure occurred.  Reason: Invalid authentication..
-Sat Sep 28 13:49:47 NZST 2013 Thread[DRDAConnThread_3,5,main] (XID = 381), (SESSIONID = 11), (DATABASE = ChessHitsUsersDB), (DRDAID = {7}), Cleanup action starting
-java.sql.SQLNonTransientConnectionException: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection30.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
-	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
-	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
-Caused by: java.sql.SQLException: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	... 19 more
-============= begin nested exception, level (1) ===========
-java.sql.SQLException: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection30.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
-	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
-	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
-============= end nested exception, level (1) ===========
-Cleanup action completed
-Sat Sep 28 13:49:47 NZST 2013 Thread[DRDAConnThread_3,5,main] (DATABASE = ChessHitsUsersDB), (DRDAID = {7}), Connection authentication failure occurred.  Reason: Invalid authentication..
+Mon Sep 30 09:17:42 NZDT 2013 Thread[DRDAConnThread_3,5,main] (DATABASE = ChessHitsUsersDB), (DRDAID = {1}), Connection authentication failure occurred.  Reason: Invalid authentication..

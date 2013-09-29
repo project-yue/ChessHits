@@ -43,7 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
             this.playerOne.setIsTurn(false);
             game.setWhitePlayer(playerTwo);
             game.setBlackPlayer(playerOne);
-            game.setWhiteTurn(false);
+            game.setWhiteTurn(true);
             this.playerTwo.setIsTurn(true);
         }
         update();
@@ -84,6 +84,10 @@ public class MainFrame extends javax.swing.JFrame {
         lblPlayerMoveTurn = new javax.swing.JLabel();
         gamePanel = new javax.swing.JPanel();
         lblPlayerColor = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        newGame = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 600));
@@ -144,14 +148,44 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         getContentPane().add(lblPlayerColor, gridBagConstraints);
 
+        jMenu1.setText("File");
+
+        newGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        newGame.setText("New Game");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+        jMenu1.add(newGame);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
+        game = new ChessHitsGame();
+        gamePanel.removeAll();
+        this.setVisible(false);
+       StartFrame start = new StartFrame(game);
+       start.setVisible(true);
+    }//GEN-LAST:event_newGameActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblPlayerColor;
     private javax.swing.JLabel lblPlayerMoveTurn;
+    private javax.swing.JMenuItem newGame;
     // End of variables declaration//GEN-END:variables
 }
