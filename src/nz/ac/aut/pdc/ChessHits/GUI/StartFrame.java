@@ -4,9 +4,16 @@
  */
 package nz.ac.aut.pdc.ChessHits.GUI;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
+import userDB.UserDatabase;
 
 /**
  *
@@ -15,6 +22,7 @@ import nz.ac.aut.pdc.ChessHits.model.Player;
 public class StartFrame extends javax.swing.JFrame {
 
     ChessHitsGame game;
+    private UserDatabase userDB;
 
     /**
      * Creates new form Frame
@@ -27,6 +35,8 @@ public class StartFrame extends javax.swing.JFrame {
         bg.add(whiteJradioB);
         whiteJradioB.setSelected(true);
         this.setLocationRelativeTo(null);
+        this.userDB = new UserDatabase();
+        this.userDB.establishConnection();
     }
 
     /**
@@ -118,7 +128,7 @@ public class StartFrame extends javax.swing.JFrame {
         Player playerTwo = null;
         boolean isPlayerOneWhite = false;
         if (blackJradioB.isSelected()) {
-            
+
             playerOne = new Player(player1.getText(), Color.BLACK);
             playerTwo = new Player(player2.getText(), Color.WHITE);
 

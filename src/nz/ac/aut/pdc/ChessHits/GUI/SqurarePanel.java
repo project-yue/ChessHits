@@ -21,7 +21,6 @@ public class SqurarePanel extends javax.swing.JPanel {
     private Square square;
     private Piece piece;
     private ChessHitsGame game;
-    private boolean oneClick;
     private int row;
     private int col;
     private MainFrame frame;
@@ -51,14 +50,14 @@ public class SqurarePanel extends javax.swing.JPanel {
         } else if (row % 2 != 0 && col % 2 != 0) {
             this.setBackground(java.awt.Color.GRAY);
         } else {
-            this.setBackground(java.awt.Color.white);
+            this.setBackground(java.awt.Color.WHITE);
         }
     }
 
     private void update() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation()+".png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
@@ -74,7 +73,7 @@ public class SqurarePanel extends javax.swing.JPanel {
     private void fullUpdate() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation()+ ".png") );
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
@@ -98,7 +97,7 @@ public class SqurarePanel extends javax.swing.JPanel {
         } else if (row % 2 != 0 && col % 2 != 0) {
             this.setBackground(java.awt.Color.GRAY);
         } else {
-            this.setBackground(java.awt.Color.white);
+            this.setBackground(java.awt.Color.WHITE);
         }
     }
 

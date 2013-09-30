@@ -126,42 +126,77 @@ public class King extends Piece {
         ArrayList<Position> positions = new ArrayList<>();
         Board board = super.getBoard();
         int startRow = getCurrentPosition().getRow(), startCol = getCurrentPosition().getColumn(), endRow = end.getRow(), endCol = end.getColumn();
-        if (startCol - endCol == 1 && startRow - endRow == 1 && board.getPositions()[startRow - 1][startCol - 1] != null) {
+        //
+//        if (startCol - endCol == 1 && startRow - endRow == 1
+//                && board.getPositions()[startRow - 1][startCol - 1] != null) {
+//            Position northWest = board.getPositions()[startRow - 1][startCol - 1];
+//            positions.add(northWest);
+//        }
+//        if (startCol == endCol && startRow - endRow == 1
+//                && board.getPositions()[endRow][endCol] != null) {
+//            Position north = board.getPositions()[startRow - 1][startCol];
+//            positions.add(north);
+//        }
+//        if (startCol - endCol == -1 && startRow - endRow == 1
+//                && board.getPositions()[startRow - 1][startCol + 1] != null) {
+//            Position northEast = board.getPositions()[startRow - 1][startCol + 1];
+//            positions.add(northEast);
+//        }
+//        if (startCol - endCol == 1 && startRow == endRow
+//                && board.getPositions()[startRow][startCol - 1] != null) {
+//            Position west = board.getPositions()[startRow][startCol - 1];
+//            positions.add(west);
+//        }
+//        if (startCol - endCol == -1 && startRow == endRow
+//                && board.getPositions()[startRow][startCol + 1] != null) {
+//            Position east = board.getPositions()[startRow][startCol + 1];
+//            positions.add(east);
+//        }
+//        if (startCol - endCol == 1 && startRow - endRow == -1
+//                && board.getPositions()[startRow + 1][startCol - 1] != null) {
+//            Position sthWst = board.getPositions()[startRow + 1][startCol - 1];
+//            positions.add(sthWst);
+//            
+//        }
+//        if (startCol == endCol && startRow - endRow == 1
+//                && board.getPositions()[startRow + 1][startCol] != null) {
+//            Position sth = board.getPositions()[startRow - 1][startCol];
+//            positions.add(sth);
+//        }
+//        if (startCol - endCol == -1 && startRow - endRow == -1
+//                && board.getPositions()[startRow + 1][startCol + 1] != null) {
+//            Position sthEst = board.getPositions()[startRow + 1][startCol + 1];
+//            positions.add(sthEst);
+//        }
+        if (startRow > 0 && startCol > 0 && startCol - endCol == 1 && startRow - endRow == 1) {
             Position northWest = board.getPositions()[startRow - 1][startCol - 1];
             positions.add(northWest);
         }
-        if (startCol == endCol && startRow - endRow == -1
-                && board.getPositions()[startRow + 1][startCol] != null) {
-            Position north = board.getPositions()[startRow + 1][startCol];
+        if (startRow > 1 && startCol == endCol && startRow - endRow == 1) {
+            Position north = board.getPositions()[startRow - 1][startCol];
             positions.add(north);
         }
-        if (startCol - endCol == -1 && startRow - endRow == 1
-                && board.getPositions()[startRow - 1][startCol + 1] != null) {
+        if (startRow > 1 && startCol < 7 && startCol - endCol == -1 && startRow - endRow == 1) {
             Position northEast = board.getPositions()[startRow - 1][startCol + 1];
             positions.add(northEast);
         }
-        if (startCol - endCol == 1 && startRow == endRow
-                && board.getPositions()[startRow][startCol - 1] != null) {
+        if (startCol > 0 && startCol - endCol == 1 && startRow == endRow) {
             Position west = board.getPositions()[startRow][startCol - 1];
             positions.add(west);
         }
-        if (startCol - endCol == -1 && startRow == endRow
-                && board.getPositions()[startRow][startCol + 1] != null) {
+        if (startCol < 7 && startCol - endCol == -1 && startRow == endRow) {
             Position east = board.getPositions()[startRow][startCol + 1];
             positions.add(east);
         }
-        if (startCol - endCol == 1 && startRow - endRow == -1
-                && board.getPositions()[startRow + 1][startCol - 1] != null) {
+        if (startRow < 7 && startCol > 0 && startCol - endCol == 1 && startRow - endRow == -1) {
             Position sthWst = board.getPositions()[startRow + 1][startCol - 1];
             positions.add(sthWst);
         }
-        if (startCol == endCol && startRow - endRow == 1
-                && board.getPositions()[startRow + 1][startCol] != null) {
-            Position sth = board.getPositions()[startRow - 1][startCol];
+        if (startRow < 7 && startCol == endCol && startRow - endRow == -1) {
+            Position sth = board.getPositions()[startRow + 1][startCol];
             positions.add(sth);
         }
-        if (startCol - endCol == -1 && startRow - endRow == -1
-                && board.getPositions()[startRow + 1][startCol + 1] != null) {
+        if (startRow < 7 && startCol < 7 && startCol - endCol == -1 && startRow - endRow == -1) {
             Position sthEst = board.getPositions()[startRow + 1][startCol + 1];
             positions.add(sthEst);
         }

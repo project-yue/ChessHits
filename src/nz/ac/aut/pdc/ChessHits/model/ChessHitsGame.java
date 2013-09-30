@@ -33,8 +33,8 @@ public class ChessHitsGame {
 
     // constants
     private static final String FILENAME = "SquareData.txt";
-    private static final String PLAYER_DATA = "PlayerData/PlayerData.txt";
-    private static final File USER_FILE = new File(PLAYER_DATA);
+    //private static final String PLAYER_DATA = "PlayerData/PlayerData.txt";
+    //private static final File USER_FILE = new File(PLAYER_DATA);
     private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
     private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
     // no function atm
@@ -57,16 +57,15 @@ public class ChessHitsGame {
      * create a new game.
      */
     public ChessHitsGame() {
-        try {
-            this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
-            this.osw = new OutputStreamWriter(this.playerFileOutput);
-            this.playerFileWriter = new BufferedWriter(osw);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.userDB = new UserDatabase();
-        this.userDB.establishConnection();
-        this.userDB.createTable();
+        //try {
+//            this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
+        //this.osw = new OutputStreamWriter(this.playerFileOutput);
+        //this.playerFileWriter = new BufferedWriter(osw);
+        //      } catch (FileNotFoundException ex) {
+        //        Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
+        //  }
+
+        //this.userDB.createTable();
         this.board = new Board();
         generateRankPieces(BLACK);
         generateRankPieces(WHITE);
@@ -661,8 +660,7 @@ public class ChessHitsGame {
 
         return player;
     }
-    
- 
+
     public void setBlackPlayer(Player player) {
         blackPlayer = player;
     }

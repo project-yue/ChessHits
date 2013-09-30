@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class UserDatabase {
 
-    private final String url = "jdbc:derby://localhost:1527/ChessHitsUsersDB";
+    private String url = "jdbc:derby:ChessHitsUsersDB;create=true";
     private String usernameDerby = "hits";
     private String passwordDerby = "hits";
     Connection conn;
