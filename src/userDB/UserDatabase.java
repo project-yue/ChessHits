@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class UserDatabase {
 
     private String url = "jdbc:derby:ChessHitsUsersDB;create=true";
+    private String DB_NAME = "USER";
     private String usernameDerby = "hits";
     private String passwordDerby = "hits";
     Connection conn;
@@ -37,10 +38,9 @@ public class UserDatabase {
     public void createTable() {
         try {
             Statement statement = conn.createStatement();
-            String newTableName = "USER";
-            String sqlCreate = "create table " + newTableName + " (ID varchar(20),"
+            String sqlCreate = "create table " + this.DB_NAME + " (ID varchar(20),"
                     + "WINS int, constraint id_pk PRIMARY KEY (ID))";
-
+            
             //statement.close();
             System.out.println("Table created");
 
@@ -85,19 +85,19 @@ public class UserDatabase {
 
     }
 
-    public void getQuery() {
+    public void getQuery(String accountName) {
         ResultSet rs = null;
 
         try {
 
-            System.out.println(" getting query....");
+            System.out.println(" getting user query....");
             Statement statement = conn.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
 
 
 
-            String sqlQuery = "select model, price from car  "
+            String sqlQuery = "select " + accountName + ", from   "
                     + "where brand='Toyota'";
 
             rs = statement.executeQuery(sqlQuery);

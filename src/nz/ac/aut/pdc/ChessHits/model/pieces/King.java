@@ -26,9 +26,6 @@ import nz.ac.aut.pdc.ChessHits.model.*;
 public class King extends Piece {
 
     private final String STRING_REPRESENTATION = "K";
-    private boolean isChecked;
-    private boolean isCheckmate;
-    private boolean isStalemate;
     private boolean isAbleToCastle;
     private ChessHitsGame game;
 
@@ -65,12 +62,10 @@ public class King extends Piece {
     }
 
     /**
-     * enable the ability of castling
+     * king hits every piece down with only 1 hit
+     *
+     * @param piece the target
      */
-    public void enableCastle() {
-        this.isAbleToCastle = true;
-    }
-
     @Override
     public void attack(Piece piece) {
         while (piece.isAlive()) {
