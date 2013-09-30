@@ -51,11 +51,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void update() {
         if (playerOne.getIsTurn()) {
-            lblPlayerMoveTurn.setText(playerOne.getName());
-            lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
+            lblPlayerMoveTurn.setText("turn: " + playerOne.getName());
+            lblPlayerColor.setText("color: "+playerOne.getSelectedColor().getTextRepresentation());
         } else {
-            lblPlayerMoveTurn.setText(playerTwo.getName());
-            lblPlayerColor.setText(playerTwo.getSelectedColor().getTextRepresentation());
+            lblPlayerMoveTurn.setText("turn: " +playerTwo.getName());
+            lblPlayerColor.setText("color: "+playerTwo.getSelectedColor().getTextRepresentation());
         }
     }
 
@@ -97,9 +97,9 @@ public class MainFrame extends javax.swing.JFrame {
         lblPlayerMoveTurn.setText("playerNmlb");
         lblPlayerMoveTurn.setAlignmentY(0.0F);
         lblPlayerMoveTurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPlayerMoveTurn.setMaximumSize(new java.awt.Dimension(150, 30));
-        lblPlayerMoveTurn.setMinimumSize(new java.awt.Dimension(150, 30));
-        lblPlayerMoveTurn.setPreferredSize(new java.awt.Dimension(100, 15));
+        lblPlayerMoveTurn.setMaximumSize(null);
+        lblPlayerMoveTurn.setMinimumSize(null);
+        lblPlayerMoveTurn.setPreferredSize(null);
         lblPlayerMoveTurn.setRequestFocusEnabled(false);
         lblPlayerMoveTurn.setVerifyInputWhenFocusTarget(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -137,8 +137,9 @@ public class MainFrame extends javax.swing.JFrame {
         lblPlayerColor.setText("colorlb");
         lblPlayerColor.setFocusable(false);
         lblPlayerColor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPlayerColor.setMaximumSize(new java.awt.Dimension(50, 30));
-        lblPlayerColor.setMinimumSize(new java.awt.Dimension(50, 30));
+        lblPlayerColor.setMaximumSize(null);
+        lblPlayerColor.setMinimumSize(null);
+        lblPlayerColor.setPreferredSize(null);
         lblPlayerColor.setRequestFocusEnabled(false);
         lblPlayerColor.setVerifyInputWhenFocusTarget(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
