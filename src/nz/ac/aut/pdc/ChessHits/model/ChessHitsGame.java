@@ -32,26 +32,26 @@ import userDB.UserDatabase;
 public class ChessHitsGame {
 
     // constants
-    private static final String FILENAME = "SquareData.txt";
+//    private static final String FILENAME = "SquareData.txt";
     //private static final String PLAYER_DATA = "PlayerData/PlayerData.txt";
     //private static final File USER_FILE = new File(PLAYER_DATA);
-    private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
-    private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
+//    private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
+//    private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
     // no function atm
-    private FileOutputStream playerFileOutput;
-    private OutputStreamWriter osw;
-    private Writer playerFileWriter;
+//    private FileOutputStream playerFileOutput;
+//    private OutputStreamWriter osw;
+//    private Writer playerFileWriter;
     private Scanner userInputReader;
     private Board board;
     private Player blackPlayer;
     private Player whitePlayer;
     private boolean isGameAppRunning;
     private boolean isGameRunning;
-    private boolean arePLayers;
+//    private boolean arePLayers;
     private boolean firstSelected = false;
     private Square squareMove;
     private boolean whiteTurn;
-    private UserDatabase userDB;
+//    private UserDatabase userDB;
 
     /**
      * create a new game.
@@ -314,7 +314,9 @@ public class ChessHitsGame {
         } else if (toPiece != null) {
             System.out.println(fromPiece.getStringRepresentation() + " attacks " + toPiece.getStringRepresentation());
             fromPiece.attack(toPiece);
-            if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
+            if (toPiece instanceof Pawn && isPawnAbleFork(toPiece, fromPiece.getCurrentPosition())) {
+                toPiece.attack(fromPiece);
+            } else if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
                 System.out.println(toPiece.getStringRepresentation() + " attacks " + fromPiece.getStringRepresentation());
                 toPiece.attack(fromPiece);
             }
