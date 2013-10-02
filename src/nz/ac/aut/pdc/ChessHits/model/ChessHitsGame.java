@@ -187,25 +187,24 @@ public class ChessHitsGame {
 //            Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    /**
-     * initialize Chessboard data from a txt file.
-     *
-     * @param filename name of resource file
-     */
-    private void initializeGameFromFile(String filename) {
-        try {
-            Scanner input = new Scanner(new File(filename));
-            input.useDelimiter("\\s*,\\s*");
-            generatePawns(Color.BLACK);
-            generatePawns(Color.WHITE);
-            generateRankPieces(Color.BLACK);
-            generateRankPieces(Color.WHITE);
-            board.draw();
-        } catch (FileNotFoundException e) {
-            System.err.println("unable to find the file " + filename);
-        }
-    }
-
+//    /**
+//     * initialize Chessboard data from a txt file.
+//     *
+//     * @param filename name of resource file
+//     */
+//    private void initializeGameFromFile(String filename) {
+//        try {
+//            Scanner input = new Scanner(new File(filename));
+//            input.useDelimiter("\\s*,\\s*");
+//            generatePawns(Color.BLACK);
+//            generatePawns(Color.WHITE);
+//            generateRankPieces(Color.BLACK);
+//            generateRankPieces(Color.WHITE);
+//            board.draw();
+//        } catch (FileNotFoundException e) {
+//            System.err.println("unable to find the file " + filename);
+//        }
+//    }
     /**
      * generate pawn pieces for selected color.
      *
@@ -276,7 +275,7 @@ public class ChessHitsGame {
                 isMoved = attackPiece(piece, dPiece);
             }
             //all the rest should be considered as illegal input
-            if (piece != null && piece instanceof Pawn) {
+            if (piece.isAlive() && piece instanceof Pawn) {
                 Pawn temPawn = (Pawn) piece;
                 Color pieceColor = piece.getColor();
 //                switch (pieceColor) {
@@ -314,7 +313,7 @@ public class ChessHitsGame {
         } else if (toPiece != null) {
             System.out.println(fromPiece.getStringRepresentation() + " attacks " + toPiece.getStringRepresentation());
             fromPiece.attack(toPiece);
-            if (toPiece instanceof Pawn && isPawnAbleFork(toPiece, fromPiece.getCurrentPosition())) {
+            if (toPiece.isAlive() && toPiece instanceof Pawn && isPawnAbleFork(toPiece, fromPiece.getCurrentPosition())) {
                 toPiece.attack(fromPiece);
             } else if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
                 System.out.println(toPiece.getStringRepresentation() + " attacks " + fromPiece.getStringRepresentation());
