@@ -57,7 +57,8 @@ public class SqurarePanel extends javax.swing.JPanel {
     private void update() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
+            String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
@@ -73,7 +74,7 @@ public class SqurarePanel extends javax.swing.JPanel {
     private void fullUpdate() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + piece.getHP() + "health.png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);

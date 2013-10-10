@@ -170,7 +170,7 @@ public class StartFrame extends javax.swing.JFrame {
         if (!this.userDB.doesAccountExist(player2Lbl.getText())) {
             this.userDB.addNewUser(player2Lbl.getText());
         }
-        this.userDB.increaseWins(player1Lbl.getText());
+        //this.userDB.increaseWins(player1Lbl.getText());
         System.out.println(player1Lbl.getText() + " has won " + userDB.getWins(player1Lbl.getText()) + " game(s)");
         System.out.println(player2Lbl.getText() + " has won " + userDB.getWins(player2Lbl.getText()) + " game(s)");
         {
