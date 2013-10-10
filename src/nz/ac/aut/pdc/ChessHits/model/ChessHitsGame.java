@@ -17,7 +17,7 @@ import java.util.*;
 import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
 import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
 import nz.ac.aut.pdc.ChessHits.model.pieces.*;
-import userDB.UserDatabase;
+import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
 /**
  * the wrapper class of ChessHitsGame.

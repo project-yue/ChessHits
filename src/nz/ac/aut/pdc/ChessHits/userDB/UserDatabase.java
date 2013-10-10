@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userDB;
+package nz.ac.aut.pdc.ChessHits.userDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

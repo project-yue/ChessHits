@@ -15,7 +15,7 @@ import javax.swing.event.CaretListener;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
-import userDB.UserDatabase;
+import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
 /**
  *
