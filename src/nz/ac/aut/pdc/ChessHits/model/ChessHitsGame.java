@@ -4,15 +4,7 @@
  */
 package nz.ac.aut.pdc.ChessHits.model;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.*;
 import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
 import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
@@ -51,7 +43,7 @@ public class ChessHitsGame {
     private boolean firstSelected = false;
     private Square squareMove;
     private boolean whiteTurn;
-//    private UserDatabase userDB;
+    private UserDatabase userDB;
 
     /**
      * create a new game.
@@ -275,9 +267,9 @@ public class ChessHitsGame {
                 isMoved = attackPiece(piece, dPiece);
             }
             //all the rest should be considered as illegal input
-            if (piece.isAlive() && piece instanceof Pawn) {
-                Pawn temPawn = (Pawn) piece;
-                Color pieceColor = piece.getColor();
+//            if (piece.isAlive() && piece instanceof Pawn) {
+//                Pawn temPawn = (Pawn) piece;
+//                Color pieceColor = piece.getColor();
 //                switch (pieceColor) {
 //                    case WHITE:
 //                        if (piece.getCurrentPosition().getRow() == 7) {
@@ -290,7 +282,7 @@ public class ChessHitsGame {
 //                        }
 //                        break;
 //                }
-            }
+//            }
         }
         return isMoved;
 
@@ -423,170 +415,171 @@ public class ChessHitsGame {
         return isOnBoard;
     }
 
-    /**
-     * for console version only the user input of the position and new position
-     *
-     */
-    private Position userSelecteMovingPosition(Player player, Boolean isPieceSelected) {
-
-        boolean moveDidntWorked = true;
-        Position newPosition = null;
-        while (moveDidntWorked) {
-            try {
-                moveDidntWorked = false;
-                newPosition = userSelectPosition(player, isPieceSelected);
-            } catch (NullPointerException e) {
-            } catch (Exception e) {
-                System.out.println(player.getName() + ", sorry that is not a valid position");
-                moveDidntWorked = true;
-            }
-        }
-        return newPosition;
+    public void addDatabase(UserDatabase database) {
+        this.userDB = database;
     }
 
-    private Position userSelectPosition(Player player, Boolean isPieceSelected) {
-        int row, col;
-        Position newPosition = null;
-        boolean willLoop = true;
-
-        while (willLoop) {
-            Color color = player.getSelectedColor();
-            String name = player.getName();
-            if (!isPieceSelected) {
-                System.out.println(name + " " + color + " please select a piece in row col e.g. 8 h and\"m\" for menu");
-            } else {
-                System.out.println(name + " " + color + " please select a New position for piece e.g. 8 h ");
-            }
-            String tempUserInput;
-            String[] inputContent;
-            tempUserInput = userInputReader.nextLine();
-            inputContent = tempUserInput.split(" ");
-
-            if (inputContent[0].equals("m")) {
-                willLoop = false;
-                Square nudollSquare = this.board.getSquare(newPosition);// defined as invalid information, as the exception shall be thrown
-            } else {
-                row = convertToRow(inputContent[0]);
-                col = convertToCol(inputContent[1]);
-                willLoop = false;
-                if (row < 0 || row > 7 || col < 0 || col > 7) {
-                    System.out.println("sorry position is not on the board");
-                    willLoop = true;
-                }
-                newPosition = board.getPositions()[row][col];
-                if (!isPieceSelected) {
-                    Color piColor = board.getSquare(newPosition).getOccupiedPiece().getColor();
-                    if (board.getSquare(newPosition).isSquareAvailable()) {
-                        System.out.println("sorry there is no piece there try again");
-                        willLoop = true;
-                    }
-                    if (piColor != color) {
-                        System.out.println("sorry that is not your piece");
-                        willLoop = true;
-                    }
-                }
-            }
-        }
-        return newPosition;
-    }
-
-    /**
-     * convert row text representation to the value that java can manipulate
-     *
-     * @param row The string representation of each row
-     * @return an integer value
-     */
-    private int convertToRow(String row) {
-        int exactRow = 10;
-        switch (row) {
-            case "8":
-                exactRow = 0;
-                break;
-            case "7":
-                exactRow = 1;
-                break;
-            case "6":
-                exactRow = 2;
-                break;
-            case "5":
-                exactRow = 3;
-                break;
-            case "4":
-                exactRow = 4;
-                break;
-            case "3":
-                exactRow = 5;
-                break;
-            case "2":
-                exactRow = 6;
-                break;
-            case "1":
-                exactRow = 7;
-                break;
-        }
-        return exactRow;
-    }
-
-    private int convertToCol(String row) {
-        int exactRow = 10;
-        switch (row) {
-            case "a":
-                exactRow = 0;
-                break;
-            case "b":
-                exactRow = 1;
-                break;
-            case "c":
-                exactRow = 2;
-                break;
-            case "d":
-                exactRow = 3;
-                break;
-            case "e":
-                exactRow = 4;
-                break;
-            case "f":
-                exactRow = 5;
-                break;
-            case "g":
-                exactRow = 6;
-                break;
-            case "h":
-                exactRow = 7;
-                break;
-        }
-        return exactRow;
-    }
-
-    private Piece askForPromotion(Pawn pawn) {
-        Piece piece = null;
-        Position currentPos = pawn.getCurrentPosition();
-        Square currentSquare = this.board.getSquare(currentPos);
-        Color promoteColor = pawn.getColor();
-        System.out.println("Select the piece for promotion of the pawn\n(please input the short form for the piece such as 'q', 'b', 'n' and 'r')");
-        String promotedPiece = null;
-        while (promotedPiece == null) {
-            promotedPiece = userInputReader.nextLine();
-        }
-        promotedPiece = promotedPiece.split(" ")[0];
-        switch (promotedPiece) {
-            case "q":
-                piece = new Queen(this.board, pawn.getHP(), currentPos, promoteColor);
-                break;
-            case "b":
-                piece = new Bishop(this.board, pawn.getHP(), currentPos, promoteColor);
-                break;
-            case "n":
-                piece = new Knight(this.board, pawn.getHP(), currentPos, promoteColor);
-                break;
-            case "r":
-                piece = new Rook(this.board, pawn.getHP(), currentPos, promoteColor);
-        }
-        currentSquare.removePiece(pawn);
-        currentSquare.addPiece(piece);
-        return piece;
-    }
-
+//    /**
+//     * for console version only the user input of the position and new position
+//     *
+//     */
+//    private Position userSelecteMovingPosition(Player player, Boolean isPieceSelected) {
+//
+//        boolean moveDidntWorked = true;
+//        Position newPosition = null;
+//        while (moveDidntWorked) {
+//            try {
+//                moveDidntWorked = false;
+//                newPosition = userSelectPosition(player, isPieceSelected);
+//            } catch (NullPointerException e) {
+//            } catch (Exception e) {
+//                System.out.println(player.getName() + ", sorry that is not a valid position");
+//                moveDidntWorked = true;
+//            }
+//        }
+//        return newPosition;
+////    }
+//    private Position userSelectPosition(Player player, Boolean isPieceSelected) {
+//        int row, col;
+//        Position newPosition = null;
+//        boolean willLoop = true;
+//
+//        while (willLoop) {
+//            Color color = player.getSelectedColor();
+//            String name = player.getName();
+//            if (!isPieceSelected) {
+//                System.out.println(name + " " + color + " please select a piece in row col e.g. 8 h and\"m\" for menu");
+//            } else {
+//                System.out.println(name + " " + color + " please select a New position for piece e.g. 8 h ");
+//            }
+//            String tempUserInput;
+//            String[] inputContent;
+//            tempUserInput = userInputReader.nextLine();
+//            inputContent = tempUserInput.split(" ");
+//
+//            if (inputContent[0].equals("m")) {
+//                willLoop = false;
+//                Square nudollSquare = this.board.getSquare(newPosition);// defined as invalid information, as the exception shall be thrown
+//            } else {
+//                row = convertToRow(inputContent[0]);
+//                col = convertToCol(inputContent[1]);
+//                willLoop = false;
+//                if (row < 0 || row > 7 || col < 0 || col > 7) {
+//                    System.out.println("sorry position is not on the board");
+//                    willLoop = true;
+//                }
+//                newPosition = board.getPositions()[row][col];
+//                if (!isPieceSelected) {
+//                    Color piColor = board.getSquare(newPosition).getOccupiedPiece().getColor();
+//                    if (board.getSquare(newPosition).isSquareAvailable()) {
+//                        System.out.println("sorry there is no piece there try again");
+//                        willLoop = true;
+//                    }
+//                    if (piColor != color) {
+//                        System.out.println("sorry that is not your piece");
+//                        willLoop = true;
+//                    }
+//                }
+//            }
+//        }
+//        return newPosition;
+//    }
+//
+//    /**
+//     * convert row text representation to the value that java can manipulate
+//     *
+//     * @param row The string representation of each row
+//     * @return an integer value
+//     */
+//    private int convertToRow(String row) {
+//        int exactRow = 10;
+//        switch (row) {
+//            case "8":
+//                exactRow = 0;
+//                break;
+//            case "7":
+//                exactRow = 1;
+//                break;
+//            case "6":
+//                exactRow = 2;
+//                break;
+//            case "5":
+//                exactRow = 3;
+//                break;
+//            case "4":
+//                exactRow = 4;
+//                break;
+//            case "3":
+//                exactRow = 5;
+//                break;
+//            case "2":
+//                exactRow = 6;
+//                break;
+//            case "1":
+//                exactRow = 7;
+//                break;
+//        }
+//        return exactRow;
+//    }
+//
+//    private int convertToCol(String row) {
+//        int exactRow = 10;
+//        switch (row) {
+//            case "a":
+//                exactRow = 0;
+//                break;
+//            case "b":
+//                exactRow = 1;
+//                break;
+//            case "c":
+//                exactRow = 2;
+//                break;
+//            case "d":
+//                exactRow = 3;
+//                break;
+//            case "e":
+//                exactRow = 4;
+//                break;
+//            case "f":
+//                exactRow = 5;
+//                break;
+//            case "g":
+//                exactRow = 6;
+//                break;
+//            case "h":
+//                exactRow = 7;
+//                break;
+//        }
+//        return exactRow;
+//    }
+//    private Piece askForPromotion(Pawn pawn) {
+//        Piece piece = null;
+//        Position currentPos = pawn.getCurrentPosition();
+//        Square currentSquare = this.board.getSquare(currentPos);
+//        Color promoteColor = pawn.getColor();
+//        System.out.println("Select the piece for promotion of the pawn\n(please input the short form for the piece such as 'q', 'b', 'n' and 'r')");
+//        String promotedPiece = null;
+//        while (promotedPiece == null) {
+//            promotedPiece = userInputReader.nextLine();
+//        }
+//        promotedPiece = promotedPiece.split(" ")[0];
+//        switch (promotedPiece) {
+//            case "q":
+//                piece = new Queen(this.board, pawn.getHP(), currentPos, promoteColor);
+//                break;
+//            case "b":
+//                piece = new Bishop(this.board, pawn.getHP(), currentPos, promoteColor);
+//                break;
+//            case "n":
+//                piece = new Knight(this.board, pawn.getHP(), currentPos, promoteColor);
+//                break;
+//            case "r":
+//                piece = new Rook(this.board, pawn.getHP(), currentPos, promoteColor);
+//        }
+//        currentSquare.removePiece(pawn);
+//        currentSquare.addPiece(piece);
+//        return piece;
+//    }
     private boolean movePieceTo(Piece piece, Square square) {
         boolean isSuccessful = false;
         if (square.isSquareAvailable() && piece.move(square.getPosition())) {
@@ -600,15 +593,15 @@ public class ChessHitsGame {
         }
         return isSuccessful;
     }
-
-    private void printUserInstruction() {
-        System.out.println("#!1 Pawns are toughest (in the most cases, they are the defendants)\n"
-                + "#!2 second level pieces have less hp, but wider attack range.\n"
-                + "#!3 highest level pieces only have 1hp (which make em vulnerable) yet, a \n\tqueen has the widest range, under proper protection, you can think it's the major piece in the game.\n"
-                + "#!4 a king is limited by its attack range, however, it can take down any \n\tpiece just with one hit.\n"
-                + "#!5 another feature of the game, my game applies bi-directional attacks \n\tduring one hit scenario. When a piece is hit by another,\n\t it shall try to fight back if the piece is at the\n\t attack range.\n"
-                + "#!5 more,when the attacking piece takes another piece down. it moves to the\n\t place. (This can make a tradeoff piece and let player\n\t weight the value between different pieces)");
-    }
+//
+//    private void printUserInstruction() {
+//        System.out.println("#!1 Pawns are toughest (in the most cases, they are the defendants)\n"
+//                + "#!2 second level pieces have less hp, but wider attack range.\n"
+//                + "#!3 highest level pieces only have 1hp (which make em vulnerable) yet, a \n\tqueen has the widest range, under proper protection, you can think it's the major piece in the game.\n"
+//                + "#!4 a king is limited by its attack range, however, it can take down any \n\tpiece just with one hit.\n"
+//                + "#!5 another feature of the game, my game applies bi-directional attacks \n\tduring one hit scenario. When a piece is hit by another,\n\t it shall try to fight back if the piece is at the\n\t attack range.\n"
+//                + "#!5 more,when the attacking piece takes another piece down. it moves to the\n\t place. (This can make a tradeoff piece and let player\n\t weight the value between different pieces)");
+//    }
 
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
@@ -616,28 +609,22 @@ public class ChessHitsGame {
             if (!firstSelected) {
                 Piece piece = square.getOccupiedPiece();
                 if (whiteTurn) {
-
                     if (piece.getColor() == WHITE) {
                         squareMove = square;
                         firstSelected = true;
                         turn = true;
-
                     }
                 } else if (piece.getColor() == BLACK) {
                     squareMove = square;
                     firstSelected = true;
                     turn = true;
-
                 }
-
             } else {
                 firstSelected = false;
                 if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
                     whiteTurn = !whiteTurn;
                     whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
                     blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
-
-
                 }
             }
 

@@ -5,6 +5,7 @@
 package nz.ac.aut.pdc.ChessHits.userDB;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,44 +18,56 @@ import java.util.logging.Logger;
  * @author makingitbettergo
  */
 public class UserDatabase {
-
+    
     private String url = "jdbc:derby:ChessHitsUsersDB;create=true";
-    private String DB_NAME = "USER";
+    private String DB_NAME = "CH_USER";
     private String usernameDerby = "hits";
     private String passwordDerby = "hits";
     Connection conn;
-
+    
     public void establishConnection() {
         try {
             conn = DriverManager.getConnection(url, usernameDerby, passwordDerby);
             System.out.println(url + "   connected....");
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     public void createTable() {
         try {
             Statement statement = conn.createStatement();
-            String sqlCreate = "create table " + this.DB_NAME + " (ID varchar(20),"
-                    + "WINS int, constraint id_pk PRIMARY KEY (ID))";
-            
+            String sqlCreate = "CREATE TABLE " + this.DB_NAME + "(ID VARCHAR(20), WINS INT)";
+            statement.executeUpdate(sqlCreate);
             //statement.close();
             System.out.println("Table created");
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public boolean doesUserTableExist() {
+        boolean result = false;
+        try {
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null, null, this.DB_NAME, null);
+            if (tables.next()) {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
     public boolean doesAccountExist(String accountName) {
         boolean isFound = false;
         try {
-            String userTable = "USER";
             Statement statement = conn.createStatement();
-            String selectComm = "SELECT ID from " + userTable + " where ID = " + accountName;
+            String selectComm = "SELECT ID from " + this.DB_NAME + " where ID = '" + accountName + "'";
             ResultSet rs = statement.executeQuery(selectComm);
             while (rs.next()) {
                 System.out.println(rs.getString(1));
@@ -62,44 +75,64 @@ public class UserDatabase {
                     isFound = true;
                 }
             }
-            if (!isFound) {
-                addNewUser(accountName);
-            }
-
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return isFound;
     }
-
+    
     public void addNewUser(String userName) {
         try {
             Statement statement = conn.createStatement();
-            String userTable = "USER";
-            String sqlUpdate = "insert into " + userTable + " values("
-                    + " " + userName + 0 + ")";
+            String sqlUpdate = "insert into " + this.DB_NAME + " values("
+                    + " '" + userName + "' , " + 0 + ")";
             statement.executeUpdate(sqlUpdate);
+            statement.close();
+            System.out.println("new user added");
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
+    public int getWins(String userName) {
+        int wins = -1;
+        try {
+            Statement st = conn.createStatement();
+            String sqlUpdate = "select WINS from " + this.DB_NAME + " where ID = '" + userName + "'";
+            ResultSet rs = st.executeQuery(sqlUpdate);
+            while (rs.next()) {
+                wins = rs.getInt("WINS");
+            }
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return wins;
+    }
+    
+    public void increaseWins(String userName) {
+        int currentWins = getWins(userName);
+        currentWins++;
+        try {
+            Statement st = conn.createStatement();
+            String sqlUpdate = "update " + this.DB_NAME + " set WINS = " + currentWins + " where ID = '" + userName + "'";
+            st.executeUpdate(sqlUpdate);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void getQuery(String accountName) {
         ResultSet rs = null;
-
         try {
-
             System.out.println(" getting user query....");
             Statement statement = conn.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-
-
-
-            String sqlQuery = "select " + accountName + ", from   "
-                    + "where brand='Toyota'";
-
+            String sqlQuery = "select ID, from " + "where brand='Toyota'";
             rs = statement.executeQuery(sqlQuery);
             rs.beforeFirst();
             while (rs.next()) {
@@ -107,14 +140,13 @@ public class UserDatabase {
                 int price = rs.getInt(2);
                 System.out.println(model + ":  $" + price);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //return(rs);  
     }
-
+    
     public void closeConnections() {
         if (conn != null) {
             try {

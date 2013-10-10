@@ -32,7 +32,7 @@
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="jLabel1" max="32767" attributes="0"/>
-                  <Component id="player1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player1Lbl" alignment="1" max="32767" attributes="0"/>
                   <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                   <Component id="blackJradioB" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
                   <Component id="whiteJradioB" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" pref="135" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="player2" min="-2" pref="127" max="-2" attributes="0"/>
+                      <Component id="player2Lbl" min="-2" pref="127" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -59,8 +59,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="player1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="player2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1Lbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2Lbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="32" max="32767" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="player1">
+    <Component class="javax.swing.JTextField" name="player1Lbl">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
@@ -102,12 +102,12 @@
         <Property name="text" type="java.lang.String" value="white"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="player2">
+    <Component class="javax.swing.JTextField" name="player2Lbl">
       <Properties>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="player2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="player2LblActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>

@@ -4,14 +4,6 @@
  */
 package nz.ac.aut.pdc.ChessHits.GUI;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
@@ -25,6 +17,7 @@ public class StartFrame extends javax.swing.JFrame {
 
     ChessHitsGame game;
     private UserDatabase userDB;
+    private MainFrame mainFrame;
 
     /**
      * Creates new form Frame
@@ -39,7 +32,13 @@ public class StartFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.userDB = new UserDatabase();
         this.userDB.establishConnection();
-//        setListener();
+        if (!this.userDB.doesUserTableExist()) {
+            this.userDB.createTable();
+        }
+    }
+
+    public MainFrame getMainFrame() {
+        return this.mainFrame;
     }
 
     /**
@@ -52,10 +51,10 @@ public class StartFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         submit = new javax.swing.JButton();
-        player1 = new javax.swing.JTextField();
+        player1Lbl = new javax.swing.JTextField();
         blackJradioB = new javax.swing.JRadioButton();
         whiteJradioB = new javax.swing.JRadioButton();
-        player2 = new javax.swing.JTextField();
+        player2Lbl = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -78,10 +77,10 @@ public class StartFrame extends javax.swing.JFrame {
 
         whiteJradioB.setText("white");
 
-        player2.setName(""); // NOI18N
-        player2.addActionListener(new java.awt.event.ActionListener() {
+        player2Lbl.setName(""); // NOI18N
+        player2Lbl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                player2ActionPerformed(evt);
+                player2LblActionPerformed(evt);
             }
         });
 
@@ -103,7 +102,7 @@ public class StartFrame extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(player1)
+                    .addComponent(player1Lbl)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(blackJradioB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(whiteJradioB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,7 +110,7 @@ public class StartFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(player2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(player2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -124,8 +123,8 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(player1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(player2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -144,9 +143,9 @@ public class StartFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_blackJradioBActionPerformed
 
-    private void player2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2ActionPerformed
+    private void player2LblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2LblActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_player2ActionPerformed
+    }//GEN-LAST:event_player2LblActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Player playerOne = null;
@@ -154,48 +153,56 @@ public class StartFrame extends javax.swing.JFrame {
         boolean isPlayerOneWhite = false;
         if (blackJradioB.isSelected()) {
 
-            playerOne = new Player(player1.getText(), Color.BLACK);
-            playerTwo = new Player(player2.getText(), Color.WHITE);
+            playerOne = new Player(player1Lbl.getText(), Color.BLACK);
+            playerTwo = new Player(player2Lbl.getText(), Color.WHITE);
 
         } else {
-            playerOne = new Player(player1.getText(), Color.WHITE);
-            playerTwo = new Player(player2.getText(), Color.BLACK);
+            playerOne = new Player(player1Lbl.getText(), Color.WHITE);
+            playerTwo = new Player(player2Lbl.getText(), Color.BLACK);
             isPlayerOneWhite = true;
         }
         this.setVisible(false);
-        final MainFrame mainFrame = new MainFrame(playerOne, playerTwo, game, isPlayerOneWhite);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                mainFrame.setVisible(true);
-            }
-        });
+        final MainFrame gameMainFrame = new MainFrame(playerOne, playerTwo, game, isPlayerOneWhite);
+        this.mainFrame = gameMainFrame;
+        if (!this.userDB.doesAccountExist(player1Lbl.getText())) {
+            this.userDB.addNewUser(player1Lbl.getText());
+        }
+        if (!this.userDB.doesAccountExist(player2Lbl.getText())) {
+            this.userDB.addNewUser(player2Lbl.getText());
+        }
+        this.userDB.increaseWins(player1Lbl.getText());
+        System.out.println(player1Lbl.getText() + " has won " + userDB.getWins(player1Lbl.getText()) + " game(s)");
+        System.out.println(player2Lbl.getText() + " has won " + userDB.getWins(player2Lbl.getText()) + " game(s)");
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    gameMainFrame.setVisible(true);
+                }
+            });
+        }
     }//GEN-LAST:event_submitActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton blackJradioB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private static javax.swing.JTextField player1;
-    private static javax.swing.JTextField player2;
+    private static javax.swing.JTextField player1Lbl;
+    private static javax.swing.JTextField player2Lbl;
     private javax.swing.JButton submit;
     private javax.swing.JRadioButton whiteJradioB;
     // End of variables declaration//GEN-END:variables
-
 //    private void setListener() {
-//        player1.addCaretListener(new CaretListener() {
+//        player1Lbl.addCaretListener(new CaretListener() {
 //
 //            @Override
 //            public void caretUpdate(CaretEvent ce) {
-//                String player1Text = player1.getText();
+//                String player1Text = player1Lbl.getText();
 //                if(player1Text.length() > 15){
 //                 
-//                    player1.setText( player1Text.substring(0, 14));
+//                    player1Lbl.setText( player1Text.substring(0, 14));
 //                }
 //                
 //            }
 //        });
 //    }
-
-
 }
-

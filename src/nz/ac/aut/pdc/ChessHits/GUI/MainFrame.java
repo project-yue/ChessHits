@@ -5,8 +5,9 @@
  */
 package nz.ac.aut.pdc.ChessHits.GUI;
 
-import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
 import nz.ac.aut.pdc.ChessHits.model.Board;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Player;
@@ -52,10 +53,10 @@ public class MainFrame extends javax.swing.JFrame {
     public void update() {
         if (playerOne.getIsTurn()) {
             lblPlayerMoveTurn.setText("turn: " + playerOne.getName());
-            lblPlayerColor.setText("color: "+playerOne.getSelectedColor().getTextRepresentation());
+            lblPlayerColor.setText("color: " + playerOne.getSelectedColor().getTextRepresentation());
         } else {
-            lblPlayerMoveTurn.setText("turn: " +playerTwo.getName());
-            lblPlayerColor.setText("color: "+playerTwo.getSelectedColor().getTextRepresentation());
+            lblPlayerMoveTurn.setText("turn: " + playerTwo.getName());
+            lblPlayerColor.setText("color: " + playerTwo.getSelectedColor().getTextRepresentation());
         }
     }
 
@@ -174,8 +175,8 @@ public class MainFrame extends javax.swing.JFrame {
         game = new ChessHitsGame();
         gamePanel.removeAll();
         this.setVisible(false);
-       StartFrame start = new StartFrame(game);
-       start.setVisible(true);
+        StartFrame start = new StartFrame(game);
+        start.setVisible(true);
     }//GEN-LAST:event_newGameActionPerformed
     /**
      * @param args the command line arguments
