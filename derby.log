@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Oct 11 12:07:37 NZDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0141-a4a0-157c-0000067c48f0 
+Fri Oct 11 18:35:58 NZDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0141-a603-a3ba-000006862750 
 on database directory /home/makingitbettergo/NetBeansProjects/ChessHits (Console) Sprint4_02oct/ChessHitsUsersDB with class loader sun.misc.Launcher$AppClassLoader@33d232d1 
 Loaded from file:/home/makingitbettergo/NetBeansProjects/ChessHits%20(Console)%20Sprint4_02oct/derby.jar
 java.vendor=Oracle Corporation

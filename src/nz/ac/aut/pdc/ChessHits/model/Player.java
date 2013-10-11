@@ -14,13 +14,12 @@ import java.util.Scanner;
  */
 public class Player {
 
-
     //private final int TIMELEFT = 10;
     private String name;
     private int wining;
-    private int losing;
-    private Scanner userInput;
-    private FileWriter fWriter;
+//    private int losing;
+//    private Scanner userInput;
+//    private FileWriter fWriter;
     private Color color;
     private boolean isTurn;
 
@@ -42,6 +41,14 @@ public class Player {
         this.isTurn = isTurn;
     }
 
+    public int getNumberOfWins() {
+        return this.wining;
+    }
+
+    public void setNumberOfWins(int wins) {
+        this.wining = wins;
+    }
+
     public Color getSelectedColor() {
         return this.color;
     }
@@ -53,5 +60,4 @@ public class Player {
     public boolean getIsTurn() {
         return this.isTurn;
     }
-    
 }

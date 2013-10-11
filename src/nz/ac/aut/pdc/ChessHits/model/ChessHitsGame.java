@@ -37,7 +37,8 @@ public class ChessHitsGame {
     private Board board;
     private Player blackPlayer;
     private Player whitePlayer;
-    private boolean isGameAppRunning;
+    private Player winner;
+//    private boolean isGameAppRunning;
     private boolean isGameRunning;
 //    private boolean arePLayers;
     private boolean firstSelected = false;
@@ -58,6 +59,8 @@ public class ChessHitsGame {
         //  }
 
         //this.userDB.createTable();
+        this.winner = null;
+        this.isGameRunning = true;
         this.board = new Board();
         generateRankPieces(BLACK);
         generateRankPieces(WHITE);
@@ -231,6 +234,10 @@ public class ChessHitsGame {
 
     }
 
+    public void setDataBase(UserDatabase database) {
+        this.userDB = database;
+    }
+
     /**
      * moves the players Piece to the new place and attacks a piece if it is in
      * its way
@@ -307,6 +314,8 @@ public class ChessHitsGame {
             fromPiece.attack(toPiece);
             if (toPiece.isAlive() && toPiece instanceof Pawn && isPawnAbleFork(toPiece, fromPiece.getCurrentPosition())) {
                 toPiece.attack(fromPiece);
+            } else if (toPiece instanceof Pawn) {
+                // do nothing
             } else if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
                 System.out.println(toPiece.getStringRepresentation() + " attacks " + fromPiece.getStringRepresentation());
                 toPiece.attack(fromPiece);
@@ -330,10 +339,17 @@ public class ChessHitsGame {
         if (toPiece instanceof King && !toPiece.isAlive()) {
             switch (toPiece.getColor()) {
                 case BLACK:
+                    this.winner = this.whitePlayer;
                     System.out.print(this.blackPlayer.getName());
+                    break;
                 case WHITE:
                     System.out.print(this.whitePlayer.getName());
+                    this.winner = this.blackPlayer;
+                    break;
+                default:
+                    break;
             }
+            this.userDB.increaseWins(this.winner.getName());
             System.out.println(" lost the game");
             this.isGameRunning = false;
             System.out.println("press any key to continue");
@@ -415,10 +431,9 @@ public class ChessHitsGame {
         return isOnBoard;
     }
 
-    public void addDatabase(UserDatabase database) {
-        this.userDB = database;
-    }
-
+//    public void addDatabase(UserDatabase database) {
+//        this.userDB = database;
+//    }
 //    /**
 //     * for console version only the user input of the position and new position
 //     *
@@ -580,6 +595,10 @@ public class ChessHitsGame {
 //        currentSquare.addPiece(piece);
 //        return piece;
 //    }
+    public boolean getGameStatus() {
+        return this.isGameRunning;
+    }
+
     private boolean movePieceTo(Piece piece, Square square) {
         boolean isSuccessful = false;
         if (square.isSquareAvailable() && piece.move(square.getPosition())) {
@@ -647,6 +666,10 @@ public class ChessHitsGame {
         }
 
         return player;
+    }
+
+    public Player getWinner() {
+        return this.winner;
     }
 
     public void setBlackPlayer(Player player) {

@@ -4,6 +4,7 @@
  */
 package nz.ac.aut.pdc.ChessHits.GUI;
 
+import javax.swing.JOptionPane;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
@@ -30,11 +31,14 @@ public class StartFrame extends javax.swing.JFrame {
         bg.add(whiteJradioB);
         whiteJradioB.setSelected(true);
         this.setLocationRelativeTo(null);
+        //jdbc
         this.userDB = new UserDatabase();
         this.userDB.establishConnection();
         if (!this.userDB.doesUserTableExist()) {
             this.userDB.createTable();
         }
+        this.game.setDataBase(userDB);
+        //jdbc ends
     }
 
     public MainFrame getMainFrame() {
@@ -170,7 +174,15 @@ public class StartFrame extends javax.swing.JFrame {
         if (!this.userDB.doesAccountExist(player2Lbl.getText())) {
             this.userDB.addNewUser(player2Lbl.getText());
         }
+        playerOne.setNumberOfWins(this.userDB.getWins(playerOne.getName()));
+        playerTwo.setNumberOfWins(this.userDB.getWins(playerTwo.getName()));
         //this.userDB.increaseWins(player1Lbl.getText());
+        //JOptionPane
+        JOptionPane.showMessageDialog(this, "Welcome to ChessHits\n"
+                + playerOne.getName() + " has won " + playerOne.getNumberOfWins() + " time(s)\n"
+                + playerTwo.getName() + " has won " + playerTwo.getNumberOfWins() + " time(s)");
+
+        //JoptionPane
         System.out.println(player1Lbl.getText() + " has won " + userDB.getWins(player1Lbl.getText()) + " game(s)");
         System.out.println(player2Lbl.getText() + " has won " + userDB.getWins(player2Lbl.getText()) + " game(s)");
         {

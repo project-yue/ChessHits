@@ -167,8 +167,8 @@ public class Pawn extends Piece {
             } else if (getCurrentPosition().getColumn() == end.getColumn()) {
                 Position temp1 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 1][getCurrentPosition().getColumn()];
                 Position temp2 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 2][getCurrentPosition().getColumn()];
-                Square tempSqr1 = super.getBoard().getSquare(temp2);
-                Square tempSqr2 = super.getBoard().getSquare(temp1);
+                Square tempSqr1 = super.getBoard().getSquare(temp1);
+                Square tempSqr2 = super.getBoard().getSquare(temp2);
                 if (super.getBoard().getSquare(temp1).isSquareAvailable()) {
                     squares.add(tempSqr1);
                     if (super.getBoard().getSquare(temp2).isSquareAvailable()) {

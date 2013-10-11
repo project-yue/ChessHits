@@ -6,7 +6,7 @@ package nz.ac.aut.pdc.ChessHits.GUI;
 
 import java.awt.Component;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Square;
@@ -158,6 +158,13 @@ public class SqurarePanel extends javax.swing.JPanel {
                 sp.fullUpdate();
             }
             this.frame.update();
+        }
+        if (!this.game.getGameStatus()) {
+            int option = JOptionPane.showConfirmDialog(frame, this.game.getWinner().getName()
+                    + "has won the game.\n Would you like to play again?");
+            if (option == 0) {
+                this.frame.startNewGame();
+            }
         }
 
     }//GEN-LAST:event_lblRepMouseReleased
