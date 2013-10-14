@@ -21,7 +21,7 @@ import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
  * file.
  * @version 20-08-13 implemented draft move control.
  */
-public class ChessHitsGame {
+public class ChessHitsGame implements java.io.Serializable {
 
     // constants
 //    private static final String FILENAME = "SquareData.txt";

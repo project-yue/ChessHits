@@ -185,6 +185,7 @@ public class StartFrame extends javax.swing.JFrame {
         //JoptionPane
         System.out.println(player1Lbl.getText() + " has won " + userDB.getWins(player1Lbl.getText()) + " game(s)");
         System.out.println(player2Lbl.getText() + " has won " + userDB.getWins(player2Lbl.getText()) + " game(s)");
+        this.dispose();
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {

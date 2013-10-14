@@ -134,7 +134,7 @@ public class Pawn extends Piece {
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Collection<Square> squares = new HashSet<>();
-        if (super.getColor() != Color.BLACK) {
+        if (super.getColor() == Color.WHITE) {
             if (getCurrentPosition().getColumn() < end.getColumn()) {
                 Position temp = super.getBoard().getPositions()[getCurrentPosition().getRow() + 1][getCurrentPosition().getColumn() + 1];
                 Square tempSqr = super.getBoard().getSquare(temp);
@@ -145,12 +145,16 @@ public class Pawn extends Piece {
                 squares.add(tempSqr);
             } else if (getCurrentPosition().getColumn() == end.getColumn()) {
                 Position temp1 = super.getBoard().getPositions()[getCurrentPosition().getRow() + 1][getCurrentPosition().getColumn()];
-                Position temp2 = super.getBoard().getPositions()[getCurrentPosition().getRow() + 2][getCurrentPosition().getColumn()];
                 Square tempSqr1 = super.getBoard().getSquare(temp1);
-                Square tempSqr2 = super.getBoard().getSquare(temp2);
+                Position temp2 = null;
+                Square tempSqr2 = null;
+                if (super.getCurrentPosition().getRow() < 6) {
+                    temp2 = super.getBoard().getPositions()[getCurrentPosition().getRow() + 2][getCurrentPosition().getColumn()];
+                    tempSqr2 = super.getBoard().getSquare(temp2);
+                }
                 if (super.getBoard().getSquare(temp1).isSquareAvailable()) {
                     squares.add(tempSqr1);
-                    if (super.getBoard().getSquare(temp2).isSquareAvailable()) {
+                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable()) {
                         squares.add(tempSqr2);
                     }
                 }
@@ -166,12 +170,16 @@ public class Pawn extends Piece {
                 squares.add(tempSqr);
             } else if (getCurrentPosition().getColumn() == end.getColumn()) {
                 Position temp1 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 1][getCurrentPosition().getColumn()];
-                Position temp2 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 2][getCurrentPosition().getColumn()];
                 Square tempSqr1 = super.getBoard().getSquare(temp1);
-                Square tempSqr2 = super.getBoard().getSquare(temp2);
+                Position temp2 = null;
+                Square tempSqr2 = null;
+                if (super.getCurrentPosition().getRow() > 1) {
+                    temp2 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 2][getCurrentPosition().getColumn()];
+                    tempSqr2 = super.getBoard().getSquare(temp2);
+                }
                 if (super.getBoard().getSquare(temp1).isSquareAvailable()) {
                     squares.add(tempSqr1);
-                    if (super.getBoard().getSquare(temp2).isSquareAvailable()) {
+                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable()) {
                         squares.add(tempSqr2);
                     }
                 }
