@@ -18,6 +18,13 @@ public class Queen extends Piece {
 
     private final String STRING_REPRESENTATION = "Q";
 
+    /**
+     * construct a queen
+     * @param board the board to hold queen
+     * @param hitPoint how many hit point of queen
+     * @param position the position of queen
+     * @param color the color of queen
+     */
     public Queen(Board board, int hitPoint, Position position, Color color) {
         super(board, hitPoint, position, color);
     }
@@ -54,6 +61,11 @@ public class Queen extends Piece {
         return super.determineColor() + this.STRING_REPRESENTATION;
     }
 
+    /**
+     * get all possible moves of queen
+     * @param end the source position
+     * @return all possible squares
+     */
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Collection<Square> squares = new HashSet<>();

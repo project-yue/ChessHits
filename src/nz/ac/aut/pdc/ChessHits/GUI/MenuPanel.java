@@ -8,13 +8,19 @@ import nz.ac.aut.pdc.ChessHits.model.Player;
 
 /**
  *
- * @author gl
+ * @author gl Modified by Yue
+ *
  */
 public class MenuPanel extends javax.swing.JPanel {
 
     private Player playerOne;
-private Player playerTwo;
+    private Player playerTwo;
 
+    /**
+     * 
+     * @param playerOne
+     * @param playerTwo 
+     */
     MenuPanel(Player playerOne, Player playerTwo) {
         initComponents();
         this.playerOne = playerOne;
@@ -22,7 +28,7 @@ private Player playerTwo;
         update();
     }
 
-       public void update() {
+    private void update() {
         if (playerOne.getIsTurn()) {
             lblPlayer.setText("playersTurn: \n" + playerOne.getName());
             lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
@@ -32,6 +38,7 @@ private Player playerTwo;
         }
         this.validate();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

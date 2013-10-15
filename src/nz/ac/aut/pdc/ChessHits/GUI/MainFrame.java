@@ -15,8 +15,8 @@ import nz.ac.aut.pdc.ChessHits.model.Player;
 // Variables declaration - do not modify                     
 // End of variables declaration                   
 /**
- *
- * @author gl
+ * frame provides view to players
+ * @author gl Modified by Yue
  */
 public class MainFrame extends javax.swing.JFrame {
 
@@ -29,6 +29,14 @@ public class MainFrame extends javax.swing.JFrame {
             + "Hits: when a piece moves to the opponent's \"territory\" hits occur between the attacker and defender.\n"
             + "The dead pieces shall be removed from board\nWinning: The player gets opponent's king wins.";
 
+    /**
+     * Construct a game frame to hold all the components
+     * 
+     * @param playerOne one player of the game
+     * @param playerTwo the other player of the game
+     * @param game the ChessHitsGame
+     * @param isPlayerOneWhite is playerOne plays as White
+     */
     MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean isPlayerOneWhite) {
         this.game = game;
         this.playerOne = playerOne;
@@ -54,6 +62,9 @@ public class MainFrame extends javax.swing.JFrame {
         updateText();
     }
 
+    /**
+     * update the player label and the color of player's turn
+     */
     protected void updateText() {
         if (playerOne.getIsTurn()) {
             lblPlayerMoveTurn.setText("turn: " + playerOne.getName());
@@ -64,6 +75,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * construct a panel as Chess board
+     */
     private void setUpPanels() {
         int row = board.getHeight();
         int col = board.getWidth();
@@ -76,6 +90,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * restart game with same players
+     */
     public void startNewGame() {
         this.game = new ChessHitsGame();
         this.gamePanel.removeAll();
@@ -95,8 +112,6 @@ public class MainFrame extends javax.swing.JFrame {
             this.playerTwo.setIsTurn(true);
         }
         this.setVisible(true);
-        //StartFrame start = new StartFrame(game);
-        //start.setVisible(true);
     }
 
     /**

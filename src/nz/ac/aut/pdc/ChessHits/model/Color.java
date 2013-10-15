@@ -5,8 +5,8 @@
 package nz.ac.aut.pdc.ChessHits.model;
 
 /**
- *
- * @author makingitbettergo
+ * Chess pieces have either white or black as their colors
+ * @author yue
  */
 public enum Color {
 
@@ -16,7 +16,10 @@ public enum Color {
     private Color(String text) {
         this.text = text;
     }
-    
+    /**
+     * get text representation of color
+     * @return "White" or "Black"
+     */
     public String getTextRepresentation(){
         return this.text;
     }

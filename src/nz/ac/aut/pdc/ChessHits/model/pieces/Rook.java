@@ -22,11 +22,25 @@ public class Rook extends Piece {
     private final String STRING_REPRESENTATION = "R";
     private boolean isAbleToCastle;
 
+    /**
+     * construct a rook object
+     *
+     * @param board the board that rook will be on
+     * @param hitPoint the hit points of rook
+     * @param position the initial position of rook
+     * @param color the color of rook
+     */
     public Rook(Board board, int hitPoint, Position position, Color color) {
         super(board, hitPoint, position, color);
         this.isAbleToCastle = true;
     }
 
+    /**
+     * move rook to a position
+     *
+     * @param targetPosition the target position
+     * @return true if rook is moved, false otherwise
+     */
     @Override
     public boolean move(Position targetPosition) {
         boolean isMoveSuccessful = false;
@@ -38,19 +52,40 @@ public class Rook extends Piece {
         return isMoveSuccessful;
     }
 
+    /**
+     * disable castle status
+     *
+     * @deprecated
+     */
     public void disableCastle() {
         this.isAbleToCastle = false;
     }
 
+    /**
+     * get castle status
+     *
+     * @return true if rook is able to castle, false otherwise
+     * @deprecated
+     */
     public boolean getCastleStatus() {
         return this.isAbleToCastle;
     }
 
+    /**
+     * get rook's representation
+     *
+     * @return string representation
+     */
     @Override
     public String getStringRepresentation() {
         return super.determineColor() + this.STRING_REPRESENTATION;
     }
 
+    /**
+     * get all possible move square of rook
+     * @param end the source position
+     * @return all possible squares to move
+     */
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Collection<Square> squares = new HashSet<>();

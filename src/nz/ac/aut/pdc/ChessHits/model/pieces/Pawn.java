@@ -131,6 +131,11 @@ public class Pawn extends Piece {
         return super.determineColor() + this.STRING_REPRESENTATION;
     }
 
+    /**
+     * get all possible moves of pawn
+     * @param end the source position
+     * @return all the squares that pawn is able to move
+     */
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Collection<Square> squares = new HashSet<>();

@@ -15,7 +15,7 @@ import nz.ac.aut.pdc.ChessHits.model.pieces.Piece;
 
 /**
  *
- * @author gl
+ * @author gl modified by Yue
  */
 public class SqurarePanel extends javax.swing.JPanel {
 

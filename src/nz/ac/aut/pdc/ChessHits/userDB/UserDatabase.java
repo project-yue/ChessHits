@@ -14,8 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * A database organizes the user accounts in ChessHitsGame
  *
- * @author makingitbettergo
+ * @author Yue Li
  */
 public class UserDatabase {
 
@@ -25,6 +26,9 @@ public class UserDatabase {
     private String passwordDerby = "hits";
     Connection conn;
 
+    /**
+     * start connection with an existing database
+     */
     public void establishConnection() {
         try {
             conn = DriverManager.getConnection(url, usernameDerby, passwordDerby);
@@ -36,12 +40,14 @@ public class UserDatabase {
 
     }
 
+    /**
+     * create user account table
+     */
     public void createTable() {
         try {
             Statement statement = conn.createStatement();
             String sqlCreate = "CREATE TABLE " + this.DB_NAME + "(ID VARCHAR(14), WINS INT, PWD VARCHAR(10))";
             statement.executeUpdate(sqlCreate);
-            //statement.close();
             System.out.println("Table created");
 
         } catch (SQLException ex) {
@@ -49,6 +55,11 @@ public class UserDatabase {
         }
     }
 
+    /**
+     * identify whether the user exists in the database
+     *
+     * @return true the user is a returning player, false otherwise
+     */
     public boolean doesUserTableExist() {
         boolean result = false;
         try {
@@ -63,6 +74,13 @@ public class UserDatabase {
         return result;
     }
 
+    /**
+     * match password with user input
+     *
+     * @param password the password that user typed in
+     * @param account the account in the table
+     * @return true if passwords match, false otherwise
+     */
     public boolean matchPasswords(String password, String account) {
         boolean isPasswordValid = false;
         try {
@@ -80,6 +98,12 @@ public class UserDatabase {
         return isPasswordValid;
     }
 
+    /**
+     * does the account exist in the user table
+     *
+     * @param accountName the account to be searched in database
+     * @return true if the account is found, false otherwise
+     */
     public boolean doesAccountExist(String accountName) {
         boolean isFound = false;
         try {
@@ -98,6 +122,12 @@ public class UserDatabase {
         return isFound;
     }
 
+    /**
+     * insert new user information to user table
+     *
+     * @param userName the accountName to be inserted
+     * @param pwd the password of the account to be inserted
+     */
     public void addNewUser(String userName, String pwd) {
         try {
             Statement statement = conn.createStatement();
@@ -112,6 +142,12 @@ public class UserDatabase {
 
     }
 
+    /**
+     * retrieve how many wins of a player
+     *
+     * @param userName the user account to be searched in the table
+     * @return true if the account is found, false otherwise
+     */
     public int getWins(String userName) {
         int wins = -1;
         try {
@@ -129,6 +165,11 @@ public class UserDatabase {
         return wins;
     }
 
+    /**
+     * increase a user's winning times by 1
+     *
+     * @param userName the winner
+     */
     public void increaseWins(String userName) {
         int currentWins = getWins(userName);
         currentWins++;
@@ -141,28 +182,9 @@ public class UserDatabase {
         }
     }
 
-    public void getQuery(String accountName) {
-        ResultSet rs = null;
-        try {
-            System.out.println(" getting user query....");
-            Statement statement = conn.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
-            String sqlQuery = "select ID, from " + "where brand='Toyota'";
-            rs = statement.executeQuery(sqlQuery);
-            rs.beforeFirst();
-            while (rs.next()) {
-                String model = rs.getString("model"); // 1
-                int price = rs.getInt(2);
-                System.out.println(model + ":  $" + price);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //return(rs);  
-    }
-
+    /**
+     * close connection
+     */
     public void closeConnections() {
         if (conn != null) {
             try {

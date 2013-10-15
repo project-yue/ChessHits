@@ -25,6 +25,12 @@ public class Knight extends Piece {
         super(board, hitPoint, position, color);
     }
 
+    /**
+     * move knight to a position
+     *
+     * @param targetPosition the target position
+     * @return true if knight is able to move, false otherwise
+     */
     @Override
     public boolean move(Position targetPosition) {
         boolean isMoveSuccessful = false;
@@ -38,53 +44,30 @@ public class Knight extends Piece {
 
     }
 
+    /**
+     * get piece's string representation
+     *
+     * @return the color + string N
+     */
     @Override
     public String getStringRepresentation() {
         return super.determineColor() + this.STRING_REPRESENTATION;
     }
 
+    /**
+     * get all possible moves for a knight
+     *
+     * @param end the source position
+     * @return all the possible move squares
+     */
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Board board = super.getBoard();
         Position nwt = null, nwd = null, net = null, ned = null, swt = null, swd = null, set = null, sed = null;
-        //Position[] positions = {nwt, nwd, net, ned, swt, swd, set, sed};
         ArrayList<Position> positions = new ArrayList<>();
         Collection<Square> squares = new HashSet<>();
         int currentCol = getCurrentPosition().getColumn();
         int currentRow = getCurrentPosition().getRow();
-//        if (currentRow > 0 && currentCol > 0 && board.getPositions()[currentRow - 2][currentCol - 1] != null) {
-//            nwt = board.getPositions()[currentRow - 2][currentCol - 1];
-//            positions.add(nwt);
-//        }
-//        if (currentRow > 0 && currentCol > 1 && board.getPositions()[currentRow - 1][currentCol - 2] != null) {
-//            nwd = board.getPositions()[currentRow - 1][currentCol - 2];
-//            positions.add(nwd);
-//        }
-//        if (currentRow > 2 && currentCol < 6 && board.getPositions()[currentRow - 2][currentCol + 1] != null) {
-//            net = board.getPositions()[currentRow - 2][currentCol + 1];
-//            positions.add(net);
-//        }
-//        if (currentRow > 0 && currentCol < 5 && board.getPositions()[currentRow - 1][currentCol + 2] != null) {
-//            ned = board.getPositions()[currentRow - 1][currentCol + 2];
-//            positions.add(ned);
-//        }
-//        if (currentRow < 7 && currentCol > 1 && board.getPositions()[currentRow + 1][currentCol - 2] != null) {
-//            swt = board.getPositions()[currentRow + 1][currentCol - 2];
-//            positions.add(swt);
-//        }
-//        if (currentRow < 6 && currentCol > 0 && board.getPositions()[currentRow + 2][currentCol - 1] != null) {
-//            swd = board.getPositions()[currentRow + 2][currentCol - 1];
-//            positions.add(swd);
-//        }
-//        if (currentRow < 7 && currentCol < 6 && board.getPositions()[currentRow + 1][currentCol + 2] != null) {
-//            set = board.getPositions()[currentRow + 1][currentCol + 2];
-//            positions.add(set);
-//        }
-//        if (currentRow < 6 && currentCol < 6
-//                && board.getPositions()[currentRow + 2][currentCol + 1] != null) {
-//            sed = board.getPositions()[currentRow + 2][currentCol + 1];
-//            positions.add(sed);
-//        }
         if (currentRow > 1 && currentCol > 0 && board.getPositions()[currentRow - 2][currentCol - 1] != null) {
             nwt = board.getPositions()[currentRow - 2][currentCol - 1];
             positions.add(nwt);

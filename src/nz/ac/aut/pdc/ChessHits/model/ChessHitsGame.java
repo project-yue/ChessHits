@@ -47,6 +47,13 @@ public class ChessHitsGame implements java.io.Serializable {
         generatePawns(WHITE);
     }
 
+    /**
+     * test if pawn is able to fork a piece
+     *
+     * @param piece the pawn
+     * @param toPos the place to be forked
+     * @return true if pawn is able to fork, false otherwise
+     */
     private boolean isPawnAbleFork(Piece piece, Position toPos) {
         boolean isSuccessful = false;
         Pawn forkPawn = (Pawn) piece;
@@ -82,20 +89,43 @@ public class ChessHitsGame implements java.io.Serializable {
         }
     }
 
+    /**
+     * get a square from board
+     *
+     * @param row row of the square
+     * @param col column of the square
+     * @return the square to be selected
+     */
     public Square getSquare(int row, int col) {
         return this.board.getSquare(board.getPositions()[row][col]);
 
     }
 
+    /**
+     * get board
+     *
+     * @return the board
+     */
     public Board getBoard() {
         return this.board;
     }
 
+    /**
+     * get piece from a position
+     *
+     * @param position the position of the piece
+     * @return the piece of the position
+     */
     private Piece getPiece(Position position) {
         return board.getSquare(position).getOccupiedPiece();
 
     }
 
+    /**
+     * set database
+     *
+     * @param database the database to be selected
+     */
     public void setDataBase(UserDatabase database) {
         this.userDB = database;
     }
@@ -109,16 +139,21 @@ public class ChessHitsGame implements java.io.Serializable {
      */
     private boolean movePlayerPiece(Position curPos, Position tarPos) {
         Piece piece = getPiece(curPos);
-        Square tarSquare = this.board.getSquare(tarPos);
         boolean isMoved = false;
-        // checking if it is a valid move and on the board
-        boolean isPawn = piece instanceof Pawn;
         if (positionOnBoard(tarPos)) {
             isMoved = determineMoveOrAttack(piece, tarPos);
         }
         return isMoved;
     }
 
+    /**
+     * a piece moves to a square if the square is available, or it attacks the
+     * piece of the square
+     *
+     * @param piece piece to move
+     * @param toPos move to position
+     * @return true if piece performed a move or attack, false otherwise
+     */
     private boolean determineMoveOrAttack(Piece piece, Position toPos) {
         boolean isMoved = false;
         Square destSquare = this.board.getSquare(toPos);
@@ -140,6 +175,13 @@ public class ChessHitsGame implements java.io.Serializable {
 
     }
 
+    /**
+     * chess piece battle
+     *
+     * @param fromPiece the attacker
+     * @param toPiece the defender
+     * @return true if battle occurred, false otherwise
+     */
     private boolean attackPiece(Piece fromPiece, Piece toPiece) {
         boolean isSuccessful = false;
         if (fromPiece instanceof Pawn && toPiece != null && toPiece.isAlive()) {
@@ -166,8 +208,7 @@ public class ChessHitsGame implements java.io.Serializable {
                 toPiece.attack(fromPiece);
             }
             isSuccessful = true;
-
-        }// should add checking whether the attack piece reaches 0 hp
+        }
         if (!fromPiece.isAlive()) {
             Position temPos = fromPiece.getCurrentPosition();
             this.board.getSquare(temPos).removePiece(fromPiece);
@@ -195,10 +236,8 @@ public class ChessHitsGame implements java.io.Serializable {
                     break;
             }
             this.userDB.increaseWins(this.winner.getName());
-            System.out.println(" lost the game");
+            System.out.println(this.winner + " won the game");
             this.isGameRunning = false;
-            System.out.println("press any key to continue");
-            userInputReader.nextLine();
         } else {
             if (isSuccessful && fromPiece.isAlive()) {
                 System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
@@ -214,8 +253,7 @@ public class ChessHitsGame implements java.io.Serializable {
         return isSuccessful;
     }
 
-
-    /*
+    /**
      * generate higher rank pieces for selected color
      *
      * @param color the color for a set of pieces to be
@@ -266,6 +304,12 @@ public class ChessHitsGame implements java.io.Serializable {
         temSquare.addPiece(king);
     }
 
+    /**
+     * check if piece is on board
+     *
+     * @param position the position to be checked
+     * @return true if it is, false otherwise
+     */
     private boolean positionOnBoard(Position position) {
         boolean isOnBoard = false;
         if (position.getRow() >= 0 && position.getColumn() >= 0
@@ -276,10 +320,22 @@ public class ChessHitsGame implements java.io.Serializable {
         return isOnBoard;
     }
 
+    /**
+     * get whether a game is running at the moment
+     *
+     * @return true if a game is running, false otherwise
+     */
     public boolean getGameStatus() {
         return this.isGameRunning;
     }
 
+    /**
+     * move a piece
+     *
+     * @param piece piece to move
+     * @param square square that piece moves onto
+     * @return true if piece moved, false otherwise
+     */
     private boolean movePieceTo(Piece piece, Square square) {
         boolean isSuccessful = false;
         if (square.isSquareAvailable() && piece.move(square.getPosition())) {
@@ -294,6 +350,12 @@ public class ChessHitsGame implements java.io.Serializable {
         return isSuccessful;
     }
 
+    /**
+     * determine whether a square is selected
+     *
+     * @param square the square to be selected
+     * @return true if is selected, false otherwise
+     */
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
         try {
@@ -324,6 +386,12 @@ public class ChessHitsGame implements java.io.Serializable {
         return turn;
     }
 
+    /**
+     * get player
+     *
+     * @param color the color to be selected
+     * @return player with the specified color
+     */
     public Player getPlayer(Color color) {
         Player player = null;
         switch (color) {
@@ -340,18 +408,38 @@ public class ChessHitsGame implements java.io.Serializable {
         return player;
     }
 
+    /**
+     * get the winner of a game
+     *
+     * @return the winner player
+     */
     public Player getWinner() {
         return this.winner;
     }
 
+    /**
+     * set a player for black pieces
+     *
+     * @param player the player to be chosen
+     */
     public void setBlackPlayer(Player player) {
-        blackPlayer = player;
+        this.blackPlayer = player;
     }
 
+    /**
+     * set a player for white pieces
+     *
+     * @param player the player to be chosen
+     */
     public void setWhitePlayer(Player player) {
-        whitePlayer = player;
+        this.whitePlayer = player;
     }
 
+    /**
+     * set white's turn
+     *
+     * @param whiteTurn
+     */
     public void setWhiteTurn(boolean whiteTurn) {
         this.whiteTurn = whiteTurn;
     }

@@ -8,7 +8,6 @@ package nz.ac.aut.pdc.ChessHits.model.pieces;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Scanner;
 import nz.ac.aut.pdc.ChessHits.model.*;
 
@@ -73,18 +72,6 @@ public class King extends Piece {
         }
     }
 
-    public boolean performCastling() {
-        boolean isPerformed = false;
-        if (this.getCastleStatus()) {
-            Scanner input = new Scanner(System.in);
-            System.out.println("Would you wish to perform castling?(y/n)"); //can be replaced by do while loop?
-            String userAnwser = input.next();
-            if (userAnwser.equals("y")) {
-            }
-        }
-        return isPerformed;
-    }
-
     /**
      * move King to a new position on the board
      *
@@ -116,6 +103,12 @@ public class King extends Piece {
         return super.determineColor() + this.STRING_REPRESENTATION;
     }
 
+    /**
+     * get all possible moves of piece
+     *
+     * @param end source position
+     * @return all the possible positions
+     */
     @Override
     public Collection<Square> allPossibleMoves(Position end) {
         Collection<Square> squares = new HashSet<>();

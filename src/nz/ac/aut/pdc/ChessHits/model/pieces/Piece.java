@@ -33,22 +33,45 @@ public abstract class Piece {
         this.board = board;
     }
 
+    /**
+     * reduce a piece's hit points by 1
+     */
     public void reduceHP() {
         this.hitPoint--;
     }
 
+    /**
+     * get hit points remaining of a piece
+     *
+     * @return the hit points remaining
+     */
     public int getHP() {
         return this.hitPoint;
     }
 
+    /**
+     * get whether a piece is alive
+     *
+     * @return true if hp > 0, false otherwise
+     */
     public boolean isAlive() {
         return this.hitPoint > 0;
     }
 
+    /**
+     * attack a piece by reducing hp by 1
+     *
+     * @param piece the hp of piece to be reduced
+     */
     public void attack(Piece piece) {
         piece.reduceHP();
     }
 
+    /**
+     * find out piece's color
+     *
+     * @return the color representation
+     */
     public String determineColor() {
         String textRep = "";
         if (this.getColor() == Color.BLACK) {
@@ -64,18 +87,42 @@ public abstract class Piece {
      */
     public abstract boolean move(Position position);
 
+    /**
+     * get piece string representation
+     *
+     * @return the representation
+     */
     public abstract String getStringRepresentation();
 
+    /**
+     * get all possible moves of the piece
+     *
+     * @param end the source position
+     * @return all possible squares
+     */
     public abstract Collection<Square> allPossibleMoves(Position end);
 
+    /**
+     * get current position of the piece
+     *
+     * @return current position
+     */
     public Position getCurrentPosition() {
         return this.position;
     }
 
+    /**
+     * get the color of the piece
+     * @return the color
+     */
     public Color getColor() {
         return this.color;
     }
 
+    /**
+     * get game's board
+     * @return the board
+     */
     public Board getBoard() {
         return this.board;
     }
