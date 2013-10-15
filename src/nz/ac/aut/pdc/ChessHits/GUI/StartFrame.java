@@ -5,6 +5,9 @@
 package nz.ac.aut.pdc.ChessHits.GUI;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
@@ -15,7 +18,7 @@ import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
  * @author gl
  */
 public class StartFrame extends javax.swing.JFrame {
-
+    
     ChessHitsGame game;
     private UserDatabase userDB;
     private MainFrame mainFrame;
@@ -26,6 +29,7 @@ public class StartFrame extends javax.swing.JFrame {
     public StartFrame(ChessHitsGame game) {
         this.game = game;
         initComponents();
+        
         javax.swing.ButtonGroup bg = new javax.swing.ButtonGroup();
         bg.add(blackJradioB);
         bg.add(whiteJradioB);
@@ -39,10 +43,51 @@ public class StartFrame extends javax.swing.JFrame {
         }
         this.game.setDataBase(userDB);
         //jdbc ends
+        setUpTextFieldLength();
     }
-
+    
     public MainFrame getMainFrame() {
         return this.mainFrame;
+    }
+    
+    private void setUpTextFieldLength() {
+        player1TextField.setDocument(new PlainDocument() {
+            @Override
+            public void insertString(int offs, String str, AttributeSet a)
+                    throws BadLocationException {
+                if (getLength() + str.length() <= 14) {
+                    super.insertString(offs, str, a);
+                }
+            }
+        });
+        player2TextField.setDocument(new PlainDocument() {
+            @Override
+            public void insertString(int offs, String str, AttributeSet a)
+                    throws BadLocationException {
+                if (getLength() + str.length() <= 14) {
+                    super.insertString(offs, str, a);
+                }
+            }
+        });
+        jPasswordField1.setDocument(new PlainDocument() {
+            @Override
+            public void insertString(int offs, String str, AttributeSet a)
+                    throws BadLocationException {
+                if (getLength() + str.length() <= 10) {
+                    super.insertString(offs, str, a);
+                }
+            }
+        });
+        
+        jPasswordField2.setDocument(new PlainDocument() {
+            @Override
+            public void insertString(int offs, String str, AttributeSet a)
+                    throws BadLocationException {
+                if (getLength() + str.length() <= 10) {
+                    super.insertString(offs, str, a);
+                }
+            }
+        });
     }
 
     /**
@@ -55,13 +100,17 @@ public class StartFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         submit = new javax.swing.JButton();
-        player1Lbl = new javax.swing.JTextField();
+        player1TextField = new javax.swing.JTextField();
         blackJradioB = new javax.swing.JRadioButton();
         whiteJradioB = new javax.swing.JRadioButton();
-        player2Lbl = new javax.swing.JTextField();
+        player2TextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +130,10 @@ public class StartFrame extends javax.swing.JFrame {
 
         whiteJradioB.setText("white");
 
-        player2Lbl.setName(""); // NOI18N
-        player2Lbl.addActionListener(new java.awt.event.ActionListener() {
+        player2TextField.setName(""); // NOI18N
+        player2TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                player2LblActionPerformed(evt);
+                player2TextFieldActionPerformed(evt);
             }
         });
 
@@ -93,6 +142,14 @@ public class StartFrame extends javax.swing.JFrame {
         jLabel2.setText("Player Two name:");
 
         jLabel3.setText("Player One color:");
+
+        jLabel4.setText("1P Password:");
+
+        jLabel5.setText("2P Password:");
+
+        jPasswordField1.setText("jPasswordField1");
+
+        jPasswordField2.setText("jPasswordField2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,17 +161,27 @@ public class StartFrame extends javax.swing.JFrame {
                 .addGap(136, 136, 136))
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(player1Lbl)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(blackJradioB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(whiteJradioB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(player2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(player1TextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(blackJradioB, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(whiteJradioB, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(player2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -127,15 +194,23 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(player1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                    .addComponent(player1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(player2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(blackJradioB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(whiteJradioB)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addComponent(submit)
                 .addGap(33, 33, 33))
         );
@@ -146,52 +221,68 @@ public class StartFrame extends javax.swing.JFrame {
     private void blackJradioBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blackJradioBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_blackJradioBActionPerformed
-
-    private void player2LblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2LblActionPerformed
+    
+    private void player2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_player2LblActionPerformed
-
+    }//GEN-LAST:event_player2TextFieldActionPerformed
+    
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Player playerOne = null;
         Player playerTwo = null;
         boolean isPlayerOneWhite = false;
         if (blackJradioB.isSelected()) {
-
-            playerOne = new Player(player1Lbl.getText(), Color.BLACK);
-            playerTwo = new Player(player2Lbl.getText(), Color.WHITE);
-
+            
+            playerOne = new Player(player1TextField.getText(), Color.BLACK);
+            playerTwo = new Player(player2TextField.getText(), Color.WHITE);
+            
         } else {
-            playerOne = new Player(player1Lbl.getText(), Color.WHITE);
-            playerTwo = new Player(player2Lbl.getText(), Color.BLACK);
+            playerOne = new Player(player1TextField.getText(), Color.WHITE);
+            playerTwo = new Player(player2TextField.getText(), Color.BLACK);
             isPlayerOneWhite = true;
         }
         this.setVisible(false);
         final MainFrame gameMainFrame = new MainFrame(playerOne, playerTwo, game, isPlayerOneWhite);
         this.mainFrame = gameMainFrame;
-        if (!this.userDB.doesAccountExist(player1Lbl.getText())) {
-            this.userDB.addNewUser(player1Lbl.getText());
+        boolean shouldRun = true;
+        String player1Pass = new String(jPasswordField1.getPassword());
+        String player2Pass = new String(jPasswordField2.getPassword());
+        if (!this.userDB.doesAccountExist(player1TextField.getText())) {
+            this.userDB.addNewUser(player1TextField.getText(), player1Pass);
+        } else {
+            if (!this.userDB.matchPasswords(player1Pass, player1TextField.getText())) {
+                shouldRun = false;
+            }
         }
-        if (!this.userDB.doesAccountExist(player2Lbl.getText())) {
-            this.userDB.addNewUser(player2Lbl.getText());
+        if (!this.userDB.doesAccountExist(player2TextField.getText())) {
+            this.userDB.addNewUser(player2TextField.getText(), player2Pass);
+        } else {
+            if (!this.userDB.matchPasswords(player2Pass, player2TextField.getText())) {
+                shouldRun = false;
+            }
         }
-        playerOne.setNumberOfWins(this.userDB.getWins(playerOne.getName()));
-        playerTwo.setNumberOfWins(this.userDB.getWins(playerTwo.getName()));
-        //this.userDB.increaseWins(player1Lbl.getText());
-        //JOptionPane
-        JOptionPane.showMessageDialog(this, "Welcome to ChessHits\n"
-                + playerOne.getName() + " has won " + playerOne.getNumberOfWins() + " time(s)\n"
-                + playerTwo.getName() + " has won " + playerTwo.getNumberOfWins() + " time(s)");
+        if (shouldRun) {
+            playerOne.setNumberOfWins(this.userDB.getWins(playerOne.getName()));
+            playerTwo.setNumberOfWins(this.userDB.getWins(playerTwo.getName()));
+            //JOptionPane
+            JOptionPane.showMessageDialog(this, "Welcome to ChessHits\n"
+                    + playerOne.getName() + " has won " + playerOne.getNumberOfWins() + " time(s)\n"
+                    + playerTwo.getName() + " has won " + playerTwo.getNumberOfWins() + " time(s)");
 
-        //JoptionPane
-        System.out.println(player1Lbl.getText() + " has won " + userDB.getWins(player1Lbl.getText()) + " game(s)");
-        System.out.println(player2Lbl.getText() + " has won " + userDB.getWins(player2Lbl.getText()) + " game(s)");
-        this.dispose();
-        {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    gameMainFrame.setVisible(true);
-                }
-            });
+            //JoptionPane
+            System.out.println(player1TextField.getText() + " has won " + userDB.getWins(player1TextField.getText()) + " game(s)");
+            System.out.println(player2TextField.getText() + " has won " + userDB.getWins(player2TextField.getText()) + " game(s)");
+            this.dispose();
+            {
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        gameMainFrame.setVisible(true);
+                    }
+                });
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Either of the password failed,\n Please try again");
+            this.setAlwaysOnTop(true);
+            this.setVisible(true);
         }
     }//GEN-LAST:event_submitActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -199,23 +290,13 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private static javax.swing.JTextField player1Lbl;
-    private static javax.swing.JTextField player2Lbl;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private static javax.swing.JTextField player1TextField;
+    private static javax.swing.JTextField player2TextField;
     private javax.swing.JButton submit;
     private javax.swing.JRadioButton whiteJradioB;
     // End of variables declaration//GEN-END:variables
-//    private void setListener() {
-//        player1Lbl.addCaretListener(new CaretListener() {
-//
-//            @Override
-//            public void caretUpdate(CaretEvent ce) {
-//                String player1Text = player1Lbl.getText();
-//                if(player1Text.length() > 15){
-//                 
-//                    player1Lbl.setText( player1Text.substring(0, 14));
-//                }
-//                
-//            }
-//        });
-//    }
 }

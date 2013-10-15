@@ -18,37 +18,37 @@ import java.util.logging.Logger;
  * @author makingitbettergo
  */
 public class UserDatabase {
-    
+
     private String url = "jdbc:derby:ChessHitsUsersDB;create=true";
     private String DB_NAME = "CH_USER";
     private String usernameDerby = "hits";
     private String passwordDerby = "hits";
     Connection conn;
-    
+
     public void establishConnection() {
         try {
             conn = DriverManager.getConnection(url, usernameDerby, passwordDerby);
             System.out.println(url + "   connected....");
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void createTable() {
         try {
             Statement statement = conn.createStatement();
-            String sqlCreate = "CREATE TABLE " + this.DB_NAME + "(ID VARCHAR(20), WINS INT)";
+            String sqlCreate = "CREATE TABLE " + this.DB_NAME + "(ID VARCHAR(14), WINS INT, PWD VARCHAR(10))";
             statement.executeUpdate(sqlCreate);
             //statement.close();
             System.out.println("Table created");
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean doesUserTableExist() {
         boolean result = false;
         try {
@@ -62,7 +62,24 @@ public class UserDatabase {
         }
         return result;
     }
-    
+
+    public boolean matchPasswords(String password, String account) {
+        boolean isPasswordValid = false;
+        try {
+            Statement statement = this.conn.createStatement();
+            String selectAccountPwd = "SELECT PWD from " + this.DB_NAME + " where ID = '" + account + "'";
+            ResultSet rs = statement.executeQuery(selectAccountPwd);
+            while (rs.next()) {
+                if (rs.getString(1).equals(password)) {
+                    isPasswordValid = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isPasswordValid;
+    }
+
     public boolean doesAccountExist(String accountName) {
         boolean isFound = false;
         try {
@@ -70,7 +87,6 @@ public class UserDatabase {
             String selectComm = "SELECT ID from " + this.DB_NAME + " where ID = '" + accountName + "'";
             ResultSet rs = statement.executeQuery(selectComm);
             while (rs.next()) {
-                System.out.println(rs.getString(1));
                 if (rs.getString(1).equals(accountName)) {
                     isFound = true;
                 }
@@ -81,21 +97,21 @@ public class UserDatabase {
         }
         return isFound;
     }
-    
-    public void addNewUser(String userName) {
+
+    public void addNewUser(String userName, String pwd) {
         try {
             Statement statement = conn.createStatement();
             String sqlUpdate = "insert into " + this.DB_NAME + " values("
-                    + " '" + userName + "' , " + 0 + ")";
+                    + " '" + userName + "' , " + 0 + ", '" + pwd + "')";
             statement.executeUpdate(sqlUpdate);
             statement.close();
             System.out.println("new user added");
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public int getWins(String userName) {
         int wins = -1;
         try {
@@ -109,10 +125,10 @@ public class UserDatabase {
         } catch (SQLException ex) {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return wins;
     }
-    
+
     public void increaseWins(String userName) {
         int currentWins = getWins(userName);
         currentWins++;
@@ -124,7 +140,7 @@ public class UserDatabase {
             Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void getQuery(String accountName) {
         ResultSet rs = null;
         try {
@@ -146,7 +162,7 @@ public class UserDatabase {
 
         //return(rs);  
     }
-    
+
     public void closeConnections() {
         if (conn != null) {
             try {

@@ -6,7 +6,6 @@ package nz.ac.aut.pdc.ChessHits;
 
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.GUI.StartFrame;
-import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
 /**
  *

@@ -5,6 +5,7 @@
 package nz.ac.aut.pdc.ChessHits.GUI;
 
 import java.awt.Component;
+import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
@@ -51,6 +52,26 @@ public class SqurarePanel extends javax.swing.JPanel {
             this.setBackground(java.awt.Color.GRAY);
         } else {
             this.setBackground(java.awt.Color.WHITE);
+        }
+    }
+
+    private void update(Collection<Square> squares) {
+        lblRep.setIcon(null);
+        if (!square.isSquareAvailable()) {
+            String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
+            lblRep.setIcon(icon);
+            if (piece.getColor() == Color.BLACK) {
+                lblRep.setForeground(java.awt.Color.BLACK);
+            } else {
+                lblRep.setForeground(java.awt.Color.LIGHT_GRAY);
+            }
+
+        } else {
+            lblRep.setText("");
+        }
+        if (squares.contains(this.square)) {
+            lblRep.setBackground(java.awt.Color.GREEN);
         }
     }
 
@@ -105,6 +126,10 @@ public class SqurarePanel extends javax.swing.JPanel {
         }
     }
 
+    public Square getSquare() {
+        return this.square;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,7 +177,6 @@ public class SqurarePanel extends javax.swing.JPanel {
         boolean turn = game.getSelectedSquare(square);
         this.setBackground(java.awt.Color.ORANGE);
         piece = square.getOccupiedPiece();
-        update();
         for (Component component : getParent().getComponents()) {
             SqurarePanel sp = (SqurarePanel) component;
             if (turn) {
@@ -160,7 +184,7 @@ public class SqurarePanel extends javax.swing.JPanel {
             } else {
                 sp.fullUpdate();
             }
-            this.frame.update();
+            this.frame.updateText();
         }
         if (!this.game.getGameStatus()) {
             int option = JOptionPane.showConfirmDialog(frame, this.game.getWinner().getName()
