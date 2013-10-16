@@ -8,7 +8,6 @@ package nz.ac.aut.pdc.ChessHits.model.pieces;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Scanner;
 import nz.ac.aut.pdc.ChessHits.model.*;
 
 /**
@@ -26,7 +25,6 @@ public class King extends Piece {
 
     private final String STRING_REPRESENTATION = "K";
     private boolean isAbleToCastle;
-    private ChessHitsGame game;
 
     /**
      * construct a king object
@@ -34,9 +32,6 @@ public class King extends Piece {
      * @param hitPoint the times of attacks king can take
      * @param position the initial position king is
      * @param color the color of king
-     * @param isNotChecked resource check status of king
-     * @param isNotCheckmate resource checkmate status of king
-     * @param isNotStalemate resource stalemate status of king
      * @param isAbleToCastle resource castle ability of king
      */
     public King(Board board, int hitPoint, Position position, Color color, boolean isAbleToCastle) {
