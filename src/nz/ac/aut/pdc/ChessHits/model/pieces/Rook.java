@@ -6,10 +6,7 @@ package nz.ac.aut.pdc.ChessHits.model.pieces;
 
 import java.util.Collection;
 import java.util.HashSet;
-import nz.ac.aut.pdc.ChessHits.model.Board;
-import nz.ac.aut.pdc.ChessHits.model.Color;
-import nz.ac.aut.pdc.ChessHits.model.Position;
-import nz.ac.aut.pdc.ChessHits.model.Square;
+import nz.ac.aut.pdc.ChessHits.model.*;
 
 /**
  * Rook can move vertically or horizontally on chessboard
@@ -83,78 +80,89 @@ public class Rook extends Piece {
 
     /**
      * get all possible move square of rook
+     *
      * @param end the source position
      * @return all possible squares to move
      */
     @Override
-    public Collection<Square> allPossibleMoves(Position end) {
+    public Collection<Square> allPossibleMoves() {
         Collection<Square> squares = new HashSet<>();
         Board board = super.getBoard();
-        boolean isVertical = false, isHorizontal = false;
-        boolean isOccupiedNotFound = true;
+//        boolean isVertical = false, isHorizontal = false;
+        boolean isOccupiedNotFound;
         boolean shouldAddElement = true;
-        if (getCurrentPosition().getColumn() == end.getColumn()) {
-            //vertical
-            isVertical = true;
-        } else if (getCurrentPosition().getRow() == end.getRow()) {
-            //horizontal
-            isHorizontal = true;
+//        if (getCurrentPosition().getColumn() == end.getColumn()) {
+//            //vertical
+//            isVertical = true;
+//        } else if (getCurrentPosition().getRow() == end.getRow()) {
+//            //horizontal
+//            isHorizontal = true;
+//        }
+        Position tempPos;
+//        if (isVertical && getCurrentPosition().getRow() <= end.getRow()) {
+        //if (getCurrentPosition().getRow() < 7) {
+        int row = super.getCurrentPosition().getRow()+ 1;
+        while (row <= 7) {
+            tempPos = board.getPositions()[row][super.getCurrentPosition().getColumn()];
+            Square temSquare = board.getSquare(tempPos);
+            isOccupiedNotFound = temSquare.isSquareAvailable();
+            if (shouldAddElement) {
+                squares.add(temSquare);
+            }
+            if (!isOccupiedNotFound) {
+                shouldAddElement = false;
+            }
+            row++;
         }
-        Position tempPos = null;
-        if (isVertical && getCurrentPosition().getRow() <= end.getRow()) {
-            int row = getCurrentPosition().getRow() + 1;
-            for (int index = row; index <= end.getRow(); index++) {
-                tempPos = board.getPositions()[index][getCurrentPosition().getColumn()];
-                Square temSquare = board.getSquare(tempPos);
-                isOccupiedNotFound = temSquare.isSquareAvailable();
-                if (shouldAddElement) {
-                    squares.add(temSquare);
-                }
-                if (!isOccupiedNotFound) {
-                    shouldAddElement = false;
-                }
+//        }
+        shouldAddElement = true;
+//    else if (isVertical && getCurrentPosition().getRow() >= end.getRow()) {
+        row = super.getCurrentPosition().getRow() - 1;
+        while (row >= 0) {
+            tempPos = board.getPositions()[row][super.getCurrentPosition().getColumn()];
+            Square temSquare = board.getSquare(tempPos);
+            isOccupiedNotFound = !temSquare.isSquareAvailable();
+            if (shouldAddElement) {
+                squares.add(temSquare);
             }
-        } else if (isVertical && getCurrentPosition().getRow() >= end.getRow()) {
-            int row = getCurrentPosition().getRow() - 1;
-            for (int index = row; index >= end.getRow(); index--) {
-                tempPos = board.getPositions()[index][getCurrentPosition().getColumn()];
-                Square temSquare = board.getSquare(tempPos);
-                isOccupiedNotFound = !temSquare.isSquareAvailable();
-                if (shouldAddElement) {
-                    squares.add(temSquare);
-                }
-                if (isOccupiedNotFound) {
-                    shouldAddElement = false;
-                }
+            if (isOccupiedNotFound) {
+                shouldAddElement = false;
             }
-        } else if (isHorizontal && getCurrentPosition().getColumn() >= end.getColumn()) {
-            int col = getCurrentPosition().getColumn() - 1;
-            for (int index = col; index >= end.getColumn(); index--) {
-                tempPos = board.getPositions()[getCurrentPosition().getRow()][index];
-                Square temSquare = board.getSquare(tempPos);
-                isOccupiedNotFound = !temSquare.isSquareAvailable();
-                if (shouldAddElement) {
-                    squares.add(temSquare);
-                }
-                if (isOccupiedNotFound) {
-                    shouldAddElement = false;
-                }
-            }
-        } else if (isHorizontal && getCurrentPosition().getColumn() <= end.getColumn()) {
-            int col = getCurrentPosition().getColumn() + 1;
-            for (int index = col; index <= end.getColumn(); index++) {
-                tempPos = board.getPositions()[getCurrentPosition().getRow()][index];
-                Square temSquare = board.getSquare(tempPos);
-                isOccupiedNotFound = !temSquare.isSquareAvailable();
-                if (shouldAddElement) {
-                    squares.add(temSquare);
-                }
-                if (isOccupiedNotFound) {
-                    shouldAddElement = false;
-                }
-            }
+            row--;
         }
-
+        shouldAddElement = true;
+//    }
+//    else if (isHorizontal && getCurrentPosition().getColumn() >= end.getColumn()) {
+        int col = super.getCurrentPosition().getColumn() -1;
+        while (col >= 0) {
+            tempPos = board.getPositions()[super.getCurrentPosition().getRow()][col];
+            Square temSquare = board.getSquare(tempPos);
+            isOccupiedNotFound = !temSquare.isSquareAvailable();
+            if (shouldAddElement) {
+                squares.add(temSquare);
+            }
+            if (isOccupiedNotFound) {
+                shouldAddElement = false;
+            }
+            col--;
+        }
+        shouldAddElement = true;
+//    }
+//    else if (isHorizontal && getCurrentPosition().getColumn() <= end.getColumn()) {
+        col = super.getCurrentPosition().getColumn() + 1;
+        while (col <= 7) {
+            tempPos = board.getPositions()[getCurrentPosition().getRow()][col];
+            Square temSquare = board.getSquare(tempPos);
+            isOccupiedNotFound = !temSquare.isSquareAvailable();
+            if (shouldAddElement) {
+                squares.add(temSquare);
+            }
+            if (isOccupiedNotFound) {
+                shouldAddElement = false;
+            }
+            col++;
+        }
+//    }
         return squares;
     }
 }

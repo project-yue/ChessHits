@@ -23,7 +23,6 @@ import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
  */
 public class ChessHitsGame implements java.io.Serializable {
 
-    private Scanner userInputReader;
     private Board board;
     private Player blackPlayer;
     private Player whitePlayer;
@@ -140,7 +139,7 @@ public class ChessHitsGame implements java.io.Serializable {
     private boolean movePlayerPiece(Position curPos, Position tarPos) {
         Piece piece = getPiece(curPos);
         boolean isMoved = false;
-        if (positionOnBoard(tarPos)) {
+        if (positionOnBoard(tarPos) && piece != null) {
             isMoved = determineMoveOrAttack(piece, tarPos);
         }
         return isMoved;
@@ -160,7 +159,7 @@ public class ChessHitsGame implements java.io.Serializable {
         Piece dPiece = this.board.getSquare(toPos).getOccupiedPiece();
         boolean shouldAttack = false;
         //moves
-        Collection<Square> pieceSquares = piece.allPossibleMoves(toPos);
+        Collection<Square> pieceSquares = piece.allPossibleMoves();
         if (pieceSquares.contains(destSquare)) {
             System.out.println("on the move");
             isMoved = movePieceTo(piece, destSquare);
@@ -226,18 +225,17 @@ public class ChessHitsGame implements java.io.Serializable {
             switch (toPiece.getColor()) {
                 case BLACK:
                     this.winner = this.whitePlayer;
-                    System.out.print(this.blackPlayer.getName());
                     break;
                 case WHITE:
-                    System.out.print(this.whitePlayer.getName());
                     this.winner = this.blackPlayer;
                     break;
                 default:
                     break;
             }
             this.userDB.increaseWins(this.winner.getName());
-            System.out.println(this.winner + " won the game");
+            System.out.println(this.winner.getName() + " won the game");
             this.isGameRunning = false;
+            this.userDB.closeConnections();
         } else {
             if (isSuccessful && fromPiece.isAlive()) {
                 System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
@@ -358,31 +356,32 @@ public class ChessHitsGame implements java.io.Serializable {
      */
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
-        try {
-            if (!firstSelected) {
-                Piece piece = square.getOccupiedPiece();
-                if (whiteTurn) {
-                    if (piece.getColor() == WHITE) {
-                        squareMove = square;
-                        firstSelected = true;
-                        turn = true;
-                    }
-                } else if (piece.getColor() == BLACK) {
+//        try {
+        if (!firstSelected && !square.isSquareAvailable()) {
+            Piece piece = square.getOccupiedPiece();
+            if (whiteTurn) {
+                if (piece.getColor() == WHITE) {
                     squareMove = square;
                     firstSelected = true;
                     turn = true;
                 }
-            } else {
-                firstSelected = false;
-                if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
-                    whiteTurn = !whiteTurn;
-                    whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
-                    blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
-                }
+            } else if (piece.getColor() == BLACK) {
+                squareMove = square;
+                firstSelected = true;
+                turn = true;
             }
-
-        } catch (Exception e) {
+        } else if (squareMove != null) {
+            firstSelected = false;
+            if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
+                whiteTurn = !whiteTurn;
+                whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
+                blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
+            }
         }
+
+//        } catch (Exception e) {
+//            
+//        }
         return turn;
     }
 
@@ -415,6 +414,10 @@ public class ChessHitsGame implements java.io.Serializable {
      */
     public Player getWinner() {
         return this.winner;
+    }
+
+    public Piece promotePawn(Pawn promotePawn, String promotionPieceName) {
+        return promotePawn.promote(this.board, promotionPieceName);
     }
 
     /**

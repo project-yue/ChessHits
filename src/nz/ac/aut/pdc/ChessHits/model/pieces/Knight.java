@@ -61,7 +61,7 @@ public class Knight extends Piece {
      * @return all the possible move squares
      */
     @Override
-    public Collection<Square> allPossibleMoves(Position end) {
+    public Collection<Square> allPossibleMoves() {
         Board board = super.getBoard();
         Position nwt = null, nwd = null, net = null, ned = null, swt = null, swd = null, set = null, sed = null;
         ArrayList<Position> positions = new ArrayList<>();
@@ -101,15 +101,13 @@ public class Knight extends Piece {
             sed = board.getPositions()[currentRow + 2][currentCol + 1];
             positions.add(sed);
         }
-
-
         for (Position pos : positions) {
             if (pos != null) {
                 Square tempSqr = board.getSquare(pos);
 
-                //if (tempSqr.isSquareAvailable()) {
-                squares.add(tempSqr);
-                //}
+                if (tempSqr.isSquareAvailable() || tempSqr.getOccupiedPiece().getColor() != this.getColor()) {
+                    squares.add(tempSqr);
+                }
             }
         }
         return squares;

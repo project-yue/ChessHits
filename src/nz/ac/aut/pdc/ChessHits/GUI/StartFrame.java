@@ -15,10 +15,10 @@ import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
 /**
  *
- * @author gl
+ * @author gl modified by yl
  */
 public class StartFrame extends javax.swing.JFrame {
-    
+
     ChessHitsGame game;
     private UserDatabase userDB;
     private MainFrame mainFrame;
@@ -29,7 +29,6 @@ public class StartFrame extends javax.swing.JFrame {
     public StartFrame(ChessHitsGame game) {
         this.game = game;
         initComponents();
-        
         javax.swing.ButtonGroup bg = new javax.swing.ButtonGroup();
         bg.add(blackJradioB);
         bg.add(whiteJradioB);
@@ -44,12 +43,18 @@ public class StartFrame extends javax.swing.JFrame {
         this.game.setDataBase(userDB);
         //jdbc ends
         setUpTextFieldLength();
+        JOptionPane.showMessageDialog(rootPane, "Welcome to ChessHits, please enter your user"
+                + " names\nand passwords(game records new user automatically)");
+
     }
-    
+
     public MainFrame getMainFrame() {
         return this.mainFrame;
     }
-    
+
+    /**
+     * set jtextfields length
+     */
     private void setUpTextFieldLength() {
         player1TextField.setDocument(new PlainDocument() {
             @Override
@@ -78,7 +83,7 @@ public class StartFrame extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         jPasswordField2.setDocument(new PlainDocument() {
             @Override
             public void insertString(int offs, String str, AttributeSet a)
@@ -155,10 +160,6 @@ public class StartFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +183,11 @@ public class StartFrame extends javax.swing.JFrame {
                             .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(player2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 45, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,9 +214,9 @@ public class StartFrame extends javax.swing.JFrame {
                 .addComponent(blackJradioB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(whiteJradioB)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(submit)
-                .addGap(33, 33, 33))
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -221,20 +225,18 @@ public class StartFrame extends javax.swing.JFrame {
     private void blackJradioBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blackJradioBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_blackJradioBActionPerformed
-    
+
     private void player2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2TextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_player2TextFieldActionPerformed
-    
+
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Player playerOne = null;
         Player playerTwo = null;
         boolean isPlayerOneWhite = false;
         if (blackJradioB.isSelected()) {
-            
             playerOne = new Player(player1TextField.getText(), Color.BLACK);
             playerTwo = new Player(player2TextField.getText(), Color.WHITE);
-            
         } else {
             playerOne = new Player(player1TextField.getText(), Color.WHITE);
             playerTwo = new Player(player2TextField.getText(), Color.BLACK);
@@ -246,11 +248,13 @@ public class StartFrame extends javax.swing.JFrame {
         boolean shouldRun = true;
         String player1Pass = new String(jPasswordField1.getPassword());
         String player2Pass = new String(jPasswordField2.getPassword());
+        String errorMessage = "";
         if (!this.userDB.doesAccountExist(player1TextField.getText())) {
             this.userDB.addNewUser(player1TextField.getText(), player1Pass);
         } else {
             if (!this.userDB.matchPasswords(player1Pass, player1TextField.getText())) {
                 shouldRun = false;
+                errorMessage += player1TextField.getText() + " has been registered, password failed to login";
             }
         }
         if (!this.userDB.doesAccountExist(player2TextField.getText())) {
@@ -258,6 +262,11 @@ public class StartFrame extends javax.swing.JFrame {
         } else {
             if (!this.userDB.matchPasswords(player2Pass, player2TextField.getText())) {
                 shouldRun = false;
+                if (errorMessage.length() > 0) {
+                    errorMessage += "\n" + player2TextField.getText() + " has been registered, password failed to login";
+                } else {
+                    errorMessage += player2TextField.getText() + " has been registered, password failed to login";
+                }
             }
         }
         if (shouldRun) {
@@ -267,7 +276,6 @@ public class StartFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Welcome to ChessHits\n"
                     + playerOne.getName() + " has won " + playerOne.getNumberOfWins() + " time(s)\n"
                     + playerTwo.getName() + " has won " + playerTwo.getNumberOfWins() + " time(s)");
-
             //JoptionPane
             System.out.println(player1TextField.getText() + " has won " + userDB.getWins(player1TextField.getText()) + " game(s)");
             System.out.println(player2TextField.getText() + " has won " + userDB.getWins(player2TextField.getText()) + " game(s)");
@@ -280,9 +288,10 @@ public class StartFrame extends javax.swing.JFrame {
                 });
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Either of the password failed,\n Please try again");
+            JOptionPane.showMessageDialog(rootPane, errorMessage + "\nPlease try again");
             this.setAlwaysOnTop(true);
             this.setVisible(true);
+            errorMessage = "";
         }
     }//GEN-LAST:event_submitActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

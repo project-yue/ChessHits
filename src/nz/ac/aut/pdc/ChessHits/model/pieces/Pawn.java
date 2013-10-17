@@ -4,6 +4,7 @@
  */
 package nz.ac.aut.pdc.ChessHits.model.pieces;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import nz.ac.aut.pdc.ChessHits.model.Board;
@@ -23,6 +24,7 @@ import nz.ac.aut.pdc.ChessHits.model.Square;
 public class Pawn extends Piece {
 
     private final String STRING_REPRESENTATION = "P";
+    private String[] promotionList = {"Queen", "Rook", "Bishop", "Knight"};
     private boolean isPromoted;
     private boolean isNotMoved;
 
@@ -45,12 +47,33 @@ public class Pawn extends Piece {
      * @param board the board contains all the piece for the game
      * @param piece The piece that pawn is gonna be
      */
-    public void promote(Board board, Piece piece) {
+    public Piece promote(Board board, String type) {
+        Piece piece = null;
         Position currentPos = super.getCurrentPosition();
         Square currentSquare = board.getSquare(currentPos);
+        if (this.getHP() == 3) {
+            this.reduceHP();
+            if (type.equals("Queen")) {
+                this.reduceHP();
+            }
+        }
+        if (type.equals("Knight")) {
+            piece = new Knight(board, this.getHP(), this.getCurrentPosition(), this.getColor());
+        } else if (type.equals("Bishop")) {
+            piece = new Bishop(board, this.getHP(), this.getCurrentPosition(), this.getColor());
+        } else if (type.equals("Rook")) {
+            piece = new Rook(board, this.getHP(), this.getCurrentPosition(), this.getColor());
+        } else if (type.equals("Queen")) {
+            piece = new Queen(board, this.getHP(), this.getCurrentPosition(), this.getColor());
+        }
+        this.isPromoted = true;
         currentSquare.removePiece(this);
         currentSquare.addPiece(piece);
-        this.isPromoted = true;
+        return piece;
+    }
+
+    public String[] getPromotionList() {
+        return this.promotionList;
     }
 
     /**
@@ -133,22 +156,29 @@ public class Pawn extends Piece {
 
     /**
      * get all possible moves of pawn
+     *
      * @param end the source position
      * @return all the squares that pawn is able to move
      */
     @Override
-    public Collection<Square> allPossibleMoves(Position end) {
+    public Collection<Square> allPossibleMoves() {
         Collection<Square> squares = new HashSet<>();
         if (super.getColor() == Color.WHITE) {
-            if (getCurrentPosition().getColumn() < end.getColumn()) {
+            if (getCurrentPosition().getRow() < 7 && getCurrentPosition().getColumn() < 7) {
                 Position temp = super.getBoard().getPositions()[getCurrentPosition().getRow() + 1][getCurrentPosition().getColumn() + 1];
-                Square tempSqr = super.getBoard().getSquare(temp);
-                squares.add(tempSqr);
-            } else if (getCurrentPosition().getColumn() > end.getColumn()) {
+                Square square = super.getBoard().getSquare(temp);
+                if (!square.isSquareAvailable()) {
+                    squares.add(square);
+                }
+            }
+            if (getCurrentPosition().getRow() < 7 && getCurrentPosition().getColumn() > 0) {
                 Position temp = super.getBoard().getPositions()[getCurrentPosition().getRow() + 1][getCurrentPosition().getColumn() - 1];
-                Square tempSqr = super.getBoard().getSquare(temp);
-                squares.add(tempSqr);
-            } else if (getCurrentPosition().getColumn() == end.getColumn()) {
+                Square square = super.getBoard().getSquare(temp);
+                if (!square.isSquareAvailable()) {
+                    squares.add(square);
+                }
+            }
+            if (getCurrentPosition().getRow() < 7) {
                 Position temp1 = super.getBoard().getPositions()[getCurrentPosition().getRow() + 1][getCurrentPosition().getColumn()];
                 Square tempSqr1 = super.getBoard().getSquare(temp1);
                 Position temp2 = null;
@@ -159,21 +189,27 @@ public class Pawn extends Piece {
                 }
                 if (super.getBoard().getSquare(temp1).isSquareAvailable()) {
                     squares.add(tempSqr1);
-                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable()) {
+                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable() && this.isNotMoved) {
                         squares.add(tempSqr2);
                     }
                 }
             }
         } else {
-            if (getCurrentPosition().getColumn() < end.getColumn()) {
+            if (getCurrentPosition().getRow() > 0 && getCurrentPosition().getColumn() < 7) {
                 Position temp = super.getBoard().getPositions()[getCurrentPosition().getRow() - 1][getCurrentPosition().getColumn() + 1];
                 Square tempSqr = super.getBoard().getSquare(temp);
-                squares.add(tempSqr);
-            } else if (getCurrentPosition().getColumn() > end.getColumn()) {
+                if (!tempSqr.isSquareAvailable()) {
+                    squares.add(tempSqr);
+                }
+            }
+            if (getCurrentPosition().getRow() > 0 && getCurrentPosition().getColumn() > 0) {
                 Position temp = super.getBoard().getPositions()[getCurrentPosition().getRow() - 1][getCurrentPosition().getColumn() - 1];
                 Square tempSqr = super.getBoard().getSquare(temp);
-                squares.add(tempSqr);
-            } else if (getCurrentPosition().getColumn() == end.getColumn()) {
+                if (!tempSqr.isSquareAvailable()) {
+                    squares.add(tempSqr);
+                }
+            }
+            if (getCurrentPosition().getRow() > 0) {
                 Position temp1 = super.getBoard().getPositions()[getCurrentPosition().getRow() - 1][getCurrentPosition().getColumn()];
                 Square tempSqr1 = super.getBoard().getSquare(temp1);
                 Position temp2 = null;
@@ -184,7 +220,7 @@ public class Pawn extends Piece {
                 }
                 if (super.getBoard().getSquare(temp1).isSquareAvailable()) {
                     squares.add(tempSqr1);
-                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable()) {
+                    if (tempSqr2 != null && super.getBoard().getSquare(temp2).isSquareAvailable() && this.isNotMoved) {
                         squares.add(tempSqr2);
                     }
                 }

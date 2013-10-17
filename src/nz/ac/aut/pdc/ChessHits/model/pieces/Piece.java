@@ -100,7 +100,8 @@ public abstract class Piece {
      * @param end the source position
      * @return all possible squares
      */
-    public abstract Collection<Square> allPossibleMoves(Position end);
+    public abstract Collection<Square> allPossibleMoves();
+
 
     /**
      * get current position of the piece
@@ -113,6 +114,7 @@ public abstract class Piece {
 
     /**
      * get the color of the piece
+     *
      * @return the color
      */
     public Color getColor() {
@@ -121,6 +123,7 @@ public abstract class Piece {
 
     /**
      * get game's board
+     *
      * @return the board
      */
     public Board getBoard() {

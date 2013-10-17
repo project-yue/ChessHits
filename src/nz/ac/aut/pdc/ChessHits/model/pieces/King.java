@@ -105,48 +105,49 @@ public class King extends Piece {
      * @return all the possible positions
      */
     @Override
-    public Collection<Square> allPossibleMoves(Position end) {
+    public Collection<Square> allPossibleMoves() {
         Collection<Square> squares = new HashSet<>();
         ArrayList<Position> positions = new ArrayList<>();
         Board board = super.getBoard();
-        int startRow = getCurrentPosition().getRow(), startCol = getCurrentPosition().getColumn(), endRow = end.getRow(), endCol = end.getColumn();
+        int startRow = getCurrentPosition().getRow(), startCol = getCurrentPosition().getColumn();
 
-        if (startRow > 0 && startCol > 0 && startCol - endCol == 1 && startRow - endRow == 1) {
+        if (startRow > 0 && startCol > 0) {
             Position northWest = board.getPositions()[startRow - 1][startCol - 1];
             positions.add(northWest);
         }
-        if (startRow > 1 && startCol == endCol && startRow - endRow == 1) {
+        if (startRow > 1) {
             Position north = board.getPositions()[startRow - 1][startCol];
             positions.add(north);
         }
-        if (startRow > 1 && startCol < 7 && startCol - endCol == -1 && startRow - endRow == 1) {
+        if (startRow > 0 && startCol < 7) {
             Position northEast = board.getPositions()[startRow - 1][startCol + 1];
             positions.add(northEast);
         }
-        if (startCol > 0 && startCol - endCol == 1 && startRow == endRow) {
+        if (startCol > 0) {
             Position west = board.getPositions()[startRow][startCol - 1];
             positions.add(west);
         }
-        if (startCol < 7 && startCol - endCol == -1 && startRow == endRow) {
+        if (startCol < 7) {
             Position east = board.getPositions()[startRow][startCol + 1];
             positions.add(east);
         }
-        if (startRow < 7 && startCol > 0 && startCol - endCol == 1 && startRow - endRow == -1) {
+        if (startRow < 7 && startCol > 0) {
             Position sthWst = board.getPositions()[startRow + 1][startCol - 1];
             positions.add(sthWst);
         }
-        if (startRow < 7 && startCol == endCol && startRow - endRow == -1) {
+        if (startRow < 7) {
             Position sth = board.getPositions()[startRow + 1][startCol];
             positions.add(sth);
         }
-        if (startRow < 7 && startCol < 7 && startCol - endCol == -1 && startRow - endRow == -1) {
+        if (startRow < 7 && startCol < 7) {
             Position sthEst = board.getPositions()[startRow + 1][startCol + 1];
             positions.add(sthEst);
         }
-
         for (Position temPos : positions) {
             Square temSquare = board.getSquare(temPos);
-            squares.add(temSquare);
+            if (temSquare.isSquareAvailable() || temSquare.getOccupiedPiece().getColor() != this.getColor()) {
+                squares.add(temSquare);
+            }
         }
         return squares;
     }

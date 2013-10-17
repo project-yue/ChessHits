@@ -43,100 +43,111 @@ public class Bishop extends Piece {
         //checking if it can move
         if (Math.abs(colTarget) - Math.abs(rowTarget) == 0) {
             isMoveSuccessful = true;
-            isMoveSuccessful = true;
         }
 
         return isMoveSuccessful;
     }
 
     @Override
-    public Collection<Square> allPossibleMoves(Position end) {
+    public Collection<Square> allPossibleMoves() {
         //idea should be finding available positions for piece to move, 
         //it returns a set of empty squares for normal moves
         //or notify board to perform an attack
         Collection<Square> squares = new HashSet<>();
         Board board = super.getBoard();
-        boolean isNW = false, isSE = false, isNE = false, isSW = false;
-        if (Math.abs(end.getColumn() - getCurrentPosition().getColumn()) == Math.abs(end.getRow() - getCurrentPosition().getRow())) {
-            //difine bishop move direction
-            if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
-                isSE = true;
-            } else if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
-                isNE = true;
-            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
-                isSW = true;
-            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
-                isNW = true;
-            }
-        }
-        int curRow = getCurrentPosition().getRow(), curCol = getCurrentPosition().getColumn(), destRow = end.getRow(), destCol = end.getColumn();
-        boolean isOccupantNotFound = true;
+//        boolean isNW = true, isSE = true, isNE = true, isSW = true;
+//        boolean isNW = false, isSE = false, isNE = false, isSW = false;
+//        if (Math.abs(end.getColumn() - getCurrentPosition().getColumn()) == Math.abs(end.getRow() - getCurrentPosition().getRow())) {
+//            //difine bishop move direction
+//            if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
+//                isSE = true;
+//            } else if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
+//                isNE = true;
+//            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
+//                isSW = true;
+//            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
+//                isNW = true;
+//            }
+//        }
+        int curRow = getCurrentPosition().getRow(), curCol = getCurrentPosition().getColumn();//, destRow = end.getRow(), destCol = end.getColumn();
+        boolean isOccupantNotFound;
         boolean shouldAddElement = true;
         boolean shouldLoop = true;
 
-        if (isSE) {//searches south east direction: values of row and col are the same
-            int rowIndex = curRow + 1, colIndex = curCol + 1;
-            while (shouldLoop && rowIndex <= destRow && colIndex <= destCol) {
-                if (shouldLoop) {
-                    Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
-                    isOccupantNotFound = tempSquare.isSquareAvailable();
-                    if (!isOccupantNotFound) {
-                        shouldAddElement = false;
-                        shouldLoop = false;
-                        squares.add(tempSquare);
-                    } else if (shouldAddElement) {
-                        squares.add(tempSquare);
-                    }
-                    rowIndex++;
-                    colIndex++;
-                }
-            }
-        } else if (isNE) {//searches north east: row- col+
-            int rowIndex = curRow - 1, colIndex = curCol + 1;
-            while (shouldLoop && rowIndex >= destRow && colIndex <= destCol) {
+        // if (isSE) {//searches south east direction: values of row and col are the same
+        int rowIndex = curRow + 1, colIndex = curCol + 1;
+        while (shouldLoop && rowIndex <= 7 && colIndex <= 7) {
+            if (shouldLoop) {
                 Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
                 isOccupantNotFound = tempSquare.isSquareAvailable();
                 if (!isOccupantNotFound) {
                     shouldAddElement = false;
-                    squares.add(tempSquare);
                     shouldLoop = false;
-                } else if (shouldAddElement) {
                     squares.add(tempSquare);
-                }
-                rowIndex--;
-                colIndex++;
-            }
-        } else if (isNW) {//searches north west:  row- col- 
-            int rowIndex = curRow - 1, colIndex = curCol - 1;
-            while (shouldLoop && rowIndex >= destRow && colIndex >= destCol) {
-                Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
-                isOccupantNotFound = tempSquare.isSquareAvailable();
-                if (!isOccupantNotFound) {
-                    shouldAddElement = false;
-                    squares.add(tempSquare);
-                    shouldLoop = false;
-                } else if (shouldAddElement) {
-                    squares.add(tempSquare);
-                }
-                rowIndex--;
-                colIndex--;
-            }
-        } else if (isSW) {//searches south west row+ col-
-            int rowIndex = curRow + 1, colIndex = curCol - 1;
-            while (shouldLoop && rowIndex <= destRow && colIndex >= destCol) {
-                Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
-                isOccupantNotFound = tempSquare.isSquareAvailable();
-                if (!isOccupantNotFound) {
-                    shouldAddElement = false;
-                    squares.add(tempSquare);
-                    shouldLoop = false;
                 } else if (shouldAddElement) {
                     squares.add(tempSquare);
                 }
                 rowIndex++;
-                colIndex--;
+                colIndex++;
             }
         }
+        shouldLoop = true;
+        shouldAddElement = true;
+//        } else if (isNE) {//searches north east: row- col+
+        rowIndex = curRow - 1;
+        colIndex = curCol + 1;
+        while (shouldLoop && rowIndex >= 0 && colIndex <= 7) {
+            Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
+            isOccupantNotFound = tempSquare.isSquareAvailable();
+            if (!isOccupantNotFound) {
+                shouldAddElement = false;
+                squares.add(tempSquare);
+                shouldLoop = false;
+            } else if (shouldAddElement) {
+                squares.add(tempSquare);
+            }
+            rowIndex--;
+            colIndex++;
+        }
+        shouldLoop = true;
+        shouldAddElement = true;
+//    }
+//            else if (isNW) {//searches north west:  row- col- 
+        rowIndex = curRow - 1;
+        colIndex = curCol - 1;
+        while (shouldLoop && rowIndex >= 0 && colIndex >= 0) {
+            Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
+            isOccupantNotFound = tempSquare.isSquareAvailable();
+            if (!isOccupantNotFound) {
+                shouldAddElement = false;
+                squares.add(tempSquare);
+                shouldLoop = false;
+            } else if (shouldAddElement) {
+                squares.add(tempSquare);
+            }
+            rowIndex--;
+            colIndex--;
+        }
+        shouldLoop = true;
+        shouldAddElement = true;
+//    }
+//    else if (isSW) {//searches south west row+ col-
+        rowIndex = curRow + 1;
+        colIndex = curCol - 1;
+        while (shouldLoop && rowIndex <= 7 && colIndex >= 0) {
+            Square tempSquare = board.getSquare(board.getPositions()[rowIndex][colIndex]);
+            isOccupantNotFound = tempSquare.isSquareAvailable();
+            if (!isOccupantNotFound) {
+                shouldAddElement = false;
+                squares.add(tempSquare);
+                shouldLoop = false;
+            } else if (shouldAddElement) {
+                squares.add(tempSquare);
+            }
+            rowIndex++;
+            colIndex--;
+        }
+//    }
         return squares;
     }
 

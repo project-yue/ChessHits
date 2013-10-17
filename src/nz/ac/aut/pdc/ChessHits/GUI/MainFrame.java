@@ -7,15 +7,18 @@ package nz.ac.aut.pdc.ChessHits.GUI;
 
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import nz.ac.aut.pdc.ChessHits.model.Board;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Player;
+import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
 // Variables declaration - do not modify                     
 // End of variables declaration                   
 /**
  * frame provides view to players
+ *
  * @author gl Modified by Yue
  */
 public class MainFrame extends javax.swing.JFrame {
@@ -31,13 +34,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * Construct a game frame to hold all the components
-     * 
+     *
      * @param playerOne one player of the game
      * @param playerTwo the other player of the game
      * @param game the ChessHitsGame
      * @param isPlayerOneWhite is playerOne plays as White
      */
-    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean isPlayerOneWhite) {
+    public MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean isPlayerOneWhite) {
         this.game = game;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -90,11 +93,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    public JPanel getGamePanel() {
+        return this.gamePanel;
+    }
+
     /**
      * restart game with same players
      */
     public void startNewGame() {
+
         this.game = new ChessHitsGame();
+        UserDatabase userDB = new UserDatabase();
+        userDB.establishConnection();
+        this.game.setDataBase(userDB);
         this.gamePanel.removeAll();
         setUpPanels();
         if (this.playerOne.getSelectedColor() == Color.WHITE) {
@@ -243,6 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
         startNewGame();
+        updateText();
     }//GEN-LAST:event_newGameActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

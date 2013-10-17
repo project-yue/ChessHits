@@ -8,9 +8,11 @@ import java.awt.Component;
 import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Square;
+import nz.ac.aut.pdc.ChessHits.model.pieces.Pawn;
 import nz.ac.aut.pdc.ChessHits.model.pieces.Piece;
 
 /**
@@ -55,26 +57,6 @@ public class SqurarePanel extends javax.swing.JPanel {
         }
     }
 
-    private void update(Collection<Square> squares) {
-        lblRep.setIcon(null);
-        if (!square.isSquareAvailable()) {
-            String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
-            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
-            lblRep.setIcon(icon);
-            if (piece.getColor() == Color.BLACK) {
-                lblRep.setForeground(java.awt.Color.BLACK);
-            } else {
-                lblRep.setForeground(java.awt.Color.LIGHT_GRAY);
-            }
-
-        } else {
-            lblRep.setText("");
-        }
-        if (squares.contains(this.square)) {
-            lblRep.setBackground(java.awt.Color.GREEN);
-        }
-    }
-
     private void update() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
@@ -89,6 +71,9 @@ public class SqurarePanel extends javax.swing.JPanel {
 
         } else {
             lblRep.setText("");
+        }
+        if (this.square.getOccupiedPiece() != null) {
+            this.square.getOccupiedPiece().allPossibleMoves().contains(square);
         }
     }
 
@@ -175,17 +160,50 @@ public class SqurarePanel extends javax.swing.JPanel {
     private void lblRepMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRepMouseReleased
         // TODO add your handling code here:
         boolean turn = game.getSelectedSquare(square);
-        this.setBackground(java.awt.Color.ORANGE);
         piece = square.getOccupiedPiece();
-        for (Component component : getParent().getComponents()) {
-            SqurarePanel sp = (SqurarePanel) component;
-            if (turn) {
-                sp.update();
-            } else {
-                sp.fullUpdate();
+        if (piece != null) {
+            if (piece instanceof Pawn && piece.getColor() == Color.BLACK && piece.getCurrentPosition().getRow() == 0
+                    || piece.getColor() == Color.WHITE && piece.getCurrentPosition().getRow() == 7) {
+                Pawn pawn = (Pawn) piece;
+                int value = JOptionPane.showOptionDialog(frame, "Promotion", "Promote", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE, null, pawn.getPromotionList(), pawn.getPromotionList()[0]);
+                switch (value) {
+                    case 0:
+                        this.piece = this.game.promotePawn(pawn, "Queen");
+                        break;
+                    case 1:
+                        this.piece = this.game.promotePawn(pawn, "Rook");
+                        break;
+                    case 2:
+                        this.piece = this.game.promotePawn(pawn, "Bishop");
+                        break;
+                    case 3:
+                        this.piece = this.game.promotePawn(pawn, "Knight");
+                        break;
+                    default:
+                        System.err.println("error occured");
+                        break;
+                }
             }
-            this.frame.updateText();
+            this.setBackground(java.awt.Color.ORANGE);
+            Collection<Square> movableSquares = piece.allPossibleMoves();
+            for (Component component : getParent().getComponents()) {
+                SqurarePanel sp = (SqurarePanel) component;
+                if (turn) {
+                    sp.update();
+                    if (movableSquares.contains(sp.getSquare())) {
+                        if (sp.square.isSquareAvailable()) {
+                            sp.setBackground(java.awt.Color.GREEN);
+                        } else if (sp.getSquare().getOccupiedPiece().getColor() != this.piece.getColor()) {
+                            sp.setBackground(java.awt.Color.red);
+                        }
+                    }
+                } else {
+                    sp.fullUpdate();
+                }
+            }
         }
+        this.frame.updateText();
         if (!this.game.getGameStatus()) {
             int option = JOptionPane.showConfirmDialog(frame, this.game.getWinner().getName()
                     + "has won the game.\n Would you like to play again?");
