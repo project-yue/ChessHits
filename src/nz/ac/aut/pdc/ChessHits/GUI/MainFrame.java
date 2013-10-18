@@ -142,6 +142,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         newGame = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -217,6 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(newGame);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setText("Change Players");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +226,15 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Exit");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -273,6 +284,11 @@ public class MainFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "ChessHits is produced by Guy Langford-lee & Yue Li at AUT in 2013, "
                 + "all rights reserved\n Thank you for your participation\n                         ChessHits Team");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -284,6 +300,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JLabel lblPlayerColor;
     private javax.swing.JLabel lblPlayerMoveTurn;
     private javax.swing.JMenuItem newGame;

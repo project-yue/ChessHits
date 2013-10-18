@@ -8,7 +8,6 @@ import java.awt.Component;
 import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Square;
@@ -163,7 +162,7 @@ public class SqurarePanel extends javax.swing.JPanel {
         piece = square.getOccupiedPiece();
         if (piece != null) {
             if (piece instanceof Pawn && piece.getColor() == Color.BLACK && piece.getCurrentPosition().getRow() == 0
-                    || piece.getColor() == Color.WHITE && piece.getCurrentPosition().getRow() == 7) {
+                    || piece instanceof Pawn && piece.getColor() == Color.WHITE && piece.getCurrentPosition().getRow() == 7) {
                 Pawn pawn = (Pawn) piece;
                 int value = JOptionPane.showOptionDialog(frame, "Promotion", "Promote", JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE, null, pawn.getPromotionList(), pawn.getPromotionList()[0]);
@@ -193,7 +192,8 @@ public class SqurarePanel extends javax.swing.JPanel {
                     sp.update();
                     if (movableSquares.contains(sp.getSquare())) {
                         if (sp.square.isSquareAvailable()) {
-                            sp.setBackground(java.awt.Color.GREEN);
+                            java.awt.Color color = new java.awt.Color(36, 218, 85, 180);//rgb transparent
+                            sp.setBackground(color);//(java.awt.Color.GREEN);
                         } else if (sp.getSquare().getOccupiedPiece().getColor() != this.piece.getColor()) {
                             sp.setBackground(java.awt.Color.red);
                         }
@@ -206,7 +206,7 @@ public class SqurarePanel extends javax.swing.JPanel {
         this.frame.updateText();
         if (!this.game.getGameStatus()) {
             int option = JOptionPane.showConfirmDialog(frame, this.game.getWinner().getName()
-                    + "has won the game.\n Would you like to play again?");
+                    + " has won the game.\n Would you like to play again?(Yes to play again, No to exit game)");
             if (option == 0) {
                 this.frame.startNewGame();
             }

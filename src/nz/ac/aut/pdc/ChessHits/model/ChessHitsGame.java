@@ -4,7 +4,6 @@
  */
 package nz.ac.aut.pdc.ChessHits.model;
 
-import java.util.Scanner;
 import java.util.*;
 import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
 import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
@@ -356,7 +355,6 @@ public class ChessHitsGame implements java.io.Serializable {
      */
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
-//        try {
         if (!firstSelected && !square.isSquareAvailable()) {
             Piece piece = square.getOccupiedPiece();
             if (whiteTurn) {
@@ -378,10 +376,6 @@ public class ChessHitsGame implements java.io.Serializable {
                 blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
             }
         }
-
-//        } catch (Exception e) {
-//            
-//        }
         return turn;
     }
 

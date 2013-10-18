@@ -4,9 +4,10 @@
  */
 package nz.ac.aut.pdc.ChessHits.model.pieces;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import nz.ac.aut.pdc.ChessHits.model.Board;
 import nz.ac.aut.pdc.ChessHits.model.Color;
 import nz.ac.aut.pdc.ChessHits.model.Position;
@@ -24,7 +25,7 @@ import nz.ac.aut.pdc.ChessHits.model.Square;
 public class Pawn extends Piece {
 
     private final String STRING_REPRESENTATION = "P";
-    private String[] promotionList = {"Queen", "Rook", "Bishop", "Knight"};
+    private Icon[] promotionList;
     private boolean isPromoted;
     private boolean isNotMoved;
 
@@ -39,6 +40,8 @@ public class Pawn extends Piece {
         super(board, hitPoint, position, color);
         this.isNotMoved = true;
         this.isPromoted = false;
+        this.promotionList = new Icon[4];
+        generatePromotionIcons();
     }
 
     /**
@@ -72,8 +75,21 @@ public class Pawn extends Piece {
         return piece;
     }
 
-    public String[] getPromotionList() {
+    public Icon[] getPromotionList() {
         return this.promotionList;
+    }
+
+    private void generatePromotionIcons() {
+        String co = "";
+        if (this.getColor() == Color.BLACK) {
+            co = "B";
+        } else {
+            co = "W";
+        }
+        this.promotionList[0] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "Q1health.png"));
+        this.promotionList[1] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "R1health.png"));
+        this.promotionList[2] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "B1health.png"));
+        this.promotionList[3] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "N1health.png"));
     }
 
     /**
