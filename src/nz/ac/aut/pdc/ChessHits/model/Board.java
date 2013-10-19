@@ -46,24 +46,22 @@ public class Board {
         System.out.println(this.ROWCOODINATES);
     }
 
+    /**
+     * get width
+     *
+     * @return the width
+     */
     public int getWidth() {
         return this.WIDTH;
     }
 
+    /**
+     * get height
+     *
+     * @return the height
+     */
     public int getHeight() {
         return this.HEIGHT;
-    }
-
-    public Piece getDefensivePiece() {
-        return this.defensePiece;
-    }
-
-    public void setDefensivePiece(Piece defensePiece) {
-        this.defensePiece = defensePiece;
-    }
-
-    public void cleanDefensivePiece() {
-        this.defensePiece = null;
     }
 
     /**
