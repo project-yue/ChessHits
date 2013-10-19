@@ -41,7 +41,7 @@ public class Pawn extends Piece {
         this.isNotMoved = true;
         this.isPromoted = false;
         this.promotionList = new Icon[4];
-        generatePromotionIcons();
+        //generatePromotionIcons();
     }
 
     /**
@@ -76,6 +76,7 @@ public class Pawn extends Piece {
     }
 
     public Icon[] getPromotionList() {
+        generatePromotionIcons();
         return this.promotionList;
     }
 
@@ -87,9 +88,16 @@ public class Pawn extends Piece {
             co = "W";
         }
         this.promotionList[0] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "Q1health.png"));
-        this.promotionList[1] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "R1health.png"));
-        this.promotionList[2] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "B1health.png"));
-        this.promotionList[3] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "N1health.png"));
+        if (super.getHP() > 1) {
+            this.promotionList[1] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "R2health.png"));
+            this.promotionList[2] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "B2health.png"));
+            this.promotionList[3] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "N2health.png"));
+        } else {
+            this.promotionList[1] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "R1health.png"));
+            this.promotionList[2] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "B1health.png"));
+            this.promotionList[3] = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + co + "N1health.png"));
+
+        }
     }
 
     /**

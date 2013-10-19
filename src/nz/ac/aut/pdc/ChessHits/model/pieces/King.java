@@ -43,6 +43,7 @@ public class King extends Piece {
      * get the castle status of king
      *
      * @return true if king is able to perform a castle, false otherwise
+     * @deprecated
      */
     public boolean getCastleStatus() {
         return this.isAbleToCastle;
@@ -50,6 +51,8 @@ public class King extends Piece {
 
     /**
      * disable the ability of castling
+     *
+     * @deprecated
      */
     public void disableCastle() {
         this.isAbleToCastle = false;
@@ -115,7 +118,7 @@ public class King extends Piece {
             Position northWest = board.getPositions()[startRow - 1][startCol - 1];
             positions.add(northWest);
         }
-        if (startRow > 1) {
+        if (startRow > 0) {
             Position north = board.getPositions()[startRow - 1][startCol];
             positions.add(north);
         }

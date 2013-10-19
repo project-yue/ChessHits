@@ -68,7 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * update the player label and the color of player's turn
      */
-    protected void updateText() {
+    public final void updateText() {
         if (playerOne.getIsTurn()) {
             lblPlayerMoveTurn.setText("turn: " + playerOne.getName());
             lblPlayerColor.setText("color: " + playerOne.getSelectedColor().getTextRepresentation());
@@ -87,10 +87,11 @@ public class MainFrame extends javax.swing.JFrame {
         gamePanel.setLayout(new GridLayout(row, col));
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                SqurarePanel sQP = new SqurarePanel(game, i, j, this);
+                SquarePanel sQP = new SquarePanel(game, i, j, this);
                 gamePanel.add(sQP);
             }
         }
+        this.validate();
     }
 
     public JPanel getGamePanel() {
@@ -101,7 +102,6 @@ public class MainFrame extends javax.swing.JFrame {
      * restart game with same players
      */
     public void startNewGame() {
-
         this.game = new ChessHitsGame();
         UserDatabase userDB = new UserDatabase();
         userDB.establishConnection();
@@ -122,7 +122,6 @@ public class MainFrame extends javax.swing.JFrame {
             game.setWhiteTurn(true);
             this.playerTwo.setIsTurn(true);
         }
-        this.setVisible(true);
     }
 
     /**
@@ -150,6 +149,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 600));
         setMinimumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(600, 600));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lblPlayerMoveTurn.setText("playerNmlb");

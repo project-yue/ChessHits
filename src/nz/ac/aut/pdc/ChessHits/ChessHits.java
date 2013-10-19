@@ -10,8 +10,9 @@ import nz.ac.aut.pdc.ChessHits.GUI.StartFrame;
 /**
  *
  *
- * @author Yue Li is gay but guy is the best
+ * @author Guy Langford-lee & Yue Li 
  * @version 23-07-2013 project file is created
+ * @version 20-10-2013 project finished
  */
 public class ChessHits {
 
@@ -22,7 +23,6 @@ public class ChessHits {
         // TODO code application logic here
         ChessHitsGame game = new ChessHitsGame();
         final StartFrame gui = new StartFrame(game);
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

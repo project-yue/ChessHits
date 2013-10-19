@@ -7,18 +7,16 @@ package nz.ac.aut.pdc.ChessHits.GUI;
 import java.awt.Component;
 import java.util.Collection;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
-import nz.ac.aut.pdc.ChessHits.model.Color;
-import nz.ac.aut.pdc.ChessHits.model.Square;
-import nz.ac.aut.pdc.ChessHits.model.pieces.Pawn;
-import nz.ac.aut.pdc.ChessHits.model.pieces.Piece;
+import nz.ac.aut.pdc.ChessHits.model.*;
+import nz.ac.aut.pdc.ChessHits.model.pieces.*;
 
 /**
  *
  * @author gl modified by Yue
  */
-public class SqurarePanel extends javax.swing.JPanel {
+public class SquarePanel extends javax.swing.JPanel {
 
     private Square square;
     private Piece piece;
@@ -28,9 +26,9 @@ public class SqurarePanel extends javax.swing.JPanel {
     private MainFrame frame;
 
     /**
-     * Creates new form SqurarePanel
+     * Creates new form SquarePanel
      */
-    public SqurarePanel(ChessHitsGame game, int row, int col, MainFrame frame) {
+    public SquarePanel(ChessHitsGame game, int row, int col, MainFrame frame) {
         this.game = game;
         this.row = row;
         this.col = col;
@@ -56,7 +54,7 @@ public class SqurarePanel extends javax.swing.JPanel {
         }
     }
 
-    private void update() {
+    public final void update() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
             String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
@@ -76,13 +74,11 @@ public class SqurarePanel extends javax.swing.JPanel {
         }
     }
 
-    private void fullUpdate() {
+    public void fullUpdate() {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
-            ImageIcon icon = new ImageIcon(getClass().getResource(
-                    "/nz/ac/aut/pdc/ChessHits/GUI/images/"
-                    + piece.getStringRepresentation()
-                    + piece.getHP() + "health.png"));
+            String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {
                 lblRep.setForeground(java.awt.Color.BLACK);
@@ -112,6 +108,10 @@ public class SqurarePanel extends javax.swing.JPanel {
 
     public Square getSquare() {
         return this.square;
+    }
+
+    public JLabel getLabelRepresentation() {
+        return this.lblRep;
     }
 
     /**
@@ -164,6 +164,7 @@ public class SqurarePanel extends javax.swing.JPanel {
             if (piece instanceof Pawn && piece.getColor() == Color.BLACK && piece.getCurrentPosition().getRow() == 0
                     || piece instanceof Pawn && piece.getColor() == Color.WHITE && piece.getCurrentPosition().getRow() == 7) {
                 Pawn pawn = (Pawn) piece;
+
                 int value = JOptionPane.showOptionDialog(frame, "Promotion", "Promote", JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE, null, pawn.getPromotionList(), pawn.getPromotionList()[0]);
                 switch (value) {
@@ -187,7 +188,7 @@ public class SqurarePanel extends javax.swing.JPanel {
             this.setBackground(java.awt.Color.ORANGE);
             Collection<Square> movableSquares = piece.allPossibleMoves();
             for (Component component : getParent().getComponents()) {
-                SqurarePanel sp = (SqurarePanel) component;
+                SquarePanel sp = (SquarePanel) component;
                 if (turn) {
                     sp.update();
                     if (movableSquares.contains(sp.getSquare())) {
@@ -201,6 +202,11 @@ public class SqurarePanel extends javax.swing.JPanel {
                 } else {
                     sp.fullUpdate();
                 }
+            }
+        } else {
+            for (Component component : getParent().getComponents()) {
+                SquarePanel sp = (SquarePanel) component;
+                sp.fullUpdate();
             }
         }
         this.frame.updateText();

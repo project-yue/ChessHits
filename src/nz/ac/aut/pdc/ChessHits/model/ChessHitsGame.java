@@ -20,7 +20,7 @@ import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
  * file.
  * @version 20-08-13 implemented draft move control.
  */
-public class ChessHitsGame implements java.io.Serializable {
+public class ChessHitsGame {
 
     private Board board;
     private Player blackPlayer;
@@ -28,7 +28,7 @@ public class ChessHitsGame implements java.io.Serializable {
     private Player winner;
     private boolean isGameRunning;
     private boolean firstSelected = false;
-    private Square squareMove;
+    private Square currentSelectedSquare;
     private boolean whiteTurn;
     private UserDatabase userDB;
 
@@ -359,22 +359,24 @@ public class ChessHitsGame implements java.io.Serializable {
             Piece piece = square.getOccupiedPiece();
             if (whiteTurn) {
                 if (piece.getColor() == WHITE) {
-                    squareMove = square;
+                    currentSelectedSquare = square;
                     firstSelected = true;
                     turn = true;
                 }
             } else if (piece.getColor() == BLACK) {
-                squareMove = square;
+                currentSelectedSquare = square;
                 firstSelected = true;
                 turn = true;
             }
-        } else if (squareMove != null) {
+        } else if (this.firstSelected && currentSelectedSquare != null) {
             firstSelected = false;
-            if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
+            if (movePlayerPiece(currentSelectedSquare.getPosition(), square.getPosition())) {
                 whiteTurn = !whiteTurn;
                 whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
                 blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
             }
+        } else {
+            this.currentSelectedSquare = null;
         }
         return turn;
     }
