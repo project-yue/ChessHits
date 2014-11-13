@@ -147,9 +147,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 600));
-        setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
+        setMaximumSize(new java.awt.Dimension(450, 500));
+        setMinimumSize(new java.awt.Dimension(450, 500));
+        setPreferredSize(new java.awt.Dimension(450, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lblPlayerMoveTurn.setText("playerNmlb");
@@ -168,18 +168,20 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(lblPlayerMoveTurn, gridBagConstraints);
         lblPlayerMoveTurn.getAccessibleContext().setAccessibleDescription("");
 
+        gamePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         gamePanel.setMaximumSize(new java.awt.Dimension(100, 100));
         gamePanel.setMinimumSize(new java.awt.Dimension(100, 100));
+        gamePanel.setPreferredSize(new java.awt.Dimension(100, 100));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 407, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();

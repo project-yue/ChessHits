@@ -10,7 +10,7 @@ import nz.ac.aut.pdc.ChessHits.GUI.StartFrame;
 /**
  *
  *
- * @author Guy Langford-lee & Yue Li 
+ * @author Guy Langford-lee & Yue Li
  * @version 23-07-2013 project file is created
  * @version 20-10-2013 project finished
  */

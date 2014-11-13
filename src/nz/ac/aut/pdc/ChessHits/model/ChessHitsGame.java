@@ -5,8 +5,7 @@
 package nz.ac.aut.pdc.ChessHits.model;
 
 import java.util.*;
-import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
-import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
+import static nz.ac.aut.pdc.ChessHits.model.Color.*;
 import nz.ac.aut.pdc.ChessHits.model.pieces.*;
 import nz.ac.aut.pdc.ChessHits.userDB.UserDatabase;
 
@@ -114,7 +113,7 @@ public class ChessHitsGame {
      * @param position the position of the piece
      * @return the piece of the position
      */
-    private Piece getPiece(Position position) {
+    protected Piece getPiece(Position position) {
         return board.getSquare(position).getOccupiedPiece();
 
     }
@@ -135,7 +134,7 @@ public class ChessHitsGame {
      * @param curPos where the players piece is currently
      * @param tarPos where you want to move the piece
      */
-    private boolean movePlayerPiece(Position curPos, Position tarPos) {
+    protected boolean movePlayerPiece(Position curPos, Position tarPos) {
         Piece piece = getPiece(curPos);
         boolean isMoved = false;
         if (positionOnBoard(tarPos) && piece != null) {

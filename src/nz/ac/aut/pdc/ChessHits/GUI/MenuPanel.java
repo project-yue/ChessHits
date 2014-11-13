@@ -17,9 +17,9 @@ public class MenuPanel extends javax.swing.JPanel {
     private Player playerTwo;
 
     /**
-     * 
+     *
      * @param playerOne
-     * @param playerTwo 
+     * @param playerTwo
      */
     MenuPanel(Player playerOne, Player playerTwo) {
         initComponents();

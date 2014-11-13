@@ -15,7 +15,7 @@ import nz.ac.aut.pdc.ChessHits.model.*;
  * @version 05-08-13 move method is completed
  */
 public class Queen extends Piece {
-    
+
     private final String STRING_REPRESENTATION = "Q";
 
     /**

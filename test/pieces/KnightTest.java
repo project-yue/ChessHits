@@ -47,9 +47,10 @@ public class KnightTest {
      * Test of move method, of class Knight.
      */
     @Test
-    public void testMove() {
-        Position positionNew = new Position(2, 3);
-        assertTrue(knightBlack.move(positionNew));
+    public void testMoveSuccessful() {
+        Position positionSEUpper = new Position(2, 3);
+        assertTrue(knightBlack.move(positionSEUpper));
+        Position positionSELower = new Position(3, 5);
     }
 
     /**

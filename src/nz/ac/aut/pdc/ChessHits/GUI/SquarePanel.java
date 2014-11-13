@@ -58,6 +58,7 @@ public class SquarePanel extends javax.swing.JPanel {
         lblRep.setIcon(null);
         if (!square.isSquareAvailable()) {
             String pieceFileName = piece.getStringRepresentation() + Integer.toString(piece.getHP()) + "health";
+            System.out.println(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
             ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + pieceFileName + ".png"));
             lblRep.setIcon(icon);
             if (piece.getColor() == Color.BLACK) {

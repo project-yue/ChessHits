@@ -73,7 +73,6 @@ public class KingTest {
         assertFalse(kingCastle.getCastleStatus());
     }
 
-
     /**
      * Test of move method, of class King.
      */

@@ -50,31 +50,12 @@ public class Bishop extends Piece {
 
     @Override
     public Collection<Square> allPossibleMoves() {
-        //idea should be finding available positions for piece to move, 
-        //it returns a set of empty squares for normal moves
-        //or notify board to perform an attack
         Collection<Square> squares = new HashSet<>();
         Board board = super.getBoard();
-//        boolean isNW = true, isSE = true, isNE = true, isSW = true;
-//        boolean isNW = false, isSE = false, isNE = false, isSW = false;
-//        if (Math.abs(end.getColumn() - getCurrentPosition().getColumn()) == Math.abs(end.getRow() - getCurrentPosition().getRow())) {
-//            //difine bishop move direction
-//            if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
-//                isSE = true;
-//            } else if (getCurrentPosition().getColumn() < end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
-//                isNE = true;
-//            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() < end.getRow()) {
-//                isSW = true;
-//            } else if (getCurrentPosition().getColumn() > end.getColumn() && getCurrentPosition().getRow() > end.getRow()) {
-//                isNW = true;
-//            }
-//        }
-        int curRow = getCurrentPosition().getRow(), curCol = getCurrentPosition().getColumn();//, destRow = end.getRow(), destCol = end.getColumn();
+        int curRow = getCurrentPosition().getRow(), curCol = getCurrentPosition().getColumn();
         boolean isOccupantNotFound;
         boolean shouldAddElement = true;
         boolean shouldLoop = true;
-
-        // if (isSE) {//searches south east direction: values of row and col are the same
         int rowIndex = curRow + 1, colIndex = curCol + 1;
         while (shouldLoop && rowIndex <= 7 && colIndex <= 7) {
             if (shouldLoop) {
@@ -93,7 +74,6 @@ public class Bishop extends Piece {
         }
         shouldLoop = true;
         shouldAddElement = true;
-//        } else if (isNE) {//searches north east: row- col+
         rowIndex = curRow - 1;
         colIndex = curCol + 1;
         while (shouldLoop && rowIndex >= 0 && colIndex <= 7) {
@@ -111,8 +91,6 @@ public class Bishop extends Piece {
         }
         shouldLoop = true;
         shouldAddElement = true;
-//    }
-//            else if (isNW) {//searches north west:  row- col- 
         rowIndex = curRow - 1;
         colIndex = curCol - 1;
         while (shouldLoop && rowIndex >= 0 && colIndex >= 0) {
@@ -130,8 +108,6 @@ public class Bishop extends Piece {
         }
         shouldLoop = true;
         shouldAddElement = true;
-//    }
-//    else if (isSW) {//searches south west row+ col-
         rowIndex = curRow + 1;
         colIndex = curCol - 1;
         while (shouldLoop && rowIndex <= 7 && colIndex >= 0) {
@@ -147,7 +123,6 @@ public class Bishop extends Piece {
             rowIndex++;
             colIndex--;
         }
-//    }
         return squares;
     }
 

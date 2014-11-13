@@ -37,8 +37,8 @@ public class BishopTest {
         position55 = board.getPositions()[5][5];
         Position positionWhiteInit = board.getPositions()[0][0];
         Position positionBlackInit = board.getPositions()[7][7];
-        bishopBlack = new Bishop(board,2, positionBlackInit, Color.BLACK);
-        bishopWhite = new Bishop(board,2, positionWhiteInit, Color.WHITE);
+        bishopBlack = new Bishop(board, 2, positionBlackInit, Color.BLACK);
+        bishopWhite = new Bishop(board, 2, positionWhiteInit, Color.WHITE);
         board.getSquare(positionWhiteInit).addPiece(bishopWhite);
         board.getSquare(positionBlackInit).addPiece(bishopBlack);
     }

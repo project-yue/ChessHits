@@ -4,8 +4,7 @@
  */
 package nz.ac.aut.pdc.ChessHits.model.pieces;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import nz.ac.aut.pdc.ChessHits.model.*;
 
 /**
@@ -50,25 +49,6 @@ public class Rook extends Piece {
     }
 
     /**
-     * disable castle status
-     *
-     * @deprecated
-     */
-    public void disableCastle() {
-        this.isAbleToCastle = false;
-    }
-
-    /**
-     * get castle status
-     *
-     * @return true if rook is able to castle, false otherwise
-     * @deprecated
-     */
-    public boolean getCastleStatus() {
-        return this.isAbleToCastle;
-    }
-
-    /**
      * get rook's representation
      *
      * @return string representation
@@ -88,20 +68,10 @@ public class Rook extends Piece {
     public Collection<Square> allPossibleMoves() {
         Collection<Square> squares = new HashSet<>();
         Board board = super.getBoard();
-//        boolean isVertical = false, isHorizontal = false;
         boolean isOccupiedNotFound;
         boolean shouldAddElement = true;
-//        if (getCurrentPosition().getColumn() == end.getColumn()) {
-//            //vertical
-//            isVertical = true;
-//        } else if (getCurrentPosition().getRow() == end.getRow()) {
-//            //horizontal
-//            isHorizontal = true;
-//        }
         Position tempPos;
-//        if (isVertical && getCurrentPosition().getRow() <= end.getRow()) {
-        //if (getCurrentPosition().getRow() < 7) {
-        int row = super.getCurrentPosition().getRow()+ 1;
+        int row = super.getCurrentPosition().getRow() + 1;
         while (row <= 7) {
             tempPos = board.getPositions()[row][super.getCurrentPosition().getColumn()];
             Square temSquare = board.getSquare(tempPos);
@@ -114,9 +84,7 @@ public class Rook extends Piece {
             }
             row++;
         }
-//        }
         shouldAddElement = true;
-//    else if (isVertical && getCurrentPosition().getRow() >= end.getRow()) {
         row = super.getCurrentPosition().getRow() - 1;
         while (row >= 0) {
             tempPos = board.getPositions()[row][super.getCurrentPosition().getColumn()];
@@ -131,9 +99,7 @@ public class Rook extends Piece {
             row--;
         }
         shouldAddElement = true;
-//    }
-//    else if (isHorizontal && getCurrentPosition().getColumn() >= end.getColumn()) {
-        int col = super.getCurrentPosition().getColumn() -1;
+        int col = super.getCurrentPosition().getColumn() - 1;
         while (col >= 0) {
             tempPos = board.getPositions()[super.getCurrentPosition().getRow()][col];
             Square temSquare = board.getSquare(tempPos);
@@ -147,8 +113,6 @@ public class Rook extends Piece {
             col--;
         }
         shouldAddElement = true;
-//    }
-//    else if (isHorizontal && getCurrentPosition().getColumn() <= end.getColumn()) {
         col = super.getCurrentPosition().getColumn() + 1;
         while (col <= 7) {
             tempPos = board.getPositions()[getCurrentPosition().getRow()][col];
@@ -162,7 +126,25 @@ public class Rook extends Piece {
             }
             col++;
         }
-//    }
         return squares;
+    }
+
+    /**
+     * disable castle status
+     *
+     * @deprecated as canceled at Sprint 2
+     */
+    public void disableCastle() {
+        this.isAbleToCastle = false;
+    }
+
+    /**
+     * get castle status
+     *
+     * @return true if rook is able to castle, false otherwise
+     * @deprecated as canceled at Sprint 2
+     */
+    public boolean getCastleStatus() {
+        return this.isAbleToCastle;
     }
 }

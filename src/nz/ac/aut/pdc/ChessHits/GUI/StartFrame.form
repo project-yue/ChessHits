@@ -29,7 +29,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
-                          <Component id="player1TextField" alignment="1" max="32767" attributes="0"/>
+                          <Component id="PLAYER1_TEXT_FIELD" alignment="1" max="32767" attributes="0"/>
                           <Component id="blackJradioB" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
                           <Component id="whiteJradioB" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPasswordField2" min="-2" pref="127" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="player2TextField" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="PLAYER2_TEXT_FIELD" min="-2" pref="127" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
                   </Group>
@@ -73,8 +73,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="player1TextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="player2TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PLAYER1_TEXT_FIELD" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PLAYER2_TEXT_FIELD" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -108,7 +108,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="player1TextField">
+    <Component class="javax.swing.JTextField" name="PLAYER1_TEXT_FIELD">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
@@ -126,12 +126,12 @@
         <Property name="text" type="java.lang.String" value="white"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="player2TextField">
+    <Component class="javax.swing.JTextField" name="PLAYER2_TEXT_FIELD">
       <Properties>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="player2TextFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PLAYER2_TEXT_FIELDActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>

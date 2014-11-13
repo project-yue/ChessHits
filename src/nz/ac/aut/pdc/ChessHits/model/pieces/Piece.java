@@ -102,7 +102,6 @@ public abstract class Piece {
      */
     public abstract Collection<Square> allPossibleMoves();
 
-
     /**
      * get current position of the piece
      *

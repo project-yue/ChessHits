@@ -56,7 +56,7 @@ public class StartFrame extends javax.swing.JFrame {
      * set jtextfields length
      */
     private void setUpTextFieldLength() {
-        player1TextField.setDocument(new PlainDocument() {
+        PLAYER1_TEXT_FIELD.setDocument(new PlainDocument() {
             @Override
             public void insertString(int offs, String str, AttributeSet a)
                     throws BadLocationException {
@@ -65,7 +65,7 @@ public class StartFrame extends javax.swing.JFrame {
                 }
             }
         });
-        player2TextField.setDocument(new PlainDocument() {
+        PLAYER2_TEXT_FIELD.setDocument(new PlainDocument() {
             @Override
             public void insertString(int offs, String str, AttributeSet a)
                     throws BadLocationException {
@@ -105,10 +105,10 @@ public class StartFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         submit = new javax.swing.JButton();
-        player1TextField = new javax.swing.JTextField();
+        PLAYER1_TEXT_FIELD = new javax.swing.JTextField();
         blackJradioB = new javax.swing.JRadioButton();
         whiteJradioB = new javax.swing.JRadioButton();
-        player2TextField = new javax.swing.JTextField();
+        PLAYER2_TEXT_FIELD = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -135,10 +135,10 @@ public class StartFrame extends javax.swing.JFrame {
 
         whiteJradioB.setText("white");
 
-        player2TextField.setName(""); // NOI18N
-        player2TextField.addActionListener(new java.awt.event.ActionListener() {
+        PLAYER2_TEXT_FIELD.setName(""); // NOI18N
+        PLAYER2_TEXT_FIELD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                player2TextFieldActionPerformed(evt);
+                PLAYER2_TEXT_FIELDActionPerformed(evt);
             }
         });
 
@@ -166,7 +166,7 @@ public class StartFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(player1TextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PLAYER1_TEXT_FIELD, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(blackJradioB, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(whiteJradioB, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -182,7 +182,7 @@ public class StartFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(player2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(PLAYER2_TEXT_FIELD, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 45, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(118, 118, 118)
@@ -198,8 +198,8 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(player1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PLAYER1_TEXT_FIELD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PLAYER2_TEXT_FIELD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -226,20 +226,20 @@ public class StartFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_blackJradioBActionPerformed
 
-    private void player2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2TextFieldActionPerformed
+    private void PLAYER2_TEXT_FIELDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAYER2_TEXT_FIELDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_player2TextFieldActionPerformed
+    }//GEN-LAST:event_PLAYER2_TEXT_FIELDActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Player playerOne = null;
         Player playerTwo = null;
         boolean isPlayerOneWhite = false;
         if (blackJradioB.isSelected()) {
-            playerOne = new Player(player1TextField.getText(), Color.BLACK);
-            playerTwo = new Player(player2TextField.getText(), Color.WHITE);
+            playerOne = new Player(PLAYER1_TEXT_FIELD.getText(), Color.BLACK);
+            playerTwo = new Player(PLAYER2_TEXT_FIELD.getText(), Color.WHITE);
         } else {
-            playerOne = new Player(player1TextField.getText(), Color.WHITE);
-            playerTwo = new Player(player2TextField.getText(), Color.BLACK);
+            playerOne = new Player(PLAYER1_TEXT_FIELD.getText(), Color.WHITE);
+            playerTwo = new Player(PLAYER2_TEXT_FIELD.getText(), Color.BLACK);
             isPlayerOneWhite = true;
         }
         this.setVisible(false);
@@ -249,23 +249,29 @@ public class StartFrame extends javax.swing.JFrame {
         String player1Pass = new String(jPasswordField1.getPassword());
         String player2Pass = new String(jPasswordField2.getPassword());
         String errorMessage = "";
-        if (!this.userDB.doesAccountExist(player1TextField.getText())) {
-            this.userDB.addNewUser(player1TextField.getText(), player1Pass);
+        if (!this.userDB.doesAccountExist(PLAYER1_TEXT_FIELD.getText()) && PLAYER1_TEXT_FIELD.getText().length() == 0) {
+            errorMessage += "Player1's account name must not be empty.\n";
+            shouldRun = false;
+        } else if (!this.userDB.doesAccountExist(PLAYER1_TEXT_FIELD.getText())) {
+            this.userDB.addNewUser(PLAYER1_TEXT_FIELD.getText(), player1Pass);
         } else {
-            if (!this.userDB.matchPasswords(player1Pass, player1TextField.getText())) {
+            if (!this.userDB.matchPasswords(player1Pass, PLAYER1_TEXT_FIELD.getText())) {
                 shouldRun = false;
-                errorMessage += player1TextField.getText() + " has been registered, password failed to login";
+                errorMessage += PLAYER1_TEXT_FIELD.getText() + " has been registered, password failed to login.\n";
             }
         }
-        if (!this.userDB.doesAccountExist(player2TextField.getText())) {
-            this.userDB.addNewUser(player2TextField.getText(), player2Pass);
+        if (!this.userDB.doesAccountExist(PLAYER2_TEXT_FIELD.getText()) && PLAYER2_TEXT_FIELD.getText().length() == 0) {
+            errorMessage += "Player2's account name must not be empty.";
+            shouldRun = false;
+        } else if (!this.userDB.doesAccountExist(PLAYER2_TEXT_FIELD.getText())) {
+            this.userDB.addNewUser(PLAYER2_TEXT_FIELD.getText(), player2Pass);
         } else {
-            if (!this.userDB.matchPasswords(player2Pass, player2TextField.getText())) {
+            if (!this.userDB.matchPasswords(player2Pass, PLAYER2_TEXT_FIELD.getText())) {
                 shouldRun = false;
                 if (errorMessage.length() > 0) {
-                    errorMessage += "\n" + player2TextField.getText() + " has been registered, password failed to login";
+                    errorMessage += "\n" + PLAYER2_TEXT_FIELD.getText() + " has been registered, password failed to login";
                 } else {
-                    errorMessage += player2TextField.getText() + " has been registered, password failed to login";
+                    errorMessage += PLAYER2_TEXT_FIELD.getText() + " has been registered, password failed to login";
                 }
             }
         }
@@ -277,8 +283,8 @@ public class StartFrame extends javax.swing.JFrame {
                     + playerOne.getName() + " has won " + playerOne.getNumberOfWins() + " time(s)\n"
                     + playerTwo.getName() + " has won " + playerTwo.getNumberOfWins() + " time(s)");
             //JoptionPane
-            System.out.println(player1TextField.getText() + " has won " + userDB.getWins(player1TextField.getText()) + " game(s)");
-            System.out.println(player2TextField.getText() + " has won " + userDB.getWins(player2TextField.getText()) + " game(s)");
+            System.out.println(PLAYER1_TEXT_FIELD.getText() + " has won " + userDB.getWins(PLAYER1_TEXT_FIELD.getText()) + " game(s)");
+            System.out.println(PLAYER2_TEXT_FIELD.getText() + " has won " + userDB.getWins(PLAYER2_TEXT_FIELD.getText()) + " game(s)");
             this.dispose();
             {
                 java.awt.EventQueue.invokeLater(new Runnable() {
@@ -295,6 +301,8 @@ public class StartFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JTextField PLAYER1_TEXT_FIELD;
+    private static javax.swing.JTextField PLAYER2_TEXT_FIELD;
     private javax.swing.JRadioButton blackJradioB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -303,8 +311,6 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
-    private static javax.swing.JTextField player1TextField;
-    private static javax.swing.JTextField player2TextField;
     private javax.swing.JButton submit;
     private javax.swing.JRadioButton whiteJradioB;
     // End of variables declaration//GEN-END:variables

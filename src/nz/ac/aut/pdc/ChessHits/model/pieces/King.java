@@ -5,9 +5,7 @@
  */
 package nz.ac.aut.pdc.ChessHits.model.pieces;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import nz.ac.aut.pdc.ChessHits.model.*;
 
 /**
@@ -37,25 +35,6 @@ public class King extends Piece {
     public King(Board board, int hitPoint, Position position, Color color, boolean isAbleToCastle) {
         super(board, hitPoint, position, color);
         this.isAbleToCastle = isAbleToCastle;
-    }
-
-    /**
-     * get the castle status of king
-     *
-     * @return true if king is able to perform a castle, false otherwise
-     * @deprecated
-     */
-    public boolean getCastleStatus() {
-        return this.isAbleToCastle;
-    }
-
-    /**
-     * disable the ability of castling
-     *
-     * @deprecated
-     */
-    public void disableCastle() {
-        this.isAbleToCastle = false;
     }
 
     /**
@@ -153,5 +132,24 @@ public class King extends Piece {
             }
         }
         return squares;
+    }
+
+    /**
+     * get the castle status of king
+     *
+     * @return true if king is able to perform a castle, false otherwise
+     * @deprecated
+     */
+    public boolean getCastleStatus() {
+        return this.isAbleToCastle;
+    }
+
+    /**
+     * disable the ability of castling
+     *
+     * @deprecated
+     */
+    public void disableCastle() {
+        this.isAbleToCastle = false;
     }
 }

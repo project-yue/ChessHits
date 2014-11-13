@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sun Oct 20 08:20:40 NZDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0141-d229-8997-000006869f50 
-on database directory /home/makingitbettergo/StudyAUT/myPro13/sem2/Program Design &  Construction/Project/ChessHits (GUI) Sprint4_19oct_complete/ChessHitsUsersDB with class loader sun.misc.Launcher$AppClassLoader@33d232d1 
-Loaded from file:/home/makingitbettergo/NetBeansProjects/ChessHits%20(Console)%20Sprint4_02oct/derby.jar
+Thu Nov 13 19:28:57 NZDT 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0149-a7d7-2bfc-00000a187c60 
+on database directory /home/mk-19/StudyAUT/myPro13/sem2/Program Design &  Construction/ProjectSubmission/P13/ChessHits (GUI) Sprint4_19oct_complete/ChessHitsUsersDB with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/home/mk-19/StudyAUT/myPro13/sem2/Program%20Design%20&%20%20Construction/ProjectSubmission/P13/ChessHits%20(GUI)%20Sprint4_19oct_complete/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_40-b31
-user.dir=/home/makingitbettergo/StudyAUT/myPro13/sem2/Program Design &  Construction/Project/ChessHits (GUI) Sprint4_19oct_complete
+java.runtime.version=1.8.0_20-b23
+user.dir=/home/mk-19/StudyAUT/myPro13/sem2/Program Design &  Construction/ProjectSubmission/P13/ChessHits (GUI) Sprint4_19oct_complete
 os.name=Linux
 os.arch=amd64
-os.version=3.7.10-1.16-desktop
+os.version=3.12.29-1-MANJARO
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
